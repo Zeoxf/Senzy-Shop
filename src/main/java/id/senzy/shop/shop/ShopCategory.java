@@ -6,7 +6,8 @@ import java.util.Locale;
 
 public enum ShopCategory {
     NATURAL("&2&lNatural", Material.GRASS_BLOCK),
-    ORE("&b&lOre", Material.DIAMOND),
+    ORE("&b&lOre", Material.RAW_IRON),
+    MATERIAL("&f&lMaterial", Material.IRON_INGOT),
     FARMING("&e&lFarming", Material.WHEAT),
     ANIMALS("&6&lAnimals", Material.BEEF),
     FOOD("&c&lFood", Material.BREAD);

@@ -1,9 +1,12 @@
 package id.senzy.shop.gui;
 
 import id.senzy.shop.SenzyShop;
+import id.senzy.shop.contract.ContractManager;
+import id.senzy.shop.contract.ContractType;
 import id.senzy.shop.economy.EconomyManager;
 import id.senzy.shop.restock.RestockManager;
 import id.senzy.shop.shop.ShopCategory;
+import id.senzy.shop.shop.ShopItem;
 import id.senzy.shop.shop.ShopManager;
 import id.senzy.shop.shop.StockManager;
 import id.senzy.shop.shop.TradeService;
@@ -16,6 +19,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.UUID;
+
 /** Pintu masuk semua GUI + akses ke dependensi bersama. */
 public final class GuiManager {
     private final SenzyShop plugin;
@@ -25,10 +33,14 @@ public final class GuiManager {
     private final EconomyManager economy;
     private final TradeService trade;
     private final RestockManager restock;
+    private final ContractManager contracts;
     private final MessageUtil messages;
 
+    private final Set<UUID> awaitingSearch = new HashSet<>();
+
     public GuiManager(SenzyShop plugin, GuiLayout layout, ShopManager shop, StockManager stock,
-                      EconomyManager economy, TradeService trade, RestockManager restock, MessageUtil messages) {
+                      EconomyManager economy, TradeService trade, RestockManager restock,
+                      ContractManager contracts, MessageUtil messages) {
         this.plugin = plugin;
         this.layout = layout;
         this.shop = shop;
@@ -36,6 +48,7 @@ public final class GuiManager {
         this.economy = economy;
         this.trade = trade;
         this.restock = restock;
+        this.contracts = contracts;
         this.messages = messages;
     }
 
@@ -45,6 +58,7 @@ public final class GuiManager {
     public EconomyManager economy() { return economy; }
     public TradeService trade() { return trade; }
     public RestockManager restock() { return restock; }
+    public ContractManager contracts() { return contracts; }
     public MessageUtil messages() { return messages; }
 
     /** Jalankan di tick berikutnya (aman dipanggil dari dalam InventoryClickEvent). */
@@ -70,10 +84,51 @@ public final class GuiManager {
         });
     }
 
+    public void openContract(Player player) {
+        later(() -> {
+            if (player.isOnline()) new ContractGUI(this, player, ContractType.DAILY).open();
+        });
+    }
+
+    public void openSearchResults(Player player, String query, int page) {
+        later(() -> {
+            if (player.isOnline()) new SearchGUI(this, player, query, page).open();
+        });
+    }
+
+    /** Beli lewat GUI: jika total harga >= ambang batas config, tampilkan dialog konfirmasi dulu. */
+    public void attemptBuy(Player player, ShopItem item, int requested) {
+        TradeService.BuyPlan plan = trade.previewBuy(player, item, requested);
+        boolean confirmEnabled = plugin.getConfig().getBoolean("security.confirm-expensive-items", true);
+        long threshold = plugin.getConfig().getLong("security.expensive-threshold", 1000L);
+        if (plan.ok() && confirmEnabled && plan.cost() >= threshold) {
+            later(() -> {
+                if (player.isOnline()) new ConfirmGUI(this, player, plan.item(), plan.amount(), plan.cost()).open();
+            });
+        } else {
+            trade.buy(player, item, requested);
+        }
+    }
+
+    // ---- state pencarian lewat chat ----
+
+    public void beginSearch(Player player) {
+        awaitingSearch.add(player.getUniqueId());
+    }
+
+    public boolean isAwaitingSearch(UUID uuid) {
+        return awaitingSearch.contains(uuid);
+    }
+
+    public void cancelSearch(UUID uuid) {
+        awaitingSearch.remove(uuid);
+    }
+
     public void closeAll() {
         for (Player p : Bukkit.getOnlinePlayers()) {
             if (holderOf(p) != null) p.closeInventory();
         }
+        awaitingSearch.clear();
     }
 
     public void refreshAll() {

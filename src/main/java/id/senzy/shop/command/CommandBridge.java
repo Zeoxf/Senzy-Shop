@@ -23,7 +23,7 @@ import java.util.Set;
  */
 public final class CommandBridge implements CommandExecutor, TabCompleter {
     private static final Set<String> SHOP_KEYWORDS = Set.of(
-            "shop", "balance", "bal", "sell", "sellall", "restock", "admin");
+            "shop", "balance", "bal", "sell", "sellall", "contract", "restock", "admin");
 
     private final CommandExecutor originalExecutor;
     private final TabCompleter originalTabCompleter;

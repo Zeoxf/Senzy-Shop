@@ -5,11 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-/** Tabel shop_stock dan tabel meta (last_restock, next_restock, restock_id). */
+/** Tabel shop_stock. Untuk tabel meta generik (timer restock/contract) lihat {@link MetaRepository}. */
 public final class StockRepository {
 
     public List<StockRecord> loadAll(Connection c) throws SQLException {
@@ -42,25 +40,6 @@ public final class StockRepository {
             ps.setLong(6, r.sellPrice());
             ps.setLong(7, r.restockId());
             ps.setLong(8, r.updatedAt());
-            ps.executeUpdate();
-        }
-    }
-
-    public Map<String, String> loadMeta(Connection c) throws SQLException {
-        Map<String, String> out = new HashMap<>();
-        try (PreparedStatement ps = c.prepareStatement("SELECT meta_key, meta_value FROM meta");
-             ResultSet rs = ps.executeQuery()) {
-            while (rs.next()) out.put(rs.getString(1), rs.getString(2));
-        }
-        return out;
-    }
-
-    public void saveMeta(Connection c, String key, String value) throws SQLException {
-        try (PreparedStatement ps = c.prepareStatement("""
-                INSERT INTO meta (meta_key, meta_value) VALUES (?, ?)
-                ON CONFLICT(meta_key) DO UPDATE SET meta_value = excluded.meta_value""")) {
-            ps.setString(1, key);
-            ps.setString(2, value);
             ps.executeUpdate();
         }
     }

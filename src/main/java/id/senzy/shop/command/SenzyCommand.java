@@ -17,7 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
-/** /senzy [shop|balance|sell|sellall|restock|admin]. */
+/** /senzy [shop|balance|sell|sellall|contract|restock|admin]. */
 public final class SenzyCommand implements CommandExecutor, TabCompleter {
     private final EconomyManager economy;
     private final GuiManager guis;
@@ -63,6 +63,10 @@ public final class SenzyCommand implements CommandExecutor, TabCompleter {
                 Player p = requirePlayer(sender, "senzy.sell");
                 if (p != null) trade.sellAll(p);
             }
+            case "contract" -> {
+                Player p = requirePlayer(sender, "senzy.contract");
+                if (p != null) guis.openContract(p);
+            }
             case "restock" -> {
                 if (!sender.hasPermission("senzy.shop")) {
                     msg.send(sender, "general.no-permission");
@@ -91,7 +95,7 @@ public final class SenzyCommand implements CommandExecutor, TabCompleter {
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
         if (args.length == 1) {
-            List<String> subs = new ArrayList<>(List.of("shop", "balance", "sell", "sellall", "restock"));
+            List<String> subs = new ArrayList<>(List.of("shop", "balance", "sell", "sellall", "contract", "restock"));
             if (sender.hasPermission("senzy.admin")) subs.add("admin");
             return filter(subs, args[0]);
         }

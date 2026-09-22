@@ -118,8 +118,8 @@ public final class CategoryGUI extends AbstractGui {
         ShopItem item = slotItems.get(slot);
         if (item == null) return;
         switch (type) {
-            case LEFT -> gui.trade().buy(viewer, item, 1);
-            case SHIFT_LEFT -> gui.trade().buy(viewer, item, -1);
+            case LEFT -> gui.attemptBuy(viewer, item, 1);
+            case SHIFT_LEFT -> gui.attemptBuy(viewer, item, -1);
             case RIGHT -> gui.trade().sell(viewer, item, 1);
             case SHIFT_RIGHT -> gui.trade().sell(viewer, item, -1);
             default -> { }

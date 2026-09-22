@@ -23,7 +23,7 @@ import java.util.UUID;
 /** Semua subcommand /senzy admin ... (permission senzy.admin). */
 public final class SenzyAdminCommand {
     private static final List<String> SUBS = List.of("reload", "restock", "setbalance", "addbalance",
-            "removebalance", "setstock", "logs");
+            "removebalance", "setstock", "setprice", "logs");
 
     private final SenzyShop plugin;
     private final EconomyManager economy;
@@ -71,6 +71,7 @@ public final class SenzyAdminCommand {
             }
             case "setbalance", "addbalance", "removebalance" -> balance(sender, sub, args);
             case "setstock" -> setStock(sender, args);
+            case "setprice" -> setPrice(sender, args);
             case "logs" -> logs(sender, args);
             default -> msg.send(sender, "admin.help");
         }
@@ -126,6 +127,32 @@ public final class SenzyAdminCommand {
         guis.refreshAll();
     }
 
+    /** /senzy admin setprice <item> <buy|sell> <price> */
+    private void setPrice(CommandSender sender, String[] args) {
+        if (args.length != 4 || (!args[2].equalsIgnoreCase("buy") && !args[2].equalsIgnoreCase("sell"))) {
+            msg.send(sender, "admin.usage-setprice");
+            return;
+        }
+        ShopItem item = shop.find(args[1]);
+        if (item == null) {
+            msg.send(sender, "admin.item-not-found");
+            return;
+        }
+        Long price = parseLong(args[3]);
+        if (price == null) {
+            msg.send(sender, "admin.invalid-amount");
+            return;
+        }
+        boolean isBuy = args[2].equalsIgnoreCase("buy");
+        if (!shop.setPrice(item.id(), isBuy, price)) {
+            msg.send(sender, "admin.setprice-failed");
+            return;
+        }
+        msg.send(sender, "admin.setprice-updated", "item", item.material().name(),
+                "type", isBuy ? "buy" : "sell", "price", msg.money(price));
+        guis.refreshAll();
+    }
+
     private void logs(CommandSender sender, String[] args) {
         int limit = 10;
         if (args.length > 1) {
@@ -165,11 +192,14 @@ public final class SenzyAdminCommand {
             if (sub.equals("setbalance") || sub.equals("addbalance") || sub.equals("removebalance")) {
                 return SenzyCommand.filter(economy.knownNames(), args[2]);
             }
-            if (sub.equals("setstock")) {
+            if (sub.equals("setstock") || sub.equals("setprice")) {
                 List<String> ids = new ArrayList<>();
                 for (ShopItem i : shop.all()) ids.add(i.id());
                 return SenzyCommand.filter(ids, args[2]);
             }
+        }
+        if (args.length == 4 && args[1].equalsIgnoreCase("setprice")) {
+            return SenzyCommand.filter(List.of("buy", "sell"), args[2]);
         }
         return List.of();
     }

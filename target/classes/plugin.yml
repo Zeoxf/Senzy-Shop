@@ -1,0 +1,30 @@
+name: SenzyShop
+version: '1.0.1'
+main: id.senzy.shop.SenzyShop
+api-version: '1.21'
+author: Senzy
+description: Marketplace dan ekonomi Senzy Coin untuk server survival
+softdepend: [Senzy]
+
+commands:
+  senzy:
+    description: Perintah utama SenzyShop
+    usage: /senzy [shop|balance|sell|sellall|restock|admin]
+    permission: senzy.use
+
+permissions:
+  senzy.use:
+    description: Akses dasar perintah /senzy
+    default: true
+  senzy.shop:
+    description: Membuka Senzy Shop dan melihat info restock
+    default: true
+  senzy.balance:
+    description: Melihat balance Senzy Coin
+    default: true
+  senzy.sell:
+    description: Menjual item ke Senzy Shop
+    default: true
+  senzy.admin:
+    description: Semua perintah admin SenzyShop
+    default: op

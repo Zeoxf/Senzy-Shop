@@ -41,6 +41,10 @@ public final class MainShopGUI extends AbstractGui {
         set(layout.mainSellSlot, ItemUtil.icon(Material.EMERALD, 1, m.component("gui.main.sell-name"),
                 m.list("gui.main.sell-lore")));
         set(layout.mainBalanceSlot, gui.balanceIcon(viewer));
+        set(layout.mainContractsSlot, ItemUtil.icon(Material.WRITABLE_BOOK, 1, m.component("gui.main.contracts-name"),
+                m.list("gui.main.contracts-lore")));
+        set(layout.mainSearchSlot, ItemUtil.icon(Material.COMPASS, 1, m.component("gui.main.search-name"),
+                m.list("gui.main.search-lore")));
         set(layout.mainCloseSlot, ItemUtil.icon(Material.BARRIER, 1, m.component("gui.main.close-name"), null));
         updateClock();
     }
@@ -59,6 +63,18 @@ public final class MainShopGUI extends AbstractGui {
         }
         if (slot == layout.mainSellSlot) {
             gui.openSell(viewer);
+            return;
+        }
+        if (slot == layout.mainContractsSlot) {
+            gui.openContract(viewer);
+            return;
+        }
+        if (slot == layout.mainSearchSlot) {
+            gui.later(() -> {
+                viewer.closeInventory();
+                gui.messages().send(viewer, "search.prompt");
+                gui.beginSearch(viewer);
+            });
             return;
         }
         for (Map.Entry<ShopCategory, Integer> e : layout.categorySlots.entrySet()) {

@@ -1,0 +1,53 @@
+# ============================================================
+#  SenzyShop V1.0 - config.yml
+# ============================================================
+
+economy:
+  currency-name: "Senzy Coin"
+  currency-symbol: "SC"
+  # Balance awal untuk pemain baru
+  starting-balance: 1000
+  # Batas balance maksimum (mencegah overflow)
+  max-balance: 1000000000000
+
+restock:
+  # Interval restock dalam menit (180 = 3 jam)
+  interval-minutes: 180
+  # Suara saat restock (kosongkan untuk mematikan)
+  sound: "entity.experience_orb.pickup"
+  sound-volume: 0.8
+  sound-pitch: 1.2
+
+# Nilai default jika sebuah item di items.yml tidak punya bagian "stock"
+stock:
+  # false = semua item selalu terisi penuh saat restock (tanpa random)
+  enabled: true
+  default-min: 0
+  default-max: 64
+  default-chance: 100
+
+gui:
+  # Jeda minimum antar klik (ms) per pemain - anti spam klik
+  click-cooldown-ms: 250
+  filler: GRAY_STAINED_GLASS_PANE
+  main:
+    rows: 5
+    category-slots:
+      NATURAL: 11
+      ORE: 13
+      FARMING: 15
+      ANIMALS: 20
+      FOOD: 24
+    sell-slot: 22
+    balance-slot: 39
+    close-slot: 40
+    restock-slot: 41
+  list:
+    # Jumlah baris area item (maks 5). Baris terakhir dipakai tombol navigasi.
+    item-rows: 5
+    restock-slot: 45
+    prev-slot: 47
+    back-slot: 49
+    next-slot: 51
+    balance-slot: 53
+    sellall-slot: 47

@@ -3,7 +3,10 @@ package id.senzy.shop;
 import id.senzy.shop.command.CommandBridge;
 import id.senzy.shop.command.SenzyAdminCommand;
 import id.senzy.shop.command.SenzyCommand;
+import id.senzy.shop.contract.ContractManager;
+import id.senzy.shop.database.ContractRepository;
 import id.senzy.shop.database.DatabaseManager;
+import id.senzy.shop.database.MetaRepository;
 import id.senzy.shop.database.PlayerRepository;
 import id.senzy.shop.database.StockRepository;
 import id.senzy.shop.database.TransactionRepository;
@@ -13,6 +16,7 @@ import id.senzy.shop.gui.GuiLayout;
 import id.senzy.shop.gui.GuiManager;
 import id.senzy.shop.listener.InventoryListener;
 import id.senzy.shop.listener.PlayerListener;
+import id.senzy.shop.listener.SearchListener;
 import id.senzy.shop.restock.RestockManager;
 import id.senzy.shop.shop.ShopManager;
 import id.senzy.shop.shop.StockManager;
@@ -35,6 +39,7 @@ public final class SenzyShop extends JavaPlugin {
     private ShopManager shop;
     private StockManager stock;
     private RestockManager restock;
+    private ContractManager contracts;
     private GuiLayout layout;
     private GuiManager guis;
 
@@ -47,7 +52,7 @@ public final class SenzyShop extends JavaPlugin {
     @Override
     public void onEnable() {
         saveDefaultConfig();
-        for (String file : new String[]{"items.yml", "messages.yml", "database.yml"}) {
+        for (String file : new String[]{"items.yml", "contracts.yml", "messages.yml", "database.yml"}) {
             if (!new File(getDataFolder(), file).exists()) saveResource(file, false);
         }
         messages = new MessageUtil(this);
@@ -66,6 +71,8 @@ public final class SenzyShop extends JavaPlugin {
             PlayerRepository playerRepo = new PlayerRepository();
             StockRepository stockRepo = new StockRepository();
             TransactionRepository transactionRepo = new TransactionRepository();
+            MetaRepository metaRepo = new MetaRepository();
+            ContractRepository contractRepo = new ContractRepository();
 
             BalanceManager balances = new BalanceManager();
             balances.load(database.supply(playerRepo::loadAll).join());
@@ -75,15 +82,20 @@ public final class SenzyShop extends JavaPlugin {
             shop.load();
             stock = new StockManager(shop, database, stockRepo, transactionRepo);
             stock.load();
-            restock = new RestockManager(this, shop, stock, database, stockRepo, messages);
+            restock = new RestockManager(this, shop, stock, database, stockRepo, metaRepo, messages);
+
+            contracts = new ContractManager(this, shop, economy, database, contractRepo, metaRepo,
+                    playerRepo, transactionRepo, messages);
+
             TradeService trade = new TradeService(shop, stock, economy, database, playerRepo, stockRepo,
-                    transactionRepo, messages);
+                    transactionRepo, messages, contracts);
 
             layout = new GuiLayout(this);
             layout.reload();
-            guis = new GuiManager(this, layout, shop, stock, economy, trade, restock, messages);
+            guis = new GuiManager(this, layout, shop, stock, economy, trade, restock, contracts, messages);
             restock.setHooks(guis::tickClocks, guis::refreshAll);
             restock.start();
+            contracts.start();
 
             SenzyAdminCommand adminCommand = new SenzyAdminCommand(this, economy, shop, stock, restock,
                     database, transactionRepo, guis, messages);
@@ -94,7 +106,8 @@ public final class SenzyShop extends JavaPlugin {
             bridgeWithExistingSenzyCommand(command);
 
             getServer().getPluginManager().registerEvents(new InventoryListener(guis), this);
-            getServer().getPluginManager().registerEvents(new PlayerListener(economy), this);
+            getServer().getPluginManager().registerEvents(new PlayerListener(economy, contracts, guis), this);
+            getServer().getPluginManager().registerEvents(new SearchListener(guis), this);
 
             for (Player online : getServer().getOnlinePlayers()) {
                 economy.ensureAccount(online.getUniqueId(), online.getName());
@@ -116,6 +129,7 @@ public final class SenzyShop extends JavaPlugin {
             bridgedCommand.setTabCompleter(bridgedOriginalTabCompleter);
             bridgedCommand = null;
         }
+        if (contracts != null) contracts.stop();
         if (restock != null) restock.stop();
         if (guis != null) guis.closeAll();
         if (database != null) database.close();   // menunggu semua penulisan database selesai
@@ -143,7 +157,7 @@ public final class SenzyShop extends JavaPlugin {
         bridgedOriginalExecutor = originalExecutor;
         bridgedOriginalTabCompleter = originalTab;
         getLogger().info("Menyambung ke /senzy milik plugin '" + active.getPlugin().getName()
-                + "': subcommand shop/balance/sell/sellall/restock/admin kini aktif di sana juga, "
+                + "': subcommand shop/balance/sell/sellall/contract/restock/admin kini aktif di sana juga, "
                 + "tanpa mengubah plugin tersebut.");
     }
 

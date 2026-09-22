@@ -2,6 +2,7 @@ package id.senzy.shop.restock;
 
 import id.senzy.shop.SenzyShop;
 import id.senzy.shop.database.DatabaseManager;
+import id.senzy.shop.database.MetaRepository;
 import id.senzy.shop.database.StockRecord;
 import id.senzy.shop.database.StockRepository;
 import id.senzy.shop.shop.ShopManager;
@@ -25,6 +26,7 @@ public final class RestockManager {
     private final StockManager stock;
     private final DatabaseManager db;
     private final StockRepository repo;
+    private final MetaRepository meta;
     private final MessageUtil msg;
     private final RestockGenerator generator;
 
@@ -36,12 +38,13 @@ public final class RestockManager {
     private Runnable onRestock = () -> { };
 
     public RestockManager(SenzyShop plugin, ShopManager shop, StockManager stock, DatabaseManager db,
-                          StockRepository repo, MessageUtil msg) {
+                          StockRepository repo, MetaRepository meta, MessageUtil msg) {
         this.plugin = plugin;
         this.shop = shop;
         this.stock = stock;
         this.db = db;
         this.repo = repo;
+        this.meta = meta;
         this.msg = msg;
         this.generator = new RestockGenerator(plugin);
     }
@@ -53,10 +56,10 @@ public final class RestockManager {
     }
 
     public void start() {
-        Map<String, String> meta = db.supply(repo::loadMeta).join();
-        lastRestock = parse(meta.get("last_restock"));
-        nextRestock = parse(meta.get("next_restock"));
-        restockId = parse(meta.get("restock_id"));
+        Map<String, String> loaded = db.supply(meta::loadAll).join();
+        lastRestock = parse(loaded.get("last_restock"));
+        nextRestock = parse(loaded.get("next_restock"));
+        restockId = parse(loaded.get("restock_id"));
 
         long now = System.currentTimeMillis();
         if (nextRestock <= 0L || nextRestock <= now) {
@@ -119,9 +122,9 @@ public final class RestockManager {
         long id = restockId;
         db.run(c -> {
             for (StockRecord r : rows) repo.save(c, r);
-            repo.saveMeta(c, "last_restock", Long.toString(last));
-            repo.saveMeta(c, "next_restock", Long.toString(next));
-            repo.saveMeta(c, "restock_id", Long.toString(id));
+            meta.save(c, "last_restock", Long.toString(last));
+            meta.save(c, "next_restock", Long.toString(next));
+            meta.save(c, "restock_id", Long.toString(id));
         });
 
         if (announce) announce();
@@ -133,9 +136,9 @@ public final class RestockManager {
         long next = nextRestock;
         long id = restockId;
         db.run(c -> {
-            repo.saveMeta(c, "last_restock", Long.toString(last));
-            repo.saveMeta(c, "next_restock", Long.toString(next));
-            repo.saveMeta(c, "restock_id", Long.toString(id));
+            meta.save(c, "last_restock", Long.toString(last));
+            meta.save(c, "next_restock", Long.toString(next));
+            meta.save(c, "restock_id", Long.toString(id));
         });
     }
 

@@ -99,6 +99,29 @@ public final class DatabaseManager {
                         meta_key TEXT PRIMARY KEY,
                         meta_value TEXT NOT NULL
                     )""");
+            st.execute("""
+                    CREATE TABLE IF NOT EXISTS contracts (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        contract_key TEXT NOT NULL,
+                        type TEXT NOT NULL,
+                        target TEXT NOT NULL,
+                        required_amount INTEGER NOT NULL CHECK (required_amount > 0),
+                        reward INTEGER NOT NULL CHECK (reward >= 0),
+                        generation_id INTEGER NOT NULL,
+                        expires_at INTEGER NOT NULL
+                    )""");
+            st.execute("CREATE INDEX IF NOT EXISTS idx_contracts_gen ON contracts(type, generation_id)");
+            st.execute("""
+                    CREATE TABLE IF NOT EXISTS contract_progress (
+                        uuid TEXT NOT NULL,
+                        contract_id INTEGER NOT NULL,
+                        progress INTEGER NOT NULL DEFAULT 0 CHECK (progress >= 0),
+                        completed INTEGER NOT NULL DEFAULT 0,
+                        claimed INTEGER NOT NULL DEFAULT 0,
+                        updated_at INTEGER NOT NULL,
+                        PRIMARY KEY (uuid, contract_id)
+                    )""");
+            st.execute("CREATE INDEX IF NOT EXISTS idx_contract_progress_uuid ON contract_progress(uuid)");
         }
     }
 

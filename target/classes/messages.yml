@@ -1,0 +1,118 @@
+# Warna memakai kode '&'. Placeholder memakai {nama}.
+general:
+  no-permission: "&cKamu tidak punya izin untuk itu."
+  players-only: "&cPerintah ini hanya bisa dipakai oleh pemain."
+  help:
+    - "&6&lSENZY SHOP"
+    - "&7Selamat datang di Senzy Market!"
+    - "&e/senzy shop &7- Buka toko"
+    - "&e/senzy balance &7- Lihat Senzy Coin kamu"
+    - "&e/senzy sell &7- Menu jual item"
+    - "&e/senzy sellall &7- Jual semua item yang bisa dijual"
+    - "&e/senzy restock &7- Info restock berikutnya"
+
+balance:
+  show: "&6Senzy Coin &7kamu: &e{balance}"
+
+trade:
+  buy-success:
+    - "&aBerhasil membeli &f{amount}x {item}"
+    - "&7Harga: &e{price}"
+  sell-success:
+    - "&aBerhasil menjual &f{amount}x {item}"
+    - "&7Mendapatkan: &e{price}"
+  sellall-success:
+    - "&aBerhasil menjual &f{amount} item &7({kinds} jenis)"
+    - "&7Mendapatkan: &e{price}"
+  sellall-empty: "&cKamu tidak punya item yang bisa dijual."
+  insufficient-balance: "&cSenzy Coin kamu tidak cukup."
+  out-of-stock: "&cItem tersebut sedang habis."
+  inventory-full: "&cInventory kamu penuh atau ruangnya tidak cukup."
+  item-unavailable: "&cItem tersebut tidak tersedia."
+  not-sellable: "&cItem tersebut tidak bisa dijual."
+  no-item: "&cKamu tidak punya item tersebut."
+  balance-limit: "&cBalance kamu sudah mencapai batas maksimum."
+  invalid: "&cTransaksi tidak valid dan dibatalkan."
+
+restock:
+  announce:
+    - "&6&lSENZY MARKET"
+    - "&eMarket telah melakukan restock!"
+    - "&7Stok baru telah tersedia."
+    - "&7Restock berikutnya: &f{interval}"
+  info: "&7Restock berikutnya dalam &f{time} &8(HH:MM:SS)"
+
+admin:
+  help:
+    - "&6&lSenzyShop Admin"
+    - "&e/senzy admin reload"
+    - "&e/senzy admin restock"
+    - "&e/senzy admin setbalance <pemain> <jumlah>"
+    - "&e/senzy admin addbalance <pemain> <jumlah>"
+    - "&e/senzy admin removebalance <pemain> <jumlah>"
+    - "&e/senzy admin setstock <item> <jumlah>"
+    - "&e/senzy admin logs [jumlah]"
+  reloaded: "&aKonfigurasi SenzyShop berhasil dimuat ulang."
+  restocked: "&aRestock dipaksa dijalankan. Timer restock direset."
+  usage-balance: "&cPenggunaan: /senzy admin {sub} <pemain> <jumlah>"
+  usage-stock: "&cPenggunaan: /senzy admin setstock <item> <jumlah>"
+  player-not-found: "&cPemain tidak ditemukan (harus pernah login)."
+  invalid-amount: "&cJumlah harus berupa angka bulat 0 atau lebih."
+  balance-updated: "&aBalance &f{player} &amenjadi &e{balance}"
+  balance-failed: "&cGagal: hasil balance tidak valid (negatif, kurang, atau melebihi batas)."
+  item-not-found: "&cItem tidak ditemukan di items.yml."
+  stock-updated: "&aStok &f{item} &adiubah menjadi &e{stock}"
+  logs-header: "&6&lTransaksi terakhir &7({count})"
+  logs-line: "&8[&e{type}&8] &f{player} &7{item} x{amount} &6{price} &7({before} -> {after}) &8{time}"
+  logs-empty: "&7Belum ada transaksi."
+  logs-error: "&cGagal membaca log transaksi. Lihat console."
+
+gui:
+  main:
+    title: "&6&lSenzy Market"
+    category-lore:
+      - "&7Jumlah item: &f{count}"
+      - ""
+      - "&eKlik untuk membuka"
+    sell-name: "&a&lJual Item"
+    sell-lore:
+      - "&7Jual item dari inventory kamu."
+      - ""
+      - "&eKlik untuk membuka"
+    balance-name: "&6Balance: &e{balance}"
+    balance-lore:
+      - "&7Senzy Coin milikmu"
+    restock-name: "&eNext Restock: &f{time}"
+    restock-lore:
+      - "&7Stok diacak ulang secara berkala."
+    close-name: "&cTutup"
+  category:
+    title: "&8Senzy &7» {category} &8({page}/{pages})"
+    prev: "&e« Halaman sebelumnya"
+    next: "&eHalaman berikutnya »"
+    back: "&cKembali"
+  item-lore:
+    - ""
+    - "&7Stok: {stockcolor}{stock} &7/ &f{max}"
+    - ""
+    - "&7Beli: &e{buy}"
+    - "&7Jual: &e{sell}"
+    - ""
+    - "&eKlik Kiri: &fBeli 1"
+    - "&eKlik Kanan: &fJual 1"
+    - "&eShift + Kiri: &fBeli Maks"
+    - "&eShift + Kanan: &fJual Semua"
+  sell:
+    title: "&8Senzy &7» &aJual Item"
+    item-lore:
+      - ""
+      - "&7Kamu punya: &f{have}"
+      - "&7Harga jual: &e{price} &7/ item"
+      - "&7Total semua: &e{total}"
+      - ""
+      - "&eKlik Kiri: &fJual 1 stack"
+      - "&eKlik Kanan: &fJual semua"
+    sellall-name: "&a&lJual Semua"
+    sellall-lore:
+      - "&7Jual semua item yang bisa dijual"
+      - "&7dari inventory kamu."

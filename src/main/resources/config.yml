@@ -1,5 +1,5 @@
 # ============================================================
-#  SenzyShop V1.0 - config.yml
+#  SenzyShop V1.1 - config.yml
 # ============================================================
 
 economy:
@@ -9,6 +9,12 @@ economy:
   starting-balance: 1000
   # Batas balance maksimum (mencegah overflow)
   max-balance: 1000000000000
+  # Harga default item MATERIAL (mode ORE_MULTIPLIER) = harga ore acuan x nilai ini.
+  # Item bisa override sendiri lewat "multiplier:" di items.yml.
+  material-price-multiplier: 1.5
+  # Harga jual default item MATERIAL = harga beli material x nilai ini (0.5 = separuh).
+  # Item bisa override sendiri lewat "sell-ratio:" di items.yml.
+  default-sell-ratio: 0.5
 
 restock:
   # Interval restock dalam menit (180 = 3 jam)
@@ -26,24 +32,41 @@ stock:
   default-max: 64
   default-chance: 100
 
+contracts:
+  enabled: true
+  daily:
+    reset-hours: 24
+    random-count: 3
+  weekly:
+    reset-days: 7
+    random-count: 2
+
+security:
+  # Jika total harga pembelian >= nilai ini, tampilkan dialog konfirmasi sebelum membeli.
+  confirm-expensive-items: true
+  expensive-threshold: 1000
+
 gui:
   # Jeda minimum antar klik (ms) per pemain - anti spam klik
   click-cooldown-ms: 250
   filler: GRAY_STAINED_GLASS_PANE
   main:
-    rows: 5
+    rows: 6
     category-slots:
-      NATURAL: 11
-      ORE: 13
-      FARMING: 15
-      ANIMALS: 20
-      FOOD: 24
-    sell-slot: 22
-    balance-slot: 39
-    close-slot: 40
-    restock-slot: 41
+      NATURAL: 10
+      ORE: 11
+      MATERIAL: 12
+      FARMING: 14
+      ANIMALS: 15
+      FOOD: 16
+    sell-slot: 28
+    balance-slot: 30
+    contracts-slot: 32
+    search-slot: 34
+    restock-slot: 40
+    close-slot: 49
   list:
-    # Jumlah baris area item (maks 5). Baris terakhir dipakai tombol navigasi.
+    # Jumlah baris area item (maks 5). Dipakai untuk GUI kategori & hasil pencarian.
     item-rows: 5
     restock-slot: 45
     prev-slot: 47
@@ -51,3 +74,12 @@ gui:
     next-slot: 51
     balance-slot: 53
     sellall-slot: 47
+  contract:
+    daily-tab-slot: 3
+    weekly-tab-slot: 5
+    item-rows: 3
+    back-slot: 49
+  confirm:
+    preview-slot: 13
+    yes-slot: 21
+    no-slot: 23

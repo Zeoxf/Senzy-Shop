@@ -1,5 +1,6 @@
 package id.senzy.shop.shop;
 
+import id.senzy.shop.contract.ContractManager;
 import id.senzy.shop.database.DatabaseManager;
 import id.senzy.shop.database.PlayerRecord;
 import id.senzy.shop.database.PlayerRepository;
@@ -34,11 +35,12 @@ public final class TradeService {
     private final StockRepository stocks;
     private final TransactionRepository transactions;
     private final MessageUtil msg;
+    private final ContractManager contracts;
     private final Set<UUID> busy = new HashSet<>();
 
     public TradeService(ShopManager shop, StockManager stock, EconomyManager economy, DatabaseManager db,
                         PlayerRepository players, StockRepository stocks, TransactionRepository transactions,
-                        MessageUtil msg) {
+                        MessageUtil msg, ContractManager contracts) {
         this.shop = shop;
         this.stock = stock;
         this.economy = economy;
@@ -47,6 +49,12 @@ public final class TradeService {
         this.stocks = stocks;
         this.transactions = transactions;
         this.msg = msg;
+        this.contracts = contracts;
+    }
+
+    /** Hasil perhitungan pembelian TANPA efek samping - dipakai GUI untuk cek "expensive purchase". */
+    public record BuyPlan(boolean ok, ShopItem item, int amount, long cost) {
+        static final BuyPlan FAIL = new BuyPlan(false, null, 0, 0L);
     }
 
     /** requested > 0 = jumlah tepat, requested < 0 = maksimum. */
@@ -76,6 +84,39 @@ public final class TradeService {
         } finally {
             busy.remove(player.getUniqueId());
         }
+    }
+
+    /**
+     * Hitung saja (tanpa mengubah apa pun / tanpa kirim pesan) - dipakai GUI untuk memutuskan
+     * apakah perlu menampilkan dialog konfirmasi (expensive purchase) sebelum benar-benar membeli.
+     */
+    public BuyPlan previewBuy(Player p, ShopItem requestedItem, int requested) {
+        if (requested == 0) return BuyPlan.FAIL;
+        ShopItem item = shop.get(requestedItem.material());
+        if (item == null || !item.canBuy() || !item.allowedIn(p.getWorld().getName())) return BuyPlan.FAIL;
+        int available = stock.getStock(item);
+        if (available <= 0) return BuyPlan.FAIL;
+        long price = item.buyPrice();
+        long balance = economy.getBalance(p.getUniqueId());
+        if (balance < price) return BuyPlan.FAIL;
+        int space = ItemUtil.capacityFor(p.getInventory(), item.material());
+        if (space <= 0) return BuyPlan.FAIL;
+        long affordable = balance / price;
+        int amount;
+        if (requested < 0) {
+            amount = (int) Math.min(Math.min((long) available, (long) space), Math.min(affordable, (long) Integer.MAX_VALUE));
+        } else {
+            amount = Math.min(requested, available);
+            if (amount > affordable || amount > space) return BuyPlan.FAIL;
+        }
+        long cost;
+        try {
+            cost = Math.multiplyExact(price, (long) amount);
+        } catch (ArithmeticException e) {
+            return BuyPlan.FAIL;
+        }
+        if (amount <= 0 || cost <= 0 || cost > balance) return BuyPlan.FAIL;
+        return new BuyPlan(true, item, amount, cost);
     }
 
     // ------------------------------------------------------------------ BUY
@@ -207,6 +248,7 @@ public final class TradeService {
         TransactionRecord rec = new TransactionRecord(0L, id.toString(), p.getName(),
                 TransactionRecord.Type.SELL, material.name(), removed, real, before, after, System.currentTimeMillis());
         persist(id, List.of(rec), null);
+        contracts.recordSell(p, item, removed);      // hanya SELL yang valid & tereksekusi yang menambah progress
         msg.send(p, "trade.sell-success", "amount", removed, "item", ItemUtil.prettyName(material),
                 "price", msg.money(real));
         return true;
@@ -217,6 +259,8 @@ public final class TradeService {
         PlayerInventory inv = p.getInventory();
         String world = p.getWorld().getName();
         List<TransactionRecord> records = new ArrayList<>();
+        List<ShopItem> soldItems = new ArrayList<>();
+        List<Integer> soldAmounts = new ArrayList<>();
         long total = 0L;
         long items = 0L;
         boolean limitReached = false;
@@ -246,6 +290,8 @@ public final class TradeService {
             }
             records.add(new TransactionRecord(0L, id.toString(), p.getName(), TransactionRecord.Type.SELL,
                     material.name(), removed, real, before, economy.getBalance(id), System.currentTimeMillis()));
+            soldItems.add(item);
+            soldAmounts.add(removed);
             total += real;
             items += removed;
         }
@@ -254,6 +300,7 @@ public final class TradeService {
             return false;
         }
         persist(id, records, null);
+        for (int i = 0; i < soldItems.size(); i++) contracts.recordSell(p, soldItems.get(i), soldAmounts.get(i));
         msg.send(p, "trade.sellall-success", "amount", items, "kinds", records.size(), "price", msg.money(total));
         if (limitReached) msg.send(p, "trade.balance-limit");
         return true;
