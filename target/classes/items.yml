@@ -1,15 +1,24 @@
 # ============================================================
-#  SenzyShop V1.0 - items.yml
+#  SenzyShop V1.1 - items.yml
 #  Semua item toko berasal dari file ini.
 #
-#  Field:
+#  Field item biasa (semua kategori selain MATERIAL bermode ORE_MULTIPLIER):
 #    material   : nama Material Bukkit (contoh DIAMOND_ORE)
-#    category   : NATURAL | ORE | FARMING | ANIMALS | FOOD
+#    category   : NATURAL | ORE | MATERIAL | FARMING | ANIMALS | FOOD
 #    enabled    : true/false
 #    buy-price  : harga beli pemain (Senzy Coin, bilangan bulat). 0 = tidak dijual
 #    sell-price : harga jual pemain. 0 = tidak bisa dijual. Harus <= buy-price
 #    stock      : min / max jumlah stok saat restock, chance = peluang muncul (0-100)
 #    worlds     : (opsional) daftar world tempat item boleh ditransaksikan
+#
+#  Field khusus item MATERIAL (price-mode: ORE_MULTIPLIER, default untuk category MATERIAL):
+#    ore-reference : id item ORE acuan (WAJIB ada & bisa dijual)
+#    multiplier    : harga beli = harga beli ore-reference x nilai ini (default: economy.material-price-multiplier)
+#    sell-ratio    : harga jual = harga beli material x nilai ini (default: economy.default-sell-ratio)
+#    buy-price/sell-price TIDAK dipakai untuk mode ini (dihitung otomatis, jangan diisi).
+#  Untuk memberi item MATERIAL harga tetap manual, set "price-mode: FIXED" lalu isi
+#  buy-price/sell-price seperti item biasa (atau pakai "/senzy admin setprice", yang otomatis
+#  mengubah item menjadi FIXED).
 #
 #  Item Netherite, Ancient Debris, Nether ore, Elytra, Totem, Nether Star
 #  otomatis DITOLAK oleh plugin walau ditulis di sini.
@@ -558,6 +567,104 @@ items:
     stock:
       min: 2
       max: 6
+      chance: 25
+
+  # ---------- MATERIAL (harga dihitung otomatis dari ore acuan) ----------
+  coal:
+    material: COAL
+    category: MATERIAL
+    enabled: true
+    price-mode: ORE_MULTIPLIER
+    ore-reference: coal_ore
+    multiplier: 1.5
+    sell-ratio: 0.5
+    stock:
+      min: 8
+      max: 64
+      chance: 65
+  iron_ingot:
+    material: IRON_INGOT
+    category: MATERIAL
+    enabled: true
+    price-mode: ORE_MULTIPLIER
+    ore-reference: iron_ore
+    multiplier: 1.5
+    sell-ratio: 0.5
+    stock:
+      min: 8
+      max: 48
+      chance: 60
+  copper_ingot:
+    material: COPPER_INGOT
+    category: MATERIAL
+    enabled: true
+    price-mode: ORE_MULTIPLIER
+    ore-reference: copper_ore
+    multiplier: 1.5
+    sell-ratio: 0.5
+    stock:
+      min: 8
+      max: 48
+      chance: 60
+  gold_ingot:
+    material: GOLD_INGOT
+    category: MATERIAL
+    enabled: true
+    price-mode: ORE_MULTIPLIER
+    ore-reference: gold_ore
+    multiplier: 1.5
+    sell-ratio: 0.5
+    stock:
+      min: 4
+      max: 24
+      chance: 45
+  redstone:
+    material: REDSTONE
+    category: MATERIAL
+    enabled: true
+    price-mode: ORE_MULTIPLIER
+    ore-reference: redstone_ore
+    multiplier: 1.5
+    sell-ratio: 0.5
+    stock:
+      min: 4
+      max: 32
+      chance: 45
+  lapis_lazuli:
+    material: LAPIS_LAZULI
+    category: MATERIAL
+    enabled: true
+    price-mode: ORE_MULTIPLIER
+    ore-reference: lapis_ore
+    multiplier: 1.5
+    sell-ratio: 0.5
+    stock:
+      min: 4
+      max: 24
+      chance: 40
+  diamond:
+    material: DIAMOND
+    category: MATERIAL
+    enabled: true
+    price-mode: ORE_MULTIPLIER
+    ore-reference: diamond_ore
+    multiplier: 1.5
+    sell-ratio: 0.5
+    stock:
+      min: 1
+      max: 4
+      chance: 30
+  emerald:
+    material: EMERALD
+    category: MATERIAL
+    enabled: true
+    price-mode: ORE_MULTIPLIER
+    ore-reference: emerald_ore
+    multiplier: 1.5
+    sell-ratio: 0.5
+    stock:
+      min: 1
+      max: 4
       chance: 25
 
   # ---------- FARMING ----------
