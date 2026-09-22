@@ -1,21 +1,24 @@
-name: Build Senzy
+name: Build SenzyShop
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    branches:
+      - main
   workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
-      - name: Set up JDK 21
-        uses: actions/setup-java@v4
+      - name: Setup Java 21
+        uses: actions/setup-java@v6
         with:
           distribution: temurin
           java-version: '21'
@@ -24,8 +27,16 @@ jobs:
       - name: Build with Maven
         run: mvn -B clean package
 
-      - name: Upload jar
-        uses: actions/upload-artifact@v4
+      - name: Show build output
+        run: |
+          echo "=== TARGET ==="
+          ls -lah target || true
+          echo "=== JAR FILES ==="
+          find target -maxdepth 1 -type f -name "*.jar" -print || true
+
+      - name: Upload JAR
+        uses: actions/upload-artifact@v7
         with:
-          name: Senzyshop-jar
-          path: target/Senzyshop-*.jar
+          name: SenzyShop
+          path: target/*.jar
+          if-no-files-found: error
