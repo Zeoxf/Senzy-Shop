@@ -28,4 +28,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Senzyshop-jar
-          path: target/Senzy-*.jar
+          path: target/Senzyshop-*.jar
