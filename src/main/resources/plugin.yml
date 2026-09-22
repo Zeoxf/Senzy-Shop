@@ -1,0 +1,36 @@
+name: Senzy
+version: '${project.version}'
+main: id.senzy.SenzyPlugin
+api-version: '1.21'
+load: POSTWORLD
+authors: [Senzy]
+description: Senzy ecosystem - XPR Boost Progression + LootBox Event System
+softdepend: [PlaceholderAPI, Geyser-Spigot, floodgate, ViaVersion]
+
+commands:
+  senzy:
+    description: Perintah utama Senzy
+    usage: /<command> [xpr|lootbox|reload|help]
+    permission: senzy.use
+
+permissions:
+  senzy.use:
+    description: Boleh memakai /senzy dan help
+    default: true
+  senzy.xpr:
+    description: Boleh memakai sistem XPR (status, boosts, info, upgrade, roll, activate, gui)
+    default: true
+  senzy.lootbox:
+    description: Boleh memakai LootBox (status, locate, gui) dan membuka LootBox
+    default: true
+  senzy.lootbox.admin:
+    description: Perintah admin LootBox (start, stop, reset, reload, locations, adjust)
+    default: op
+  senzy.admin:
+    description: Semua perintah admin Senzy (termasuk /senzy reload, xpr grant/reset)
+    default: op
+    children:
+      senzy.use: true
+      senzy.xpr: true
+      senzy.lootbox: true
+      senzy.lootbox.admin: true
