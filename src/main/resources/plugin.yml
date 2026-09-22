@@ -1,36 +1,30 @@
-name: Senzy
+name: SenzyShop
 version: '${project.version}'
-main: id.senzy.SenzyPlugin
+main: id.senzy.shop.SenzyShop
 api-version: '1.21'
-load: POSTWORLD
-authors: [Senzy]
-description: Senzy ecosystem - XPR Boost Progression + LootBox Event System
-softdepend: [PlaceholderAPI, Geyser-Spigot, floodgate, ViaVersion]
+author: Senzy
+description: Marketplace dan ekonomi Senzy Coin untuk server survival
+softdepend: [Senzy]
 
 commands:
   senzy:
-    description: Perintah utama Senzy
-    usage: /<command> [xpr|lootbox|reload|help]
+    description: Perintah utama SenzyShop
+    usage: /senzy [shop|balance|sell|sellall|restock|admin]
     permission: senzy.use
 
 permissions:
   senzy.use:
-    description: Boleh memakai /senzy dan help
+    description: Akses dasar perintah /senzy
     default: true
-  senzy.xpr:
-    description: Boleh memakai sistem XPR (status, boosts, info, upgrade, roll, activate, gui)
+  senzy.shop:
+    description: Membuka Senzy Shop dan melihat info restock
     default: true
-  senzy.lootbox:
-    description: Boleh memakai LootBox (status, locate, gui) dan membuka LootBox
+  senzy.balance:
+    description: Melihat balance Senzy Coin
     default: true
-  senzy.lootbox.admin:
-    description: Perintah admin LootBox (start, stop, reset, reload, locations, adjust)
-    default: op
+  senzy.sell:
+    description: Menjual item ke Senzy Shop
+    default: true
   senzy.admin:
-    description: Semua perintah admin Senzy (termasuk /senzy reload, xpr grant/reset)
+    description: Semua perintah admin SenzyShop
     default: op
-    children:
-      senzy.use: true
-      senzy.xpr: true
-      senzy.lootbox: true
-      senzy.lootbox.admin: true
