@@ -35,6 +35,5 @@ public final class PlayerListener implements Listener {
     public void onQuit(PlayerQuitEvent event) {
         var uuid = event.getPlayer().getUniqueId();
         contracts.unloadPlayer(uuid);
-        guis.cancelSearch(uuid);
     }
 }

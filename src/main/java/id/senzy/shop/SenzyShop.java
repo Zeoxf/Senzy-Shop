@@ -16,7 +16,6 @@ import id.senzy.shop.gui.GuiLayout;
 import id.senzy.shop.gui.GuiManager;
 import id.senzy.shop.listener.InventoryListener;
 import id.senzy.shop.listener.PlayerListener;
-import id.senzy.shop.listener.SearchListener;
 import id.senzy.shop.restock.RestockManager;
 import id.senzy.shop.shop.ShopManager;
 import id.senzy.shop.shop.StockManager;
@@ -107,7 +106,6 @@ public final class SenzyShop extends JavaPlugin {
 
             getServer().getPluginManager().registerEvents(new InventoryListener(guis), this);
             getServer().getPluginManager().registerEvents(new PlayerListener(economy, contracts, guis), this);
-            getServer().getPluginManager().registerEvents(new SearchListener(guis), this);
 
             for (Player online : getServer().getOnlinePlayers()) {
                 economy.ensureAccount(online.getUniqueId(), online.getName());
@@ -136,12 +134,14 @@ public final class SenzyShop extends JavaPlugin {
     }
 
     /**
-     * Jika ada plugin lain (mis. "Senzy" - XPR Boost Progression + LootBox) yang sudah memegang
-     * alias /senzy, sambungkan ke sana lewat {@link CommandBridge} alih-alih membiarkan SenzyShop
-     * diam-diam hanya bisa diakses lewat "/senzyshop:senzy". Plugin lain itu TIDAK diubah sama
-     * sekali - hanya executor & tab-completer yang sedang terpasang di alias "senzy" dibungkus.
-     * softdepend: [Senzy] di plugin.yml memastikan Senzy (jika terpasang) sudah aktif duluan,
-     * sehingga di sinilah dia sudah memegang alias bare "senzy".
+     * Jika ada plugin lain (mis. "SenzyXPRLoot" - XPR Boost Progression + LootBox) yang sudah
+     * memegang alias /senzy, sambungkan ke sana lewat {@link CommandBridge} alih-alih membiarkan
+     * SenzyShop diam-diam hanya bisa diakses lewat "/senzyshop:senzy". Plugin lain itu TIDAK
+     * diubah sama sekali - hanya executor & tab-completer yang sedang terpasang di alias "senzy"
+     * dibungkus. softdepend: [SenzyXPRLoot] di plugin.yml memastikan SenzyXPRLoot (jika terpasang)
+     * sudah aktif duluan, sehingga di sinilah dia sudah memegang alias bare "senzy". SenzyXPRLoot
+     * sendiri juga sudah mendeklarasikan loadbefore: [SenzyShop] - keduanya sengaja dipasang
+     * (dobel jaminan) supaya urutan load tidak bergantung pada satu sisi saja.
      */
     private void bridgeWithExistingSenzyCommand(SenzyCommand ourCommand) {
         PluginCommand active = getServer().getPluginCommand("senzy");
