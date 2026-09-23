@@ -36,9 +36,8 @@ trade:
   invalid: "&cTransaksi tidak valid dan dibatalkan."
 
 search:
-  prompt: "&eKetik kata kunci pencarian di chat, atau ketik &f'batal' &euntuk membatalkan."
-  cancelled: "&7Pencarian dibatalkan."
-  empty-query: "&cKata kunci tidak boleh kosong."
+  use-command: "&eGunakan &f/senzy shop-search <kata kunci> &euntuk mencari item."
+  empty-query: "&cKata kunci tidak boleh kosong. Contoh: /senzy shop-search diamond"
   empty: "&cTidak ada item yang cocok dengan '{query}'."
 
 contract:
@@ -110,9 +109,8 @@ gui:
       - "&eKlik untuk membuka"
     search-name: "&b&lCari Item"
     search-lore:
-      - "&7Cari item lewat kata kunci."
-      - ""
-      - "&eKlik untuk membuka"
+      - "&7Gunakan perintah:"
+      - "&f/senzy shop-search <kata kunci>"
     restock-name: "&eNext Restock: &f{time}"
     restock-lore:
       - "&7Stok diacak ulang secara berkala."

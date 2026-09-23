@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/** Hasil pencarian (dengan halaman) - kata kunci diketik lewat chat, lihat SearchListener. */
+/** Hasil pencarian (dengan halaman) - dibuka langsung dari /senzy shop-search <keyword>. */
 public final class SearchGUI extends AbstractGui {
     private final String query;
     private final int page;

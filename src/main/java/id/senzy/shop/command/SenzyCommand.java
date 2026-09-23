@@ -67,6 +67,18 @@ public final class SenzyCommand implements CommandExecutor, TabCompleter {
                 Player p = requirePlayer(sender, "senzy.contract");
                 if (p != null) guis.openContract(p);
             }
+            case "shop-search" -> {
+                Player p = requirePlayer(sender, "senzy.shop");
+                if (p == null) break;
+                if (args.length < 2 || String.join(" ", Arrays.copyOfRange(args, 1, args.length)).isBlank()) {
+                    msg.send(p, "search.empty-query");
+                    break;
+                }
+                // Buka langsung peti hasil pencarian - TIDAK lewat chat-capture (SearchListener),
+                // supaya tidak bentrok dengan plugin chat lain dan tidak ada jeda tunggu-input.
+                String query = String.join(" ", Arrays.copyOfRange(args, 1, args.length));
+                guis.openSearchResults(p, query, 0);
+            }
             case "restock" -> {
                 if (!sender.hasPermission("senzy.shop")) {
                     msg.send(sender, "general.no-permission");
@@ -95,14 +107,15 @@ public final class SenzyCommand implements CommandExecutor, TabCompleter {
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
         if (args.length == 1) {
-            List<String> subs = new ArrayList<>(List.of("shop", "balance", "sell", "sellall", "contract", "restock"));
+            List<String> subs = new ArrayList<>(List.of(
+                    "shop", "shop-search", "balance", "sell", "sellall", "contract", "restock"));
             if (sender.hasPermission("senzy.admin")) subs.add("admin");
             return filter(subs, args[0]);
         }
         if (args.length >= 2 && args[0].equalsIgnoreCase("admin") && sender.hasPermission("senzy.admin")) {
             return admin.complete(args);
         }
-        return List.of();
+        return List.of(); // termasuk args[1] dari "shop-search": kata kunci bebas, tanpa saran tab
     }
 
     static List<String> filter(List<String> options, String prefix) {
