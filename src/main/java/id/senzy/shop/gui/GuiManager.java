@@ -19,6 +19,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.UUID;
+
 /** Pintu masuk semua GUI + akses ke dependensi bersama. */
 public final class GuiManager {
     private final SenzyShop plugin;
@@ -30,6 +35,8 @@ public final class GuiManager {
     private final RestockManager restock;
     private final ContractManager contracts;
     private final MessageUtil messages;
+
+    private final Set<UUID> awaitingSearch = new HashSet<>();
 
     public GuiManager(SenzyShop plugin, GuiLayout layout, ShopManager shop, StockManager stock,
                       EconomyManager economy, TradeService trade, RestockManager restock,
@@ -103,10 +110,25 @@ public final class GuiManager {
         }
     }
 
+    // ---- state pencarian lewat chat ----
+
+    public void beginSearch(Player player) {
+        awaitingSearch.add(player.getUniqueId());
+    }
+
+    public boolean isAwaitingSearch(UUID uuid) {
+        return awaitingSearch.contains(uuid);
+    }
+
+    public void cancelSearch(UUID uuid) {
+        awaitingSearch.remove(uuid);
+    }
+
     public void closeAll() {
         for (Player p : Bukkit.getOnlinePlayers()) {
             if (holderOf(p) != null) p.closeInventory();
         }
+        awaitingSearch.clear();
     }
 
     public void refreshAll() {

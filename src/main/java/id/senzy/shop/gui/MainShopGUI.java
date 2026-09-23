@@ -70,10 +70,11 @@ public final class MainShopGUI extends AbstractGui {
             return;
         }
         if (slot == layout.mainSearchSlot) {
-            // Tidak lagi menutup GUI + menangkap chat (rawan bentrok dengan plugin chat lain
-            // dan gampang macet menunggu input). Cukup arahkan ke command "/senzy shop-search
-            // <keyword>" yang langsung membuka peti hasil pencarian.
-            gui.messages().send(viewer, "search.use-command");
+            gui.later(() -> {
+                viewer.closeInventory();
+                gui.messages().send(viewer, "search.prompt");
+                gui.beginSearch(viewer);
+            });
             return;
         }
         for (Map.Entry<ShopCategory, Integer> e : layout.categorySlots.entrySet()) {

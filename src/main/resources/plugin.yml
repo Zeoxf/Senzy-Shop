@@ -4,12 +4,12 @@ main: id.senzy.shop.SenzyShop
 api-version: '1.21'
 author: Senzy
 description: Marketplace, ekonomi Senzy Coin, material processing, dan sistem kontrak untuk server survival
-softdepend: [SenzyXPRLoot]
+softdepend: [Senzy]
 
 commands:
   senzy:
     description: Perintah utama SenzyShop
-    usage: /senzy [shop|shop-search|balance|sell|sellall|contract|restock|admin]
+    usage: /senzy [shop|balance|sell|sellall|contract|restock|admin]
     permission: senzy.use
 
 permissions:
