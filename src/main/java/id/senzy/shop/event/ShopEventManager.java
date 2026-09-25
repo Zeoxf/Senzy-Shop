@@ -187,5 +187,5 @@ public final class ShopEventManager {
         } catch(Exception e){ return 3600000L; }
     }
 
-    @FunctionalInterface public interface CommandSenderLike {}
+    public interface CommandSenderLike {}
 }

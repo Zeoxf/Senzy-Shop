@@ -147,7 +147,7 @@ public final class SenzyCommand implements CommandExecutor, TabCompleter {
                 }
             }
             guis.refreshAll();
-        } catch (NumberFormatException e) { sender.sendMessage("§cAngka/slot tidak valid."); }
+        } catch (Exception e) { sender.sendMessage("§cAngka/slot tidak valid."); }
     }
 
     private Player requirePlayer(CommandSender sender, String permission) {

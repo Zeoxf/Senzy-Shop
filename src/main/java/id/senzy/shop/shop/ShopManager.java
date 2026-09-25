@@ -335,6 +335,21 @@ public final class ShopManager {
         try { y.save(file); load(); return true; } catch (IOException e) { plugin.getLogger().log(Level.SEVERE, "Gagal menyimpan item", e); return false; }
     }
 
+    public boolean setPrice(String id, boolean isBuy, long price) {
+        if (id == null) return false;
+        String[] parts = id.split(":");
+        if (parts.length < 3) return false;
+        try {
+            String shopName = parts[0];
+            String categoryName = parts[1];
+            int slot = Integer.parseInt(parts[2]);
+            String path = isBuy ? "buy-price" : "sell-price";
+            return setPriceCustom(shopName, categoryName, slot, path, price, false);
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     public boolean setBuy(String shopName, String categoryName, int slot, long price) {
         return setPriceCustom(shopName, categoryName, slot, "buy-price", price, false);
     }
