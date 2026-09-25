@@ -36,3 +36,15 @@ jobs:
           if [ -f LICENSE ]; then cp LICENSE release/source/; fi
           cd release/source
           zip -r ../../SenzyShop-Source.zip .
+
+      - name: Upload JAR Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: SenzyShop-JAR
+          path: target/*.jar
+
+      - name: Upload Source Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: SenzyShop-Source
+          path: SenzyShop-Source.zip
