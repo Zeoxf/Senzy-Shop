@@ -107,7 +107,7 @@ public final class StockManager {
 
     public StockRecord snapshot(ShopItem item) {
         Entry e = entry(item);
-        return new StockRecord(item.material().name(), item.category().name(), e.stock, e.max,
+        return new StockRecord(item.material().name(), item.category().id(), e.stock, e.max,
                 item.buyPrice(), item.sellPrice(), e.restockId, e.updatedAt);
     }
 

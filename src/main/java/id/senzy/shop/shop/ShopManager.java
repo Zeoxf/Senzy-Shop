@@ -9,23 +9,17 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.logging.Level;
 
 /**
- * Katalog item dari items.yml. Item yang tidak valid / terlarang ditolak saat load.
+ * Loader marketplace.
  *
- * Dua tahap parsing: item biasa (FIXED price) diproses duluan, lalu item MATERIAL bermode
- * ORE_MULTIPLIER dihitung belakangan berdasarkan harga item ore acuan yang sudah diproses -
- * jadi urutan penulisan di items.yml bebas (ore boleh ditulis sebelum atau sesudah material-nya).
+ * V1.3+ membaca struktur:
+ * plugins/SenzyShop/shop/<shop>/message.yml
+ * plugins/SenzyShop/shop/<shop>/<category>.yml
+ *
+ * items.yml lama tetap didukung sebagai fallback agar update tidak memutus server lama.
  */
 public final class ShopManager {
     private static final Set<String> BLOCKED = Set.of(
@@ -35,233 +29,359 @@ public final class ShopManager {
     private final SenzyShop plugin;
     private volatile Map<Material, ShopItem> byMaterial = Map.of();
     private volatile Map<String, ShopItem> byId = Map.of();
+    private volatile Map<String, ShopCategory> categories = Map.of();
+    private volatile String activeShop;
 
-    public ShopManager(SenzyShop plugin) {
-        this.plugin = plugin;
-    }
+    public ShopManager(SenzyShop plugin) { this.plugin = plugin; }
 
     public void load() {
+        String configured = plugin.getConfig().getString("default-shop", "senzyshop");
+        File shopRoot = new File(plugin.getDataFolder(), "shop");
+        File activeDir = new File(shopRoot, safeName(configured));
+        if (new File(activeDir, "message.yml").exists()) {
+            loadCustom(configured, activeDir);
+        } else {
+            try {
+                ensureBundledDefaultShop(configured);
+                activeDir = new File(shopRoot, safeName(configured));
+                if (new File(activeDir, "message.yml").exists()) loadCustom(configured, activeDir);
+                else loadLegacy();
+            } catch (Exception e) {
+                plugin.getLogger().log(Level.WARNING, "Gagal membuat custom shop; fallback ke items.yml lama.", e);
+                loadLegacy();
+            }
+        }
+    }
+
+    private void ensureBundledDefaultShop(String shopName) throws IOException {
+        File dir = new File(plugin.getDataFolder(), "shop/" + safeName(shopName));
+        if (!dir.exists() && !dir.mkdirs()) throw new IOException("Tidak bisa membuat " + dir);
+        String[] files = {"message.yml","blocks.yml","items.yml","sword.yml","armor.yml","food.yml","farming.yml","ores.yml","materials.yml","mobs.yml","tools.yml","utility.yml","rare.yml"};
+        for (String name : files) {
+            File target = new File(dir, name);
+            if (!target.exists() && plugin.getResource("shop/senzyshop/" + name) != null) plugin.saveResource("shop/senzyshop/" + name, false);
+        }
+    }
+
+    private void loadCustom(String shopName, File dir) {
+        File messageFile = new File(dir, "message.yml");
+        YamlConfiguration message = YamlConfiguration.loadConfiguration(messageFile);
+        LinkedHashMap<String, ShopCategory> loadedCategories = new LinkedHashMap<>();
+        ConfigurationSection catSection = message.getConfigurationSection("categories");
+
+        if (catSection != null) {
+            for (String id : catSection.getKeys(false)) {
+                ConfigurationSection c = catSection.getConfigurationSection(id);
+                if (c == null) continue;
+                loadedCategories.put(ShopCategory.normalize(id), new ShopCategory(
+                        id,
+                        colorOrDefault(c.getString("name"), id),
+                        material(c.getString("texture"), Material.CHEST),
+                        c.getInt("slot", loadedCategories.size())));
+            }
+        }
+
+        // Juga dukung format texture.category yang diminta, walaupun categories belum ditulis.
+        ConfigurationSection textures = message.getConfigurationSection("texture.category");
+        if (textures != null) {
+            for (String id : textures.getKeys(false)) {
+                String key = ShopCategory.normalize(id);
+                if (!loadedCategories.containsKey(key)) {
+                    loadedCategories.put(key, new ShopCategory(id, id, material(textures.getString(id), Material.CHEST), loadedCategories.size()));
+                }
+            }
+        }
+
+        LinkedHashMap<String, ShopItem> loadedItems = new LinkedHashMap<>();
+        File[] files = dir.listFiles((d, n) -> n.toLowerCase(Locale.ROOT).endsWith(".yml") && !n.equalsIgnoreCase("message.yml"));
+        if (files != null) {
+            Arrays.sort(files, Comparator.comparing(File::getName));
+            for (File file : files) parseCustomCategoryFile(file, loadedCategories, loadedItems);
+        }
+
+        if (loadedCategories.isEmpty()) {
+            plugin.getLogger().warning("Custom shop '" + shopName + "' belum punya kategori. Gunakan /senzy shop addcategory ...");
+        }
+        activeShop = safeName(shopName);
+        apply(loadedCategories, loadedItems);
+        plugin.getLogger().info("Memuat custom shop '" + activeShop + "': " + loadedItems.size() + " item, " + loadedCategories.size() + " kategori.");
+    }
+
+    private void parseCustomCategoryFile(File file, Map<String, ShopCategory> cats, Map<String, ShopItem> items) {
+        String fileCategory = file.getName().substring(0, file.getName().length() - 4);
+        YamlConfiguration yaml = YamlConfiguration.loadConfiguration(file);
+        ConfigurationSection root = yaml;
+        for (String id : root.getKeys(false)) {
+            ConfigurationSection s = root.getConfigurationSection(id);
+            if (s == null) continue;
+            String declared = ShopCategory.normalize(s.getString("category", ""));
+            String categoryId = cats.containsKey(declared) ? declared : ShopCategory.normalize(fileCategory);
+            ShopCategory category = cats.get(categoryId);
+            if (category == null) {
+                category = new ShopCategory(categoryId, categoryId, Material.CHEST, cats.size());
+                cats.put(categoryId, category);
+            }
+            ShopItem item = parseCustomItem(id, s, category);
+            if (item != null) put(items, item);
+        }
+    }
+
+    private ShopItem parseCustomItem(String id, ConfigurationSection s, ShopCategory category) {
+        String matName = s.getString("material", id);
+        Material material = validate(matName);
+        if (material == null) { warn(id, "material tidak dikenal/terlarang: " + matName); return null; }
+        long buy = s.getLong("buy-price", 0L);
+        long sell = s.getLong("sell-price", 0L);
+        if (buy < 0 || sell < 0) { warn(id, "harga negatif"); return null; }
+        ConfigurationSection st = s.getConfigurationSection("stock");
+        int min = st == null ? 0 : st.getInt("min", 0);
+        int max = st == null ? 64 : st.getInt("max", 64);
+        double chance = st == null ? 1.0 : st.getDouble("chance", 1.0);
+        if (chance > 1.0 && chance <= 100.0) chance /= 100.0;
+        if (min < 0 || max < min || chance < 0.01 || chance > 1.0) {
+            warn(id, "stock tidak valid; min>=0, max>=min, chance 0.01-1.0"); return null;
+        }
+        String display = s.getString("display-name", "&f" + id.replace('_', ' '));
+        int slot = Math.max(0, Math.min(53, s.getInt("slot", 0)));
+        Set<String> worlds = Set.copyOf(new HashSet<>(s.getStringList("worlds")));
+        return new ShopItem(id.toLowerCase(Locale.ROOT), material, category, s.getBoolean("enabled", true), display,
+                slot, buy, sell, min, max, chance, worlds, PriceMode.FIXED, null, 0, 0);
+    }
+
+    private Material validate(String name) {
+        if (name == null) return null;
+        String mat = name.trim().toUpperCase(Locale.ROOT);
+        if (mat.contains("NETHERITE") || BLOCKED.contains(mat)) return null;
+        return ItemRegistry.validateMaterial(mat);
+    }
+
+    private void loadLegacy() {
         File file = new File(plugin.getDataFolder(), "items.yml");
         if (!file.exists()) plugin.saveResource("items.yml", false);
         YamlConfiguration yaml = YamlConfiguration.loadConfiguration(file);
         ConfigurationSection root = yaml.getConfigurationSection("items");
-        Map<String, ShopItem> resolved = new LinkedHashMap<>();
-        if (root == null) {
-            plugin.getLogger().warning("items.yml tidak punya bagian 'items'. Toko kosong.");
-            apply(resolved);
-            return;
-        }
-
-        List<String> deferred = new ArrayList<>();
-        for (String id : root.getKeys(false)) {
-            ConfigurationSection section = root.getConfigurationSection(id);
-            if (section == null) continue;
-            if (isDeferredMaterial(section)) {
-                deferred.add(id);
-                continue;
+        LinkedHashMap<String, ShopItem> resolved = new LinkedHashMap<>();
+        LinkedHashMap<String, ShopCategory> cats = new LinkedHashMap<>();
+        if (root != null) {
+            List<String> deferred = new ArrayList<>();
+            for (String id : root.getKeys(false)) {
+                ConfigurationSection section = root.getConfigurationSection(id);
+                if (section == null) continue;
+                if (isDeferredMaterial(section)) { deferred.add(id); continue; }
+                ShopItem item = parseFixed(id, section, cats);
+                if (item != null) put(resolved, item);
             }
-            ShopItem item = parseFixed(id, section);
-            if (item != null) put(resolved, item);
-        }
-        for (String id : deferred) {
-            ConfigurationSection section = root.getConfigurationSection(id);
-            ShopItem item = parseOreMultiplier(id, section, resolved);
-            if (item != null) put(resolved, item);
-        }
-
-        apply(resolved);
-        plugin.getLogger().info("Memuat " + resolved.size() + " item toko.");
-    }
-
-    private void apply(Map<String, ShopItem> resolved) {
-        Map<Material, ShopItem> materialMap = new LinkedHashMap<>();
-        for (ShopItem item : resolved.values()) materialMap.put(item.material(), item);
-        byMaterial = Collections.unmodifiableMap(materialMap);
-        byId = Collections.unmodifiableMap(resolved);
-    }
-
-    private void put(Map<String, ShopItem> resolved, ShopItem item) {
-        if (resolved.containsKey(item.id())) {
-            warn(item.id(), "id konfigurasi duplikat, dilewati");
-            return;
-        }
-        for (ShopItem existing : resolved.values()) {
-            if (existing.material() == item.material()) {
-                warn(item.id(), "material duplikat (dipakai oleh '" + existing.id() + "'), dilewati");
-                return;
+            for (String id : deferred) {
+                ShopItem item = parseOreMultiplier(id, root.getConfigurationSection(id), resolved, cats);
+                if (item != null) put(resolved, item);
             }
         }
-        resolved.put(item.id(), item);
+        if (cats.isEmpty()) {
+            int slot = 10;
+            for (String id : List.of("natural","ore","material","farming","animals","food","wood","nether","end","building","utility","special"))
+                cats.put(id, new ShopCategory(id, id, Material.CHEST, slot++));
+        }
+        activeShop = "legacy";
+        apply(cats, resolved);
+        plugin.getLogger().info("Memuat " + resolved.size() + " item toko legacy.");
     }
 
     private boolean isDeferredMaterial(ConfigurationSection s) {
-        ShopCategory category = ShopCategory.fromString(s.getString("category"));
-        if (category != ShopCategory.MATERIAL) return false;
+        String category = ShopCategory.normalize(s.getString("category"));
         PriceMode mode = PriceMode.fromString(s.getString("price-mode"), PriceMode.ORE_MULTIPLIER);
-        return mode == PriceMode.ORE_MULTIPLIER;
+        return "material".equals(category) && mode == PriceMode.ORE_MULTIPLIER;
     }
 
-    /** Item dengan harga statis langsung dari config (semua kategori non-material + material FIXED). */
-    private ShopItem parseFixed(String id, ConfigurationSection s) {
-        Common common = parseCommon(id, s);
+    private ShopItem parseFixed(String id, ConfigurationSection s, Map<String, ShopCategory> cats) {
+        ShopItemCommon common = parseCommon(id, s, cats);
         if (common == null) return null;
-        long buy = s.getLong("buy-price", 0L);
-        long sell = s.getLong("sell-price", 0L);
-        if (buy < 0 || sell < 0) {
-            warn(id, "harga negatif");
-            return null;
-        }
-        if (buy > 0 && sell > buy) {
-            warn(id, "sell-price > buy-price (celah cetak uang), dilewati");
-            return null;
-        }
-        return new ShopItem(common.id(), common.material(), common.category(), common.enabled(), common.displayName(),
-                buy, sell, common.min(), common.max(), common.chance(), common.worlds(),
-                PriceMode.FIXED, null, 0.0, 0.0);
+        long buy = s.getLong("buy-price", 0), sell = s.getLong("sell-price", 0);
+        if (buy < 0 || sell < 0) return null;
+        return new ShopItem(common.id, common.material, common.category, common.enabled, common.display, common.slot,
+                buy, sell, common.min, common.max, common.chance, common.worlds, PriceMode.FIXED, null, 0, 0);
     }
 
-    /** Item MATERIAL bermode ORE_MULTIPLIER: harga dihitung dari item ore acuan yang sudah di-resolve. */
-    private ShopItem parseOreMultiplier(String id, ConfigurationSection s, Map<String, ShopItem> resolvedSoFar) {
-        Common common = parseCommon(id, s);
+    private ShopItem parseOreMultiplier(String id, ConfigurationSection s, Map<String, ShopItem> resolved, Map<String, ShopCategory> cats) {
+        ShopItemCommon common = parseCommon(id, s, cats);
         if (common == null) return null;
-        String oreRef = s.getString("ore-reference");
-        if (oreRef == null || oreRef.isBlank()) {
-            warn(id, "price-mode ORE_MULTIPLIER tapi 'ore-reference' kosong");
-            return null;
-        }
-        ShopItem ore = resolvedSoFar.get(oreRef.trim().toLowerCase(Locale.ROOT));
-        if (ore == null) {
-            warn(id, "ore-reference '" + oreRef + "' tidak ditemukan (pastikan item ore itu valid & bukan material lain)");
-            return null;
-        }
-        if (ore.buyPrice() <= 0) {
-            warn(id, "ore-reference '" + oreRef + "' tidak punya buy-price, tidak bisa dihitung");
-            return null;
-        }
-        double multiplier = s.getDouble("multiplier", plugin.getConfig().getDouble("economy.material-price-multiplier", 1.5));
-        double sellRatio = s.getDouble("sell-ratio", plugin.getConfig().getDouble("economy.default-sell-ratio", 0.5));
-        if (multiplier <= 0 || sellRatio < 0 || sellRatio > 1) {
-            warn(id, "multiplier/sell-ratio tidak valid");
-            return null;
-        }
-        long buy = NumberUtil.scale(ore.buyPrice(), multiplier);
-        long sell = NumberUtil.ratio(buy, sellRatio);
-        return new ShopItem(common.id(), common.material(), common.category(), common.enabled(), common.displayName(),
-                buy, sell, common.min(), common.max(), common.chance(), common.worlds(),
-                PriceMode.ORE_MULTIPLIER, ore.id(), multiplier, sellRatio);
+        String ref = s.getString("ore-reference");
+        ShopItem ore = ref == null ? null : resolved.get(ref.trim().toLowerCase(Locale.ROOT));
+        if (ore == null || ore.buyPrice() <= 0) return null;
+        double mult = s.getDouble("multiplier", 1.5), ratio = s.getDouble("sell-ratio", 0.5);
+        long buy = NumberUtil.scale(ore.buyPrice(), mult), sell = NumberUtil.ratio(buy, ratio);
+        return new ShopItem(common.id, common.material, common.category, common.enabled, common.display, common.slot,
+                buy, sell, common.min, common.max, common.chance, common.worlds, PriceMode.ORE_MULTIPLIER, ore.id(), mult, ratio);
     }
 
-    private record Common(String id, Material material, ShopCategory category, boolean enabled,
-                          int min, int max, double chance, Set<String> worlds, String displayName) {}
+    private record ShopItemCommon(String id, Material material, ShopCategory category, boolean enabled, String display,
+                                  int slot, int min, int max, double chance, Set<String> worlds) {}
 
-    private Common parseCommon(String id, ConfigurationSection s) {
-        String matName = s.getString("material", id).trim().toUpperCase(Locale.ROOT);
-        if (matName.contains("NETHERITE") || BLOCKED.contains(matName)) {
-            warn(id, "item terlarang (" + matName + ")");
-            return null;
-        }
-        Material material = ItemRegistry.validateMaterial(matName);
-        if (material == null) {
-            warn(id, "material tidak dikenal: " + matName);
-            return null;
-        }
-        ShopCategory category = ShopCategory.fromString(s.getString("category"));
-        if (category == null) {
-            warn(id, "category tidak valid");
-            return null;
-        }
-        var cfg = plugin.getConfig();
+    private ShopItemCommon parseCommon(String id, ConfigurationSection s, Map<String, ShopCategory> cats) {
+        Material material = validate(s.getString("material", id));
+        if (material == null) return null;
+        String catId = ShopCategory.normalize(s.getString("category"));
+        if (catId.isBlank()) return null;
+        ShopCategory category = cats.computeIfAbsent(catId, k -> new ShopCategory(k, k, Material.CHEST, cats.size() + 10));
         ConfigurationSection st = s.getConfigurationSection("stock");
-        int min = st != null ? st.getInt("min", cfg.getInt("stock.default-min", 0)) : cfg.getInt("stock.default-min", 0);
-        int max = st != null ? st.getInt("max", cfg.getInt("stock.default-max", 64)) : cfg.getInt("stock.default-max", 64);
-        double chance = st != null ? st.getDouble("chance", cfg.getDouble("stock.default-chance", 1.0)) : cfg.getDouble("stock.default-chance", 1.0);
-        // V1.2 uses 0.0-1.0. Keep old 0-100 configs working by converting them once in memory.
-        if (chance > 1.0 && chance <= 100.0) chance /= 100.0;
-        if (min < 0 || max < min || chance < 0.0 || chance > 1.0) {
-            warn(id, "konfigurasi stock tidak valid; chance harus 0.0-1.0");
-            return null;
-        }
-        String displayName = s.getString("display-name", "&f" + id.replace('_', ' '));
-        Set<String> worlds = Set.copyOf(new HashSet<>(s.getStringList("worlds")));
-        return new Common(id.toLowerCase(Locale.ROOT), material, category, s.getBoolean("enabled", true),
-                min, max, chance, worlds, displayName);
+        int min = st == null ? plugin.getConfig().getInt("stock.default-min", 0) : st.getInt("min", 0);
+        int max = st == null ? plugin.getConfig().getInt("stock.default-max", 64) : st.getInt("max", 64);
+        double chance = st == null ? plugin.getConfig().getDouble("stock.default-chance", 1) : st.getDouble("chance", 1);
+        if (chance > 1) chance /= 100;
+        return new ShopItemCommon(id.toLowerCase(Locale.ROOT), material, category, s.getBoolean("enabled", true),
+                s.getString("display-name", "&f" + id.replace('_', ' ')), s.getInt("slot", 0), min, max, chance,
+                Set.copyOf(new HashSet<>(s.getStringList("worlds"))));
     }
 
-    private void warn(String id, String reason) {
-        plugin.getLogger().warning("items.yml [" + id + "]: " + reason);
+    private void apply(Map<String, ShopCategory> cats, Map<String, ShopItem> items) {
+        byMaterial = Collections.unmodifiableMap(new LinkedHashMap<>(itemsByMaterial(items)));
+        byId = Collections.unmodifiableMap(new LinkedHashMap<>(items));
+        categories = Collections.unmodifiableMap(new LinkedHashMap<>(cats));
     }
 
-    public Collection<ShopItem> all() {
-        return byMaterial.values();
-    }
-
-    public ShopItem get(Material material) {
-        return byMaterial.get(material);
-    }
-
-    public ShopItem getById(String id) {
-        return id == null ? null : byId.get(id.toLowerCase(Locale.ROOT));
-    }
-
-    public List<ShopItem> byCategory(ShopCategory category) {
-        List<ShopItem> out = new ArrayList<>();
-        for (ShopItem i : byMaterial.values()) if (i.category() == category) out.add(i);
+    private Map<Material, ShopItem> itemsByMaterial(Map<String, ShopItem> items) {
+        LinkedHashMap<Material, ShopItem> out = new LinkedHashMap<>();
+        for (ShopItem item : items.values()) out.putIfAbsent(item.material(), item);
         return out;
     }
 
-    /** Cari berdasarkan id config atau nama material (tidak peka huruf besar/kecil). */
+    private void put(Map<String, ShopItem> map, ShopItem item) {
+        if (map.containsKey(item.id()) || map.values().stream().anyMatch(i -> i.material() == item.material())) {
+            warn(item.id(), "id/material duplikat, dilewati"); return;
+        }
+        map.put(item.id(), item);
+    }
+
+    public Collection<ShopItem> all() { return byMaterial.values(); }
+    public ShopItem get(Material material) { return byMaterial.get(material); }
+    public ShopItem getById(String id) { return id == null ? null : byId.get(id.toLowerCase(Locale.ROOT)); }
+    public List<ShopCategory> categories() { return List.copyOf(categories.values()); }
+    public ShopCategory category(String id) { return id == null ? null : categories.get(ShopCategory.normalize(id)); }
+    public List<ShopItem> byCategory(ShopCategory category) {
+        List<ShopItem> out = new ArrayList<>();
+        if (category == null) return out;
+        for (ShopItem i : byMaterial.values()) if (i.category().equals(category)) out.add(i);
+        out.sort(Comparator.comparingInt(ShopItem::slot).thenComparing(ShopItem::id));
+        return out;
+    }
+    public List<ShopItem> search(String query) {
+        String q = query == null ? "" : query.toLowerCase(Locale.ROOT);
+        List<ShopItem> out = new ArrayList<>();
+        for (ShopItem i : byMaterial.values()) if (i.id().contains(q) || i.material().name().toLowerCase(Locale.ROOT).contains(q)
+                || MessageUtilCompat.plain(i.displayName()).toLowerCase(Locale.ROOT).contains(q)) out.add(i);
+        return out;
+    }
     public ShopItem find(String input) {
         if (input == null) return null;
-        String key = input.trim().toLowerCase(Locale.ROOT);
-        ShopItem byIdMatch = byId.get(key);
-        if (byIdMatch != null) return byIdMatch;
-        for (ShopItem i : byMaterial.values()) {
-            if (i.material().name().toLowerCase(Locale.ROOT).equals(key)) return i;
-        }
+        ShopItem x = getById(input);
+        if (x != null) return x;
+        try { return get(Material.valueOf(input.trim().toUpperCase(Locale.ROOT))); } catch (IllegalArgumentException ignored) { return null; }
+    }
+
+    /** Membuat shop baru beserta message.yml kosong. */
+    public boolean createShop(String name) throws IOException {
+        String safe = safeName(name);
+        if (safe.isBlank()) return false;
+        File dir = new File(plugin.getDataFolder(), "shop/" + safe);
+        if (dir.exists()) return false;
+        if (!dir.mkdirs() && !dir.isDirectory()) return false;
+        YamlConfiguration y = new YamlConfiguration();
+        y.set("id", randomId());
+        y.set("name", "§aSenzy-§bShop");
+        y.set("settings.rows", 6);
+        y.set("texture.category", new LinkedHashMap<>());
+        y.set("categories", new LinkedHashMap<>());
+        y.save(new File(dir, "message.yml"));
+        return true;
+    }
+
+    public boolean addCategory(int slot, String texture, String name) {
+        if (activeShop == null || name == null || name.isBlank() || slot < 0 || slot > 53) return false;
+        File dir = activeDir();
+        if (dir == null) return false;
+        File file = new File(dir, "message.yml");
+        YamlConfiguration y = YamlConfiguration.loadConfiguration(file);
+        String id = ShopCategory.normalize(name);
+        Material mat = material(texture, Material.CHEST);
+        y.set("categories." + id + ".slot", slot);
+        y.set("categories." + id + ".name", name);
+        y.set("categories." + id + ".texture", mat.name());
+        y.set("texture.category." + id, mat.name());
+        try { y.save(file); load(); return true; } catch (IOException e) { plugin.getLogger().log(Level.SEVERE, "Gagal menyimpan kategori", e); return false; }
+    }
+
+    public boolean addItem(String shopName, String categoryName, int slot, String itemName, int amount, double chance) {
+        if (slot < 0 || slot > 53 || amount < 0 || chance < 0.01 || chance > 1.0) return false;
+        File dir = new File(plugin.getDataFolder(), "shop/" + safeName(shopName));
+        if (!dir.isDirectory()) return false;
+        YamlConfiguration message = YamlConfiguration.loadConfiguration(new File(dir, "message.yml"));
+        String cat = ShopCategory.normalize(categoryName);
+        if (!message.isConfigurationSection("categories." + cat) && !message.contains("texture.category." + cat)) return false;
+        Material material = validate(itemName);
+        if (material == null) return false;
+        File file = new File(dir, cat + ".yml");
+        YamlConfiguration y = YamlConfiguration.loadConfiguration(file);
+        String key = material.name().toLowerCase(Locale.ROOT);
+        y.set("id", randomId());
+        y.set(key + ".material", material.name());
+        y.set(key + ".display-name", "&f" + pretty(material));
+        y.set(key + ".slot", slot);
+        y.set(key + ".category", cat);
+        y.set(key + ".buy-price", 0);
+        y.set(key + ".sell-price", 0);
+        y.set(key + ".enabled", true);
+        y.set(key + ".stock.min", Math.max(0, amount));
+        y.set(key + ".stock.max", Math.max(0, amount));
+        y.set(key + ".stock.chance", chance);
+        try { y.save(file); load(); return true; } catch (IOException e) { plugin.getLogger().log(Level.SEVERE, "Gagal menyimpan item", e); return false; }
+    }
+
+    public boolean setBuy(String shopName, String categoryName, int slot, long price) {
+        return setPriceCustom(shopName, categoryName, slot, "buy-price", price, false);
+    }
+    public boolean setSell(String shopName, String categoryName, int slot, String value) {
+        ShopItem item = itemAt(shopName, categoryName, slot);
+        if (item == null) return false;
+        long sell;
+        if (value.equalsIgnoreCase("sell_at_buy")) sell = Math.round(item.buyPrice() * 1.015d);
+        else try { sell = Long.parseLong(value); } catch (NumberFormatException e) { return false; }
+        return setPriceCustom(shopName, categoryName, slot, "sell-price", sell, true);
+    }
+    private boolean setPriceCustom(String shopName, String categoryName, int slot, String path, long price, boolean unused) {
+        if (price < 0) return false;
+        File dir = new File(plugin.getDataFolder(), "shop/" + safeName(shopName));
+        File file = new File(dir, ShopCategory.normalize(categoryName) + ".yml");
+        if (!file.isFile()) return false;
+        YamlConfiguration y = YamlConfiguration.loadConfiguration(file);
+        ShopItem item = itemAt(shopName, categoryName, slot);
+        if (item == null) return false;
+        y.set(item.id() + "." + path, price);
+        try { y.save(file); load(); return true; } catch (IOException e) { plugin.getLogger().log(Level.SEVERE, "Gagal menyimpan harga", e); return false; }
+    }
+    private ShopItem itemAt(String shopName, String categoryName, int slot) {
+        if (!safeName(shopName).equals(activeShop)) loadCustom(safeName(shopName), new File(plugin.getDataFolder(), "shop/" + safeName(shopName)));
+        ShopCategory c = category(categoryName);
+        if (c == null) return null;
+        for (ShopItem i : byCategory(c)) if (i.slot() == slot) return i;
         return null;
     }
 
-    /** Pencarian bebas dependency eksternal: cocokkan id config atau nama tampilan material. */
-    public List<ShopItem> search(String query) {
-        String needle = query.trim().toLowerCase(Locale.ROOT);
-        List<ShopItem> out = new ArrayList<>();
-        if (needle.isEmpty()) return out;
-        for (ShopItem i : byMaterial.values()) {
-            if (!i.enabled()) continue;
-            String name = ItemUtil.prettyName(i.material()).toLowerCase(Locale.ROOT);
-            if (i.id().contains(needle) || name.contains(needle)) out.add(i);
-        }
-        out.sort((a, b) -> ItemUtil.prettyName(a.material()).compareToIgnoreCase(ItemUtil.prettyName(b.material())));
-        return out;
+    private File activeDir() { return activeShop == null ? null : new File(plugin.getDataFolder(), "shop/" + activeShop); }
+    public String activeShop() { return activeShop; }
+    private static String safeName(String s) { return s == null ? "" : s.trim().toLowerCase(Locale.ROOT).replaceAll("[^a-z0-9_-]", "_"); }
+    private static String randomId() { return UUID.randomUUID().toString().replace("-", "").substring(0, 6); }
+    private static String colorOrDefault(String s, String fallback) { return s == null || s.isBlank() ? fallback : s; }
+    private static Material material(String s, Material fallback) {
+        if (s == null) return fallback;
+        String key = s.trim();
+        if (key.regionMatches(true, 0, "minecraft:", 0, 10)) key = key.substring(10);
+        Material m = Material.matchMaterial(key);
+        return m == null ? fallback : m;
     }
+    private static String pretty(Material m) { return Arrays.stream(m.name().toLowerCase(Locale.ROOT).split("_")).map(x -> x.isEmpty()?x:Character.toUpperCase(x.charAt(0))+x.substring(1)).reduce((a,b)->a+" "+b).orElse(m.name()); }
+    private void warn(String id, String reason) { plugin.getLogger().warning("Shop [" + id + "]: " + reason); }
 
-    /**
-     * Menulis harga baru LANGSUNG ke items.yml (dipakai /senzy admin setprice) lalu me-reload
-     * katalog di memori. Item MATERIAL bermode ORE_MULTIPLIER otomatis dikonversi ke FIXED,
-     * karena begitu admin menetapkan harga manual, item itu tidak lagi mengikuti harga ore.
-     */
-    public boolean setPrice(String itemId, boolean isBuyPrice, long price) {
-        ShopItem current = getById(itemId);
-        if (current == null || price < 0) return false;
-        File file = new File(plugin.getDataFolder(), "items.yml");
-        YamlConfiguration yaml = YamlConfiguration.loadConfiguration(file);
-        ConfigurationSection section = yaml.getConfigurationSection("items." + current.id());
-        if (section == null) return false;
-
-        long newBuy = isBuyPrice ? price : current.buyPrice();
-        long newSell = isBuyPrice ? current.sellPrice() : price;
-        if (newBuy > 0 && newSell > newBuy) return false;   // cegah celah cetak uang lewat setprice
-
-        section.set("price-mode", "FIXED");
-        section.set("buy-price", newBuy);
-        section.set("sell-price", newSell);
-        try {
-            yaml.save(file);
-        } catch (IOException e) {
-            plugin.getLogger().log(Level.SEVERE, "Gagal menyimpan items.yml", e);
-            return false;
-        }
-        load();
-        return true;
+    /** Hindari dependensi tambahan hanya untuk membersihkan legacy display-name. */
+    private static final class MessageUtilCompat {
+        static String plain(String s) { return s == null ? "" : s.replaceAll("&[0-9a-fk-or]", "").replaceAll("§.", ""); }
     }
 }

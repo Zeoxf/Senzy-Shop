@@ -4,7 +4,7 @@ import org.bukkit.Material;
 import java.util.Set;
 
 public record ShopItem(String id, Material material, ShopCategory category, boolean enabled,
-                       String displayName, long buyPrice, long sellPrice, int stockMin, int stockMax,
+                       String displayName, int slot, long buyPrice, long sellPrice, int stockMin, int stockMax,
                        double stockChance, Set<String> worlds, PriceMode priceMode, String oreReferenceId,
                        double multiplier, double sellRatio) {
     public boolean canBuy() { return enabled && buyPrice > 0; }

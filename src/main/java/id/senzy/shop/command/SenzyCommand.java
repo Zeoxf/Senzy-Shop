@@ -4,6 +4,7 @@ import id.senzy.shop.economy.EconomyManager;
 import id.senzy.shop.gui.GuiManager;
 import id.senzy.shop.restock.RestockManager;
 import id.senzy.shop.shop.TradeService;
+import id.senzy.shop.shop.ShopManager;
 import id.senzy.shop.util.MessageUtil;
 import id.senzy.shop.util.TimeUtil;
 import org.bukkit.command.Command;
@@ -25,15 +26,17 @@ public final class SenzyCommand implements CommandExecutor, TabCompleter {
     private final RestockManager restock;
     private final SenzyAdminCommand admin;
     private final MessageUtil msg;
+    private final ShopManager shop;
 
     public SenzyCommand(EconomyManager economy, GuiManager guis, TradeService trade, RestockManager restock,
-                        SenzyAdminCommand admin, MessageUtil msg) {
+                        SenzyAdminCommand admin, MessageUtil msg, ShopManager shop) {
         this.economy = economy;
         this.guis = guis;
         this.trade = trade;
         this.restock = restock;
         this.admin = admin;
         this.msg = msg;
+        this.shop = shop;
     }
 
     @Override
@@ -48,6 +51,14 @@ public final class SenzyCommand implements CommandExecutor, TabCompleter {
         }
         switch (args[0].toLowerCase(Locale.ROOT)) {
             case "shop" -> {
+                if (args.length >= 2 && isShopConfigCommand(args[1])) {
+                    if (!sender.hasPermission("senzy.shop.admin") && !sender.hasPermission("senzy.admin")) {
+                        msg.send(sender, "general.no-permission");
+                    } else {
+                        handleShopConfig(sender, args);
+                    }
+                    break;
+                }
                 if (args.length >= 3 && args[1].equalsIgnoreCase("admin") && args[2].equalsIgnoreCase("event")) {
                     if (!sender.hasPermission("senzy.shop.admin")) {
                         msg.send(sender, "general.no-permission");
@@ -101,6 +112,44 @@ public final class SenzyCommand implements CommandExecutor, TabCompleter {
         return true;
     }
 
+    private boolean isShopConfigCommand(String s) {
+        return switch (s.toLowerCase(Locale.ROOT)) {
+            case "addshop", "addcategory", "additem", "setbuy", "setsell" -> true;
+            default -> false;
+        };
+    }
+
+    private void handleShopConfig(CommandSender sender, String[] args) {
+        String sub = args[1].toLowerCase(Locale.ROOT);
+        try {
+            switch (sub) {
+                case "addshop" -> {
+                    if (args.length != 3) { sender.sendMessage("§c/senzy shop addshop <name>"); return; }
+                    sender.sendMessage(shop.createShop(args[2]) ? "§aShop dibuat: §f" + args[2] : "§cShop sudah ada atau nama tidak valid.");
+                }
+                case "addcategory" -> {
+                    if (args.length != 5) { sender.sendMessage("§c/senzy shop addcategory <slot> <texture> <name>"); return; }
+                    int slot = Integer.parseInt(args[2]);
+                    sender.sendMessage(shop.addCategory(slot, args[3], args[4]) ? "§aKategori ditambahkan: §f" + args[4] : "§cGagal menambah kategori.");
+                }
+                case "additem" -> {
+                    if (args.length != 8) { sender.sendMessage("§c/senzy shop additem <shop> <category> <slot> <item> <amount> <chance>"); return; }
+                    int slot=Integer.parseInt(args[4]); int amount=Integer.parseInt(args[6]); double chance=Double.parseDouble(args[7]);
+                    sender.sendMessage(shop.addItem(args[2],args[3],slot,args[5],amount,chance) ? "§aItem ditambahkan: §f"+args[5] : "§cGagal menambah item.");
+                }
+                case "setbuy" -> {
+                    if (args.length != 6) { sender.sendMessage("§c/senzy shop setbuy <shop> <category> <slot_item> <number_buy>"); return; }
+                    sender.sendMessage(shop.setBuy(args[2],args[3],Integer.parseInt(args[4]),Long.parseLong(args[5])) ? "§aHarga buy diperbarui." : "§cGagal memperbarui buy.");
+                }
+                case "setsell" -> {
+                    if (args.length != 6) { sender.sendMessage("§c/senzy shop setsell <shop> <category> <slot_item> <number_sell|sell_at_buy>"); return; }
+                    sender.sendMessage(shop.setSell(args[2],args[3],Integer.parseInt(args[4]),args[5]) ? "§aHarga sell diperbarui." : "§cGagal memperbarui sell.");
+                }
+            }
+            guis.refreshAll();
+        } catch (NumberFormatException e) { sender.sendMessage("§cAngka/slot tidak valid."); }
+    }
+
     private Player requirePlayer(CommandSender sender, String permission) {
         if (!(sender instanceof Player player)) {
             msg.send(sender, "general.players-only");
@@ -124,10 +173,13 @@ public final class SenzyCommand implements CommandExecutor, TabCompleter {
         if (args.length >= 2 && args[0].equalsIgnoreCase("admin") && sender.hasPermission("senzy.admin")) {
             return admin.complete(args);
         }
-        if (args.length >= 2 && args[0].equalsIgnoreCase("shop") && args[1].equalsIgnoreCase("admin")
-                && sender.hasPermission("senzy.shop.admin")) {
-            return filter(List.of("event"), args.length == 3 ? args[2] : "");
+        if (args.length >= 2 && args[0].equalsIgnoreCase("shop") && sender.hasPermission("senzy.shop.admin")) {
+            if (args.length == 2) return filter(List.of("addshop","addcategory","additem","setbuy","setsell","admin"), args[1]);
+            if (args[1].equalsIgnoreCase("additem") && args.length == 3) return filter(List.of(shop.activeShop()), args[2]);
+            if (args[1].equalsIgnoreCase("additem") && args.length == 4) return filter(new ArrayList<>(shop.categories().stream().map(c -> c.id()).toList()), args[3]);
         }
+        if (args.length >= 2 && args[0].equalsIgnoreCase("shop") && args[1].equalsIgnoreCase("admin")
+                && sender.hasPermission("senzy.shop.admin")) return filter(List.of("event"), args.length == 3 ? args[2] : "");
         return List.of(); // termasuk args[1] dari "shop-search": kata kunci bebas, tanpa saran tab
     }
 

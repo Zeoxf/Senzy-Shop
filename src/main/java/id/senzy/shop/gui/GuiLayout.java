@@ -2,114 +2,65 @@ package id.senzy.shop.gui;
 
 import id.senzy.shop.SenzyShop;
 import id.senzy.shop.shop.ShopCategory;
+import id.senzy.shop.shop.ShopManager;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 
-import java.util.ArrayList;
-import java.util.EnumMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-/** Semua posisi slot dibaca dari config.yml (bagian gui:) - tidak ada slot hardcode di class GUI. */
+/** Layout GUI; kategori/item slot utama berasal dari custom shop YAML. */
 public final class GuiLayout {
     private final SenzyShop plugin;
-
-    // ---- Main shop GUI ----
+    private ShopManager shop;
     public int mainRows = 6;
-    public final Map<ShopCategory, Integer> categorySlots = new EnumMap<>(ShopCategory.class);
-    public int mainSellSlot = 28;
-    public int mainBalanceSlot = 30;
-    public int mainContractsSlot = 32;
-    public int mainSearchSlot = 34;
-    public int mainRestockSlot = 40;
-    public int mainCloseSlot = 49;
-
-    // ---- List GUI (category / search) ----
+    public final Map<ShopCategory, Integer> categorySlots = new LinkedHashMap<>();
     public List<Integer> itemSlots = List.of();
-    public final Map<ShopCategory, List<Integer>> categoryItemSlots = new EnumMap<>(ShopCategory.class);
-    public int listRestockSlot = 45;
-    public int listPrevSlot = 47;
-    public int listBackSlot = 49;
-    public int listNextSlot = 51;
-    public int listBalanceSlot = 53;
-    public int listSellAllSlot = 47;
-
-    // ---- Contract GUI ----
-    public int contractDailyTabSlot = 3;
-    public int contractWeeklyTabSlot = 5;
+    public int listRestockSlot = 45, listPrevSlot = 47, listBackSlot = 49, listNextSlot = 51, listBalanceSlot = 53, listSellAllSlot = 47;
+    public int contractDailyTabSlot = 3, contractWeeklyTabSlot = 5;
     public List<Integer> contractSlots = List.of();
     public int contractBackSlot = 49;
-
-    // ---- Confirm (expensive purchase) GUI ----
-    public int confirmPreviewSlot = 13;
-    public int confirmYesSlot = 21;
-    public int confirmNoSlot = 23;
-
+    public int selectorRows = 3, selectorDecreaseSlot = 11, selectorConfirmSlot = 13, selectorIncreaseSlot = 15, selectorCancelSlot = 22;
+    public int confirmPreviewSlot = 13, confirmYesSlot = 21, confirmNoSlot = 23;
     public Material filler = Material.GRAY_STAINED_GLASS_PANE;
+    public Material selectorBackground = Material.PURPLE_STAINED_GLASS_PANE;
+    public Material selectorSide = Material.PINK_STAINED_GLASS_PANE;
     public long clickCooldownMs = 250L;
 
-    public GuiLayout(SenzyShop plugin) {
-        this.plugin = plugin;
-    }
+    public GuiLayout(SenzyShop plugin) { this.plugin = plugin; }
+    public void setShop(ShopManager shop) { this.shop = shop; }
 
     public void reload() {
         FileConfiguration c = plugin.getConfig();
         mainRows = clamp(c.getInt("gui.main.rows", 6), 1, 6);
         categorySlots.clear();
-        int categoryDefaultSlot = 10;
-        for (ShopCategory category : ShopCategory.values()) {
-            categorySlots.put(category, c.getInt("gui.main.category-slots." + category.name(), categoryDefaultSlot++));
-        }
-        mainSellSlot = c.getInt("gui.main.sell-slot", 28);
-        mainBalanceSlot = c.getInt("gui.main.balance-slot", 30);
-        mainContractsSlot = c.getInt("gui.main.contracts-slot", 32);
-        mainSearchSlot = c.getInt("gui.main.search-slot", 34);
-        mainRestockSlot = c.getInt("gui.main.restock-slot", 40);
-        mainCloseSlot = c.getInt("gui.main.close-slot", 49);
-
+        if (shop != null) for (ShopCategory cat : shop.categories()) categorySlots.put(cat, cat.slot());
         int rows = clamp(c.getInt("gui.list.item-rows", 5), 1, 5);
         itemSlots = readSlots(c.getIntegerList("gui.list.item-slots"), slotRange(0, rows), 54);
-        categoryItemSlots.clear();
-        for (ShopCategory category : ShopCategory.values()) {
-            List<Integer> configured = c.getIntegerList("gui.list.category-slots." + category.name());
-            categoryItemSlots.put(category, readSlots(configured, itemSlots, 54));
-        }
         listRestockSlot = c.getInt("gui.list.restock-slot", 45);
         listPrevSlot = c.getInt("gui.list.prev-slot", 47);
         listBackSlot = c.getInt("gui.list.back-slot", 49);
         listNextSlot = c.getInt("gui.list.next-slot", 51);
         listBalanceSlot = c.getInt("gui.list.balance-slot", 53);
         listSellAllSlot = c.getInt("gui.list.sellall-slot", 47);
-
         contractDailyTabSlot = c.getInt("gui.contract.daily-tab-slot", 3);
         contractWeeklyTabSlot = c.getInt("gui.contract.weekly-tab-slot", 5);
-        int contractRows = clamp(c.getInt("gui.contract.item-rows", 3), 1, 4);
-        contractSlots = slotRange(9, contractRows);
+        contractSlots = slotRange(9, clamp(c.getInt("gui.contract.item-rows", 3), 1, 4));
         contractBackSlot = c.getInt("gui.contract.back-slot", 49);
-
+        selectorRows = 3;
+        selectorDecreaseSlot = c.getInt("gui.amount-selector.decrease-slot", 11);
+        selectorConfirmSlot = c.getInt("gui.amount-selector.confirm-slot", 13);
+        selectorIncreaseSlot = c.getInt("gui.amount-selector.increase-slot", 15);
+        selectorCancelSlot = c.getInt("gui.amount-selector.cancel-slot", 22);
         confirmPreviewSlot = c.getInt("gui.confirm.preview-slot", 13);
         confirmYesSlot = c.getInt("gui.confirm.yes-slot", 21);
         confirmNoSlot = c.getInt("gui.confirm.no-slot", 23);
-
-        Material f = Material.matchMaterial(c.getString("gui.filler", "GRAY_STAINED_GLASS_PANE"));
-        filler = f != null && f.isItem() ? f : Material.GRAY_STAINED_GLASS_PANE;
+        filler = material(c.getString("gui.filler", "GRAY_STAINED_GLASS_PANE"), Material.GRAY_STAINED_GLASS_PANE);
+        selectorBackground = material(c.getString("gui.amount-selector.background", "PURPLE_STAINED_GLASS_PANE"), Material.PURPLE_STAINED_GLASS_PANE);
+        selectorSide = material(c.getString("gui.amount-selector.side", "PINK_STAINED_GLASS_PANE"), Material.PINK_STAINED_GLASS_PANE);
         clickCooldownMs = Math.max(0L, c.getLong("gui.click-cooldown-ms", 250L));
     }
-
-    private static List<Integer> readSlots(List<Integer> configured, List<Integer> fallback, int size) {
-        if (configured == null || configured.isEmpty()) return fallback;
-        List<Integer> out = new ArrayList<>();
-        for (Integer slot : configured) if (slot != null && slot >= 0 && slot < size && !out.contains(slot)) out.add(slot);
-        return out.isEmpty() ? fallback : List.copyOf(out);
-    }
-
-    private static List<Integer> slotRange(int startSlot, int rows) {
-        List<Integer> slots = new ArrayList<>();
-        for (int i = 0; i < rows * 9; i++) slots.add(startSlot + i);
-        return List.copyOf(slots);
-    }
-
-    private static int clamp(int v, int min, int max) {
-        return Math.max(min, Math.min(max, v));
-    }
+    private static Material material(String s, Material fallback) { Material m = Material.matchMaterial(s); return m == null ? fallback : m; }
+    private static int clamp(int v, int min, int max) { return Math.max(min, Math.min(max, v)); }
+    private static List<Integer> slotRange(int startRow, int rows) { List<Integer> out = new ArrayList<>(); for (int r=0;r<rows;r++) for(int c=0;c<9;c++) out.add((startRow+r)*9+c); return out; }
+    private static List<Integer> readSlots(List<Integer> configured, List<Integer> fallback, int size) { if(configured==null||configured.isEmpty()) return fallback; LinkedHashSet<Integer> set=new LinkedHashSet<>(); for(Integer s:configured) if(s!=null&&s>=0&&s<size)set.add(s); return List.copyOf(set); }
 }

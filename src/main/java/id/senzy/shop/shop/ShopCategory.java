@@ -3,43 +3,34 @@ package id.senzy.shop.shop;
 import org.bukkit.Material;
 
 import java.util.Locale;
+import java.util.Objects;
 
-public enum ShopCategory {
-    NATURAL("&2&lNatural", Material.GRASS_BLOCK),
-    ORE("&b&lOre", Material.RAW_IRON),
-    MATERIAL("&f&lMaterial", Material.IRON_INGOT),
-    FARMING("&e&lFarming", Material.WHEAT),
-    ANIMALS("&6&lAnimals", Material.BEEF),
-    FOOD("&c&lFood", Material.BREAD),
-    WOOD("&6&lWood", Material.OAK_LOG),
-    NETHER("&4&lNether", Material.NETHERRACK),
-    END("&5&lEnd", Material.END_STONE),
-    BUILDING("&e&lBuilding", Material.BRICKS),
-    UTILITY("&3&lUtility", Material.BUCKET),
-    SPECIAL("&d&lSpecial", Material.NETHER_STAR);
-
+/** Kategori shop bersifat dinamis dan dibaca dari shop/<shop>/message.yml. */
+public final class ShopCategory {
+    private final String id;
     private final String displayName;
     private final Material icon;
+    private final int slot;
 
-    ShopCategory(String displayName, Material icon) {
-        this.displayName = displayName;
-        this.icon = icon;
+    public ShopCategory(String id, String displayName, Material icon, int slot) {
+        this.id = normalize(id);
+        this.displayName = displayName == null || displayName.isBlank() ? this.id : displayName;
+        this.icon = icon == null ? Material.CHEST : icon;
+        this.slot = Math.max(0, Math.min(53, slot));
     }
 
-    public String displayName() {
-        return displayName;
+    public String id() { return id; }
+    public String displayName() { return displayName; }
+    public Material icon() { return icon; }
+    public int slot() { return slot; }
+
+    public static String normalize(String value) {
+        return value == null ? "" : value.trim().toLowerCase(Locale.ROOT).replace(' ', '_');
     }
 
-    public Material icon() {
-        return icon;
+    @Override public boolean equals(Object o) {
+        return o instanceof ShopCategory other && id.equals(other.id);
     }
-
-    public static ShopCategory fromString(String value) {
-        if (value == null) return null;
-        try {
-            return valueOf(value.trim().toUpperCase(Locale.ROOT));
-        } catch (IllegalArgumentException e) {
-            return null;
-        }
-    }
+    @Override public int hashCode() { return Objects.hash(id); }
+    @Override public String toString() { return id; }
 }

@@ -13,74 +13,27 @@ import org.bukkit.inventory.Inventory;
 import java.util.Map;
 
 public final class MainShopGUI extends AbstractGui {
-
-    public MainShopGUI(GuiManager gui, Player viewer) {
-        super(gui, viewer);
-    }
-
-    @Override
-    protected Inventory createInventory() {
+    public MainShopGUI(GuiManager gui, Player viewer) { super(gui, viewer); }
+    @Override protected Inventory createInventory() {
         return Bukkit.createInventory(this, gui.layout().mainRows * 9, gui.messages().component("gui.main.title"));
     }
-
-    @Override
-    public void render() {
-        GuiLayout layout = gui.layout();
-        MessageUtil m = gui.messages();
-        inventory.clear();
-        fillBackground();
-
-        for (ShopCategory category : ShopCategory.values()) {
-            Integer slot = layout.categorySlots.get(category);
-            if (slot == null) continue;
-            int count = 0;
-            for (ShopItem item : gui.shop().byCategory(category)) if (item.enabled()) count++;
-            set(slot, ItemUtil.icon(category.icon(), 1, MessageUtil.color(category.displayName()),
+    @Override public void render() {
+        MessageUtil m = gui.messages(); inventory.clear(); fillBackground();
+        for (ShopCategory category : gui.shop().categories()) {
+            int count = 0; for (ShopItem item : gui.shop().byCategory(category)) if (item.enabled()) count++;
+            set(category.slot(), ItemUtil.icon(category.icon(), 1, MessageUtil.color(category.displayName()),
                     m.list("gui.main.category-lore", "count", count)));
         }
-        set(layout.mainSellSlot, ItemUtil.icon(Material.EMERALD, 1, m.component("gui.main.sell-name"),
-                m.list("gui.main.sell-lore")));
-        set(layout.mainBalanceSlot, gui.balanceIcon(viewer));
-        set(layout.mainContractsSlot, ItemUtil.icon(Material.WRITABLE_BOOK, 1, m.component("gui.main.contracts-name"),
-                m.list("gui.main.contracts-lore")));
-        set(layout.mainSearchSlot, ItemUtil.icon(Material.COMPASS, 1, m.component("gui.main.search-name"),
-                m.list("gui.main.search-lore")));
-        set(layout.mainCloseSlot, ItemUtil.icon(Material.BARRIER, 1, m.component("gui.main.close-name"), null));
-        updateClock();
+        set(28, ItemUtil.icon(Material.EMERALD, 1, m.component("gui.main.sell-name"), m.list("gui.main.sell-lore")));
+        set(30, gui.balanceIcon(viewer)); set(32, ItemUtil.icon(Material.WRITABLE_BOOK,1,m.component("gui.main.contracts-name"),m.list("gui.main.contracts-lore")));
+        set(34, ItemUtil.icon(Material.COMPASS,1,m.component("gui.main.search-name"),m.list("gui.main.search-lore")));
+        set(40, gui.restockIcon()); set(49, ItemUtil.icon(Material.BARRIER,1,m.component("gui.main.close-name"),null));
     }
-
-    @Override
-    public void updateClock() {
-        set(gui.layout().mainRestockSlot, gui.restockIcon());
-    }
-
-    @Override
-    public void onClick(int slot, ClickType type) {
-        GuiLayout layout = gui.layout();
-        if (slot == layout.mainCloseSlot) {
-            gui.later(viewer::closeInventory);
-            return;
-        }
-        if (slot == layout.mainSellSlot) {
-            gui.openSell(viewer);
-            return;
-        }
-        if (slot == layout.mainContractsSlot) {
-            gui.openContract(viewer);
-            return;
-        }
-        if (slot == layout.mainSearchSlot) {
-            // Tidak lagi menutup GUI + menangkap chat (rawan bentrok dengan plugin chat lain
-            // dan gampang macet menunggu input). Cukup arahkan ke command "/senzy shop-search
-            // <keyword>" yang langsung membuka peti hasil pencarian.
-            gui.messages().send(viewer, "search.use-command");
-            return;
-        }
-        for (Map.Entry<ShopCategory, Integer> e : layout.categorySlots.entrySet()) {
-            if (e.getValue() == slot) {
-                gui.openCategory(viewer, e.getKey(), 0);
-                return;
-            }
-        }
+    @Override public void updateClock() { set(40, gui.restockIcon()); }
+    @Override public void onClick(int slot, ClickType type) {
+        if(slot==49){gui.later(viewer::closeInventory);return;}
+        if(slot==28){gui.openSell(viewer);return;} if(slot==32){gui.openContract(viewer);return;}
+        if(slot==34){gui.messages().send(viewer,"search.use-command");return;}
+        for(ShopCategory c:gui.shop().categories()) if(c.slot()==slot){gui.openCategory(viewer,c,0);return;}
     }
 }

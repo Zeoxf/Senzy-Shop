@@ -122,6 +122,18 @@ public final class TradeService {
         return new BuyPlan(true, item, amount, cost);
     }
 
+    /** Maksimum pembelian yang valid saat selector dibuka: stok + saldo + kapasitas inventory. */
+    public int maxBuyable(Player p, ShopItem requestedItem) {
+        ShopItem item = shop.get(requestedItem.material());
+        if (item == null || !item.canBuy() || !item.allowedIn(p.getWorld().getName())) return 0;
+        int available = stock.getStock(item);
+        long price = events.buyPrice(item);
+        if (available <= 0 || price <= 0) return 0;
+        long affordable = economy.getBalance(p.getUniqueId()) / price;
+        int space = ItemUtil.capacityFor(p.getInventory(), item.material());
+        return (int) Math.max(0, Math.min(Math.min((long) available, affordable), (long) space));
+    }
+
     // ------------------------------------------------------------------ BUY
 
     private boolean doBuy(Player p, ShopItem requestedItem, int requested) {

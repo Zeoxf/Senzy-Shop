@@ -71,7 +71,7 @@ public final class GuiManager {
 
     public void openCategory(Player player, ShopCategory category, int page) {
         later(() -> {
-            if (player.isOnline()) new CategoryGUI(this, player, category, page).open();
+            if (player.isOnline() && category != null) new CategoryGUI(this, player, category).open();
         });
     }
 
@@ -90,6 +90,19 @@ public final class GuiManager {
     public void openSearchResults(Player player, String query, int page) {
         later(() -> {
             if (player.isOnline()) new SearchGUI(this, player, query, page).open();
+        });
+    }
+
+    /** Membuka selector jumlah. Nilai awal selalu 1 dan dibatasi stok/inventory/balance. */
+    public void openAmountSelector(Player player, ShopItem item) {
+        later(() -> {
+            if (!player.isOnline()) return;
+            int max = trade.maxBuyable(player, item);
+            if (max <= 0) {
+                messages.send(player, "trade.out-of-stock");
+                return;
+            }
+            new AmountSelectorGUI(this, player, item, 1, max).open();
         });
     }
 

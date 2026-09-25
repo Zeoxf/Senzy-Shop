@@ -1,3 +1,4 @@
+default-shop: senzyshop
 # ============================================================
 #  SenzyShop V1.1 - config.yml
 # ============================================================
@@ -51,6 +52,13 @@ gui:
   # Jeda minimum antar klik (ms) per pemain - anti spam klik
   click-cooldown-ms: 250
   filler: GRAY_STAINED_GLASS_PANE
+  amount-selector:
+    background: PURPLE_STAINED_GLASS_PANE
+    side: PINK_STAINED_GLASS_PANE
+    decrease-slot: 11
+    confirm-slot: 13
+    increase-slot: 15
+    cancel-slot: 22
   main:
     rows: 6
     category-slots:

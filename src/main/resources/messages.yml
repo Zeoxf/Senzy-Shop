@@ -115,6 +115,19 @@ gui:
     restock-lore:
       - "&7Stok diacak ulang secara berkala."
     close-name: "&cTutup"
+  amount-selector:
+    title: "&5&lSenzy &d» &fJumlah Pembelian"
+    decrease: "&d&l- &fKurangi jumlah"
+    increase: "&d&l+ &fTambah jumlah"
+    confirm: "&d&lYakin ingin membeli &f{amount}&d&l item?"
+    lore:
+      - ""
+      - "&7Item: &f{item}"
+      - "&7Jumlah: &f{amount} &7/ &f{max}"
+      - "&7Total: &e{total}"
+      - ""
+      - "&aKlik untuk konfirmasi pembelian"
+    cancel: "&cBatal"
   category:
     title: "&8Senzy &7» {category} &8({page}/{pages})"
     prev: "&e« Halaman sebelumnya"

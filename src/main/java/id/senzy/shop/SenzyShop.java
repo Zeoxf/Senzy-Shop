@@ -94,6 +94,7 @@ public final class SenzyShop extends JavaPlugin {
                     transactionRepo, messages, contracts, events);
 
             layout = new GuiLayout(this);
+            layout.setShop(shop);
             layout.reload();
             guis = new GuiManager(this, layout, shop, stock, economy, trade, restock, contracts, messages, events);
             restock.setHooks(() -> { events.tick(); guis.tickClocks(); }, guis::refreshAll);
@@ -102,7 +103,7 @@ public final class SenzyShop extends JavaPlugin {
 
             SenzyAdminCommand adminCommand = new SenzyAdminCommand(this, economy, shop, stock, restock,
                     database, transactionRepo, guis, messages, events);
-            SenzyCommand command = new SenzyCommand(economy, guis, trade, restock, adminCommand, messages);
+            SenzyCommand command = new SenzyCommand(economy, guis, trade, restock, adminCommand, messages, shop);
             PluginCommand senzy = Objects.requireNonNull(getCommand("senzy"), "command senzy tidak ada di plugin.yml");
             senzy.setExecutor(command);
             senzy.setTabCompleter(command);
@@ -172,8 +173,9 @@ public final class SenzyShop extends JavaPlugin {
         guis.closeAll();
         reloadConfig();
         messages.reload();
-        layout.reload();
         shop.load();
+        layout.setShop(shop);
+        layout.reload();
         events.load();
         stock.reconcile();
         restock.onConfigReload();
