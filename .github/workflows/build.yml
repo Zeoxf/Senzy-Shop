@@ -34,9 +34,53 @@ jobs:
           echo "=== JAR FILES ==="
           find target -maxdepth 1 -type f -name "*.jar" -print || true
 
-      - name: Upload JAR
+      - name: Prepare JAR ZIP
+        run: |
+          mkdir -p release/jar
+          cp target/*.jar release/jar/SenzyShop.jar
+
+          cd release/jar
+          zip -r ../../SenzyShop-JAR.zip SenzyShop.jar
+
+      - name: Prepare Source ZIP
+        run: |
+          mkdir -p release/source
+
+          cp -r src release/source/
+          cp pom.xml release/source/
+
+          if [ -f README.md ]; then
+            cp README.md release/source/
+          fi
+
+          if [ -f LICENSE ]; then
+            cp LICENSE release/source/
+          fi
+
+          cd release/source
+          zip -r ../../SenzyShop-Source.zip .
+
+      - name: Verify ZIP files
+        run: |
+          echo "=== JAR ZIP ==="
+          ls -lh SenzyShop-JAR.zip
+          unzip -l SenzyShop-JAR.zip
+
+          echo ""
+          echo "=== SOURCE ZIP ==="
+          ls -lh SenzyShop-Source.zip
+          unzip -l SenzyShop-Source.zip
+
+      - name: Upload JAR ZIP
         uses: actions/upload-artifact@v7
         with:
-          name: SenzyShop
-          path: target/*.jar
+          name: SenzyShop-JAR
+          path: SenzyShop-JAR.zip
+          if-no-files-found: error
+
+      - name: Upload Source ZIP
+        uses: actions/upload-artifact@v7
+        with:
+          name: SenzyShop-Source
+          path: SenzyShop-Source.zip
           if-no-files-found: error
