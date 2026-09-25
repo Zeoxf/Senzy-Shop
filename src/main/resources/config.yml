@@ -26,11 +26,12 @@ restock:
 
 # Nilai default jika sebuah item di items.yml tidak punya bagian "stock"
 stock:
+  # chance menggunakan skala 0.0-1.0 (1.0=100%, 0.01=1%).
   # false = semua item selalu terisi penuh saat restock (tanpa random)
   enabled: true
   default-min: 0
   default-max: 64
-  default-chance: 100
+  default-chance: 1.0
 
 contracts:
   enabled: true
@@ -59,6 +60,12 @@ gui:
       FARMING: 14
       ANIMALS: 15
       FOOD: 16
+      WOOD: 17
+      NETHER: 18
+      END: 19
+      BUILDING: 20
+      UTILITY: 21
+      SPECIAL: 22
     sell-slot: 28
     balance-slot: 30
     contracts-slot: 32
@@ -66,8 +73,18 @@ gui:
     restock-slot: 40
     close-slot: 49
   list:
-    # Jumlah baris area item (maks 5). Dipakai untuk GUI kategori & hasil pencarian.
+    # Layout item dapat diatur bebas. Slot yang tidak diisi tetap filler glass.
     item-rows: 5
+    # Opsional: daftar slot global. Jika diisi, menjadi fallback semua kategori.
+    item-slots: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44]
+    # Slot per kategori. Contoh: items hanya muncul pada slot yang kamu tentukan.
+    category-slots:
+      NATURAL: [10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25, 28, 29, 30, 31, 32, 33, 34]
+      ORE: [10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25]
+      MATERIAL: [10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25]
+      FARMING: [10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25]
+      ANIMALS: [10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25]
+      FOOD: [10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25]
     restock-slot: 45
     prev-slot: 47
     back-slot: 49

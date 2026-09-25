@@ -26,7 +26,7 @@ public final class RestockGenerator {
             if (item.enabled()) {
                 if (!randomEnabled) {
                     amount = item.stockMax();
-                } else if (random.nextInt(100) < item.stockChance()) {
+                } else if (random.nextDouble() < item.stockChance()) {
                     amount = item.stockMin() >= item.stockMax()
                             ? item.stockMin()
                             : random.nextInt(item.stockMin(), item.stockMax() + 1);

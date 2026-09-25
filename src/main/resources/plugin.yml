@@ -31,3 +31,6 @@ permissions:
   senzy.admin:
     description: Semua perintah admin SenzyShop
     default: op
+  senzy.shop.admin:
+    description: Administrasi layout, stock, dan event Shop
+    default: op

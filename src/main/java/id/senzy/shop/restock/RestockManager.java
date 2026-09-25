@@ -7,6 +7,7 @@ import id.senzy.shop.database.StockRecord;
 import id.senzy.shop.database.StockRepository;
 import id.senzy.shop.shop.ShopManager;
 import id.senzy.shop.shop.StockManager;
+import id.senzy.shop.shop.ShopItem;
 import id.senzy.shop.util.MessageUtil;
 import id.senzy.shop.util.TimeUtil;
 import org.bukkit.Bukkit;
@@ -147,8 +148,17 @@ public final class RestockManager {
         String sound = plugin.getConfig().getString("restock.sound", "");
         float volume = (float) plugin.getConfig().getDouble("restock.sound-volume", 0.8);
         float pitch = (float) plugin.getConfig().getDouble("restock.sound-pitch", 1.2);
+        List<ShopItem> rare = new java.util.ArrayList<>();
+        for (ShopItem item : shop.all()) {
+            if (item.stockChance() <= 0.01 + 1.0e-9 && stock.getStock(item) > 0) rare.add(item);
+        }
         for (Player p : Bukkit.getOnlinePlayers()) {
             msg.send(p, "restock.announce", "interval", interval);
+            for (ShopItem item : rare) {
+                p.sendMessage(org.bukkit.ChatColor.GOLD + "" + org.bukkit.ChatColor.BOLD + "SENZY MARKET");
+                p.sendMessage(org.bukkit.ChatColor.YELLOW + "✦ " + org.bukkit.ChatColor.WHITE + item.displayName()
+                        + org.bukkit.ChatColor.GRAY + " | Stock: " + org.bukkit.ChatColor.RED + stock.getStock(item));
+            }
             if (sound != null && !sound.isBlank()) p.playSound(p.getLocation(), sound, volume, pitch);
         }
     }

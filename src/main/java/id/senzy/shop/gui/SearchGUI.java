@@ -91,9 +91,9 @@ public final class SearchGUI extends AbstractGui {
                 "stockcolor", stock > 0 ? "&a" : "&c",
                 "stock", stock,
                 "max", gui.stock().getMax(item),
-                "buy", item.canBuy() ? m.money(item.buyPrice()) : "-",
-                "sell", item.canSell() ? m.money(item.sellPrice()) : "-");
-        return ItemUtil.icon(item.material(), 1, null, lore);
+                "buy", item.canBuy() ? m.money(gui.events().buyPrice(item)) : "-",
+                "sell", item.canSell() ? m.money(gui.events().sellPrice(item)) : "-");
+        return ItemUtil.icon(item.material(), Math.max(1, Math.min(item.material().getMaxStackSize(), stock)), MessageUtil.color(item.displayName()), lore);
     }
 
     @Override

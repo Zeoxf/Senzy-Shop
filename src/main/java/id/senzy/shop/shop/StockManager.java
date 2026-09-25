@@ -95,6 +95,16 @@ public final class StockManager {
         }
     }
 
+    /** Dipakai event runtime untuk membuat stok terbatas tanpa menunggu restock global. */
+    public void setRuntimeStock(ShopItem item, int amount) {
+        Entry e = entry(item);
+        e.stock = Math.max(0, amount);
+        e.max = e.stock;
+        e.updatedAt = System.currentTimeMillis();
+        StockRecord snap = snapshot(item);
+        db.run(c -> repo.save(c, snap));
+    }
+
     public StockRecord snapshot(ShopItem item) {
         Entry e = entry(item);
         return new StockRecord(item.material().name(), item.category().name(), e.stock, e.max,

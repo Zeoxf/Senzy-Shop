@@ -1,6 +1,7 @@
 package id.senzy.shop.shop;
 
 import id.senzy.shop.contract.ContractManager;
+import id.senzy.shop.event.ShopEventManager;
 import id.senzy.shop.database.DatabaseManager;
 import id.senzy.shop.database.PlayerRecord;
 import id.senzy.shop.database.PlayerRepository;
@@ -36,11 +37,12 @@ public final class TradeService {
     private final TransactionRepository transactions;
     private final MessageUtil msg;
     private final ContractManager contracts;
+    private final ShopEventManager events;
     private final Set<UUID> busy = new HashSet<>();
 
     public TradeService(ShopManager shop, StockManager stock, EconomyManager economy, DatabaseManager db,
                         PlayerRepository players, StockRepository stocks, TransactionRepository transactions,
-                        MessageUtil msg, ContractManager contracts) {
+                        MessageUtil msg, ContractManager contracts, ShopEventManager events) {
         this.shop = shop;
         this.stock = stock;
         this.economy = economy;
@@ -50,6 +52,7 @@ public final class TradeService {
         this.transactions = transactions;
         this.msg = msg;
         this.contracts = contracts;
+        this.events = events;
     }
 
     /** Hasil perhitungan pembelian TANPA efek samping - dipakai GUI untuk cek "expensive purchase". */
@@ -96,7 +99,7 @@ public final class TradeService {
         if (item == null || !item.canBuy() || !item.allowedIn(p.getWorld().getName())) return BuyPlan.FAIL;
         int available = stock.getStock(item);
         if (available <= 0) return BuyPlan.FAIL;
-        long price = item.buyPrice();
+        long price = events.buyPrice(item);
         long balance = economy.getBalance(p.getUniqueId());
         if (balance < price) return BuyPlan.FAIL;
         int space = ItemUtil.capacityFor(p.getInventory(), item.material());
@@ -134,7 +137,7 @@ public final class TradeService {
             msg.send(p, "trade.out-of-stock");
             return false;
         }
-        long price = item.buyPrice();
+        long price = events.buyPrice(item);
         long balance = economy.getBalance(id);
         if (balance < price) {
             msg.send(p, "trade.insufficient-balance");
@@ -222,9 +225,10 @@ public final class TradeService {
             return false;
         }
         int amount = requested < 0 ? have : Math.min(requested, have);
+        long sellPrice = events.sellPrice(item);
         long credit;
         try {
-            credit = Math.multiplyExact(item.sellPrice(), (long) amount);
+            credit = Math.multiplyExact(sellPrice, (long) amount);
         } catch (ArithmeticException e) {
             msg.send(p, "trade.invalid");
             return false;
@@ -238,7 +242,7 @@ public final class TradeService {
             msg.send(p, "trade.no-item");
             return false;
         }
-        long real = item.sellPrice() * removed;     // kredit selalu dihitung dari item yang BENAR-BENAR terhapus
+        long real = sellPrice * removed;     // kredit selalu dihitung dari item yang BENAR-BENAR terhapus
         long before = economy.getBalance(id);
         if (!economy.depositMemory(id, real)) {
             ItemUtil.give(inv, material, removed);  // rollback
@@ -272,9 +276,10 @@ public final class TradeService {
             Material material = item.material();
             int have = ItemUtil.countPlain(inv, material);
             if (have <= 0) continue;
+            long sellPrice = events.sellPrice(item);
             long credit;
             try {
-                credit = Math.multiplyExact(item.sellPrice(), (long) have);
+                credit = Math.multiplyExact(sellPrice, (long) have);
             } catch (ArithmeticException e) {
                 continue;
             }
@@ -284,7 +289,7 @@ public final class TradeService {
             }
             int removed = ItemUtil.removePlain(inv, material, have);
             if (removed <= 0) continue;
-            long real = item.sellPrice() * removed;
+            long real = sellPrice * removed;
             long before = economy.getBalance(id);
             if (!economy.depositMemory(id, real)) {
                 ItemUtil.give(inv, material, removed);

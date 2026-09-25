@@ -48,6 +48,15 @@ public final class SenzyCommand implements CommandExecutor, TabCompleter {
         }
         switch (args[0].toLowerCase(Locale.ROOT)) {
             case "shop" -> {
+                if (args.length >= 3 && args[1].equalsIgnoreCase("admin") && args[2].equalsIgnoreCase("event")) {
+                    if (!sender.hasPermission("senzy.shop.admin")) {
+                        msg.send(sender, "general.no-permission");
+                    } else {
+                        String[] eventArgs = Arrays.copyOfRange(args, 3, args.length);
+                        admin.execute(sender, prepend("event", eventArgs));
+                    }
+                    break;
+                }
                 Player p = requirePlayer(sender, "senzy.shop");
                 if (p != null) guis.openMain(p);
             }
@@ -115,7 +124,18 @@ public final class SenzyCommand implements CommandExecutor, TabCompleter {
         if (args.length >= 2 && args[0].equalsIgnoreCase("admin") && sender.hasPermission("senzy.admin")) {
             return admin.complete(args);
         }
+        if (args.length >= 2 && args[0].equalsIgnoreCase("shop") && args[1].equalsIgnoreCase("admin")
+                && sender.hasPermission("senzy.shop.admin")) {
+            return filter(List.of("event"), args.length == 3 ? args[2] : "");
+        }
         return List.of(); // termasuk args[1] dari "shop-search": kata kunci bebas, tanpa saran tab
+    }
+
+    private static String[] prepend(String first, String[] rest) {
+        String[] out = new String[rest.length + 1];
+        out[0] = first;
+        System.arraycopy(rest, 0, out, 1, rest.length);
+        return out;
     }
 
     static List<String> filter(List<String> options, String prefix) {

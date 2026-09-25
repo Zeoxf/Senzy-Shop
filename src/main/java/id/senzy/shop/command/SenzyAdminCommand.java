@@ -5,6 +5,7 @@ import id.senzy.shop.database.DatabaseManager;
 import id.senzy.shop.database.TransactionRecord;
 import id.senzy.shop.database.TransactionRepository;
 import id.senzy.shop.economy.EconomyManager;
+import id.senzy.shop.event.ShopEventManager;
 import id.senzy.shop.gui.GuiManager;
 import id.senzy.shop.restock.RestockManager;
 import id.senzy.shop.shop.ShopItem;
@@ -34,10 +35,11 @@ public final class SenzyAdminCommand {
     private final TransactionRepository transactions;
     private final GuiManager guis;
     private final MessageUtil msg;
+    private final ShopEventManager events;
 
     public SenzyAdminCommand(SenzyShop plugin, EconomyManager economy, ShopManager shop, StockManager stock,
                              RestockManager restock, DatabaseManager db, TransactionRepository transactions,
-                             GuiManager guis, MessageUtil msg) {
+                             GuiManager guis, MessageUtil msg, ShopEventManager events) {
         this.plugin = plugin;
         this.economy = economy;
         this.shop = shop;
@@ -47,11 +49,12 @@ public final class SenzyAdminCommand {
         this.transactions = transactions;
         this.guis = guis;
         this.msg = msg;
+        this.events = events;
     }
 
     /** args = argumen SETELAH kata "admin". */
     public void execute(CommandSender sender, String[] args) {
-        if (!sender.hasPermission("senzy.admin")) {
+        if (!sender.hasPermission("senzy.admin") && !sender.hasPermission("senzy.shop.admin")) {
             msg.send(sender, "general.no-permission");
             return;
         }
@@ -73,6 +76,8 @@ public final class SenzyAdminCommand {
             case "setstock" -> setStock(sender, args);
             case "setprice" -> setPrice(sender, args);
             case "logs" -> logs(sender, args);
+            case "stock" -> stockDebug(sender);
+            case "event" -> event(sender, args);
             default -> msg.send(sender, "admin.help");
         }
     }
@@ -153,6 +158,65 @@ public final class SenzyAdminCommand {
         guis.refreshAll();
     }
 
+    private void stockDebug(CommandSender sender) {
+        sender.sendMessage("§6§lSENZY STOCK DEBUG");
+        for (ShopItem item : shop.all()) {
+            sender.sendMessage("§e" + item.id() + " §7| chance §f" + (item.stockChance()*100.0)
+                    + "% §7| min-max §f" + item.stockMin() + "-" + item.stockMax()
+                    + " §7| current §f" + stock.getStock(item) + "/" + stock.getMax(item));
+        }
+    }
+
+    private void event(CommandSender sender, String[] args) {
+        if (args.length < 2) {
+            sender.sendMessage("§e/senzy admin event <list|create|start|stop|delete|info> <name>");
+            sender.sendMessage("§e/senzy shop admin event <name>  §7= start event");
+            return;
+        }
+        String action = args[1].toLowerCase(Locale.ROOT);
+        if (action.equals("list")) {
+            sender.sendMessage("§6§lSENZY EVENTS");
+            for (ShopEventManager.ShopEvent e : events.all()) {
+                sender.sendMessage("§e" + e.id() + " §7- " + e.displayName() +
+                        (e.id().equals(events.activeId()) ? " §a[ACTIVE]" : ""));
+            }
+            return;
+        }
+        if (!action.equals("create") && !action.equals("start") && !action.equals("stop")
+                && !action.equals("delete") && !action.equals("info")) {
+            // shorthand: /senzy shop admin event <name>
+            ShopEventManager.ShopEvent e = events.get(action);
+            if (e == null) { sender.sendMessage("§cEvent tidak ditemukan: " + action); return; }
+            events.start(action, null);
+            guis.refreshAll();
+            sender.sendMessage("§aEvent " + action + " dimulai.");
+            return;
+        }
+        if (args.length < 3) { sender.sendMessage("§cNama event diperlukan."); return; }
+        String id = args[2];
+        switch (action) {
+            case "create" -> sender.sendMessage(events.create(id) ? "§aEvent dibuat: " + id : "§cGagal membuat event.");
+            case "start" -> {
+                sender.sendMessage(events.start(id, null) ? "§aEvent dimulai: " + id : "§cEvent tidak ditemukan.");
+                guis.refreshAll();
+            }
+            case "stop" -> {
+                sender.sendMessage(events.stop(null) ? "§aEvent dihentikan." : "§cTidak ada event aktif.");
+                guis.refreshAll();
+            }
+            case "delete" -> sender.sendMessage(events.delete(id) ? "§aEvent dihapus." : "§cEvent tidak ditemukan.");
+            case "info" -> {
+                ShopEventManager.ShopEvent e = events.get(id);
+                if (e == null) { sender.sendMessage("§cEvent tidak ditemukan."); return; }
+                sender.sendMessage("§6" + e.displayName() + " §7(" + e.id() + ")");
+                sender.sendMessage("§7Duration: §f" + TimeUtil.formatDuration(e.durationMillis()));
+                sender.sendMessage("§7Status: §f" + (e.id().equals(events.activeId()) ? "ACTIVE" : "INACTIVE"));
+                if (e.id().equals(events.activeId())) sender.sendMessage("§7Remaining: §f" + TimeUtil.formatDuration(events.remainingMillis()));
+                sender.sendMessage("§7Items: §f" + e.items().size());
+            }
+        }
+    }
+
     private void logs(CommandSender sender, String[] args) {
         int limit = 10;
         if (args.length > 1) {
@@ -189,6 +253,9 @@ public final class SenzyAdminCommand {
         if (args.length == 2) return SenzyCommand.filter(SUBS, args[1]);
         if (args.length == 3) {
             String sub = args[1].toLowerCase(Locale.ROOT);
+            if (sub.equals("event")) {
+                return SenzyCommand.filter(List.of("list","create","start","stop","delete","info"), args[2]);
+            }
             if (sub.equals("setbalance") || sub.equals("addbalance") || sub.equals("removebalance")) {
                 return SenzyCommand.filter(economy.knownNames(), args[2]);
             }

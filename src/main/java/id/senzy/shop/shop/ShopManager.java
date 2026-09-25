@@ -29,8 +29,8 @@ import java.util.logging.Level;
  */
 public final class ShopManager {
     private static final Set<String> BLOCKED = Set.of(
-            "NETHER_QUARTZ_ORE", "NETHER_GOLD_ORE", "ANCIENT_DEBRIS", "NETHERITE_SCRAP",
-            "NETHERITE_INGOT", "ELYTRA", "TOTEM_OF_UNDYING", "NETHER_STAR");
+            "COMMAND_BLOCK", "CHAIN_COMMAND_BLOCK", "REPEATING_COMMAND_BLOCK", "COMMAND_BLOCK_MINECART",
+            "STRUCTURE_BLOCK", "STRUCTURE_VOID", "BARRIER", "LIGHT", "JIGSAW", "DEBUG_STICK", "KNOWLEDGE_BOOK");
 
     private final SenzyShop plugin;
     private volatile Map<Material, ShopItem> byMaterial = Map.of();
@@ -115,7 +115,7 @@ public final class ShopManager {
             warn(id, "sell-price > buy-price (celah cetak uang), dilewati");
             return null;
         }
-        return new ShopItem(common.id(), common.material(), common.category(), common.enabled(),
+        return new ShopItem(common.id(), common.material(), common.category(), common.enabled(), common.displayName(),
                 buy, sell, common.min(), common.max(), common.chance(), common.worlds(),
                 PriceMode.FIXED, null, 0.0, 0.0);
     }
@@ -146,13 +146,13 @@ public final class ShopManager {
         }
         long buy = NumberUtil.scale(ore.buyPrice(), multiplier);
         long sell = NumberUtil.ratio(buy, sellRatio);
-        return new ShopItem(common.id(), common.material(), common.category(), common.enabled(),
+        return new ShopItem(common.id(), common.material(), common.category(), common.enabled(), common.displayName(),
                 buy, sell, common.min(), common.max(), common.chance(), common.worlds(),
                 PriceMode.ORE_MULTIPLIER, ore.id(), multiplier, sellRatio);
     }
 
     private record Common(String id, Material material, ShopCategory category, boolean enabled,
-                          int min, int max, int chance, Set<String> worlds) {}
+                          int min, int max, double chance, Set<String> worlds, String displayName) {}
 
     private Common parseCommon(String id, ConfigurationSection s) {
         String matName = s.getString("material", id).trim().toUpperCase(Locale.ROOT);
@@ -160,8 +160,8 @@ public final class ShopManager {
             warn(id, "item terlarang (" + matName + ")");
             return null;
         }
-        Material material = Material.matchMaterial(matName);
-        if (material == null || !material.isItem() || material.isAir()) {
+        Material material = ItemRegistry.validateMaterial(matName);
+        if (material == null) {
             warn(id, "material tidak dikenal: " + matName);
             return null;
         }
@@ -174,14 +174,17 @@ public final class ShopManager {
         ConfigurationSection st = s.getConfigurationSection("stock");
         int min = st != null ? st.getInt("min", cfg.getInt("stock.default-min", 0)) : cfg.getInt("stock.default-min", 0);
         int max = st != null ? st.getInt("max", cfg.getInt("stock.default-max", 64)) : cfg.getInt("stock.default-max", 64);
-        int chance = st != null ? st.getInt("chance", cfg.getInt("stock.default-chance", 100)) : cfg.getInt("stock.default-chance", 100);
-        if (min < 0 || max < min || chance < 0 || chance > 100) {
-            warn(id, "konfigurasi stock tidak valid");
+        double chance = st != null ? st.getDouble("chance", cfg.getDouble("stock.default-chance", 1.0)) : cfg.getDouble("stock.default-chance", 1.0);
+        // V1.2 uses 0.0-1.0. Keep old 0-100 configs working by converting them once in memory.
+        if (chance > 1.0 && chance <= 100.0) chance /= 100.0;
+        if (min < 0 || max < min || chance < 0.0 || chance > 1.0) {
+            warn(id, "konfigurasi stock tidak valid; chance harus 0.0-1.0");
             return null;
         }
+        String displayName = s.getString("display-name", "&f" + id.replace('_', ' '));
         Set<String> worlds = Set.copyOf(new HashSet<>(s.getStringList("worlds")));
         return new Common(id.toLowerCase(Locale.ROOT), material, category, s.getBoolean("enabled", true),
-                min, max, chance, worlds);
+                min, max, chance, worlds, displayName);
     }
 
     private void warn(String id, String reason) {

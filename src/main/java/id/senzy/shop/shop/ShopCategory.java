@@ -10,7 +10,13 @@ public enum ShopCategory {
     MATERIAL("&f&lMaterial", Material.IRON_INGOT),
     FARMING("&e&lFarming", Material.WHEAT),
     ANIMALS("&6&lAnimals", Material.BEEF),
-    FOOD("&c&lFood", Material.BREAD);
+    FOOD("&c&lFood", Material.BREAD),
+    WOOD("&6&lWood", Material.OAK_LOG),
+    NETHER("&4&lNether", Material.NETHERRACK),
+    END("&5&lEnd", Material.END_STONE),
+    BUILDING("&e&lBuilding", Material.BRICKS),
+    UTILITY("&3&lUtility", Material.BUCKET),
+    SPECIAL("&d&lSpecial", Material.NETHER_STAR);
 
     private final String displayName;
     private final Material icon;

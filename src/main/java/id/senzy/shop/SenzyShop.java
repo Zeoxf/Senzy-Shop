@@ -11,6 +11,7 @@ import id.senzy.shop.database.PlayerRepository;
 import id.senzy.shop.database.StockRepository;
 import id.senzy.shop.database.TransactionRepository;
 import id.senzy.shop.economy.BalanceManager;
+import id.senzy.shop.event.ShopEventManager;
 import id.senzy.shop.economy.EconomyManager;
 import id.senzy.shop.gui.GuiLayout;
 import id.senzy.shop.gui.GuiManager;
@@ -41,6 +42,7 @@ public final class SenzyShop extends JavaPlugin {
     private ContractManager contracts;
     private GuiLayout layout;
     private GuiManager guis;
+    private ShopEventManager events;
 
     // Dipakai untuk memulihkan command /senzy milik plugin lain jika SenzyShop di-disable,
     // supaya bridge yang menunjuk ke manager yang sudah mati tidak tertinggal di sana.
@@ -51,7 +53,7 @@ public final class SenzyShop extends JavaPlugin {
     @Override
     public void onEnable() {
         saveDefaultConfig();
-        for (String file : new String[]{"items.yml", "contracts.yml", "messages.yml", "database.yml"}) {
+        for (String file : new String[]{"items.yml", "contracts.yml", "messages.yml", "database.yml", "events.yml"}) {
             if (!new File(getDataFolder(), file).exists()) saveResource(file, false);
         }
         messages = new MessageUtil(this);
@@ -82,22 +84,24 @@ public final class SenzyShop extends JavaPlugin {
             stock = new StockManager(shop, database, stockRepo, transactionRepo);
             stock.load();
             restock = new RestockManager(this, shop, stock, database, stockRepo, metaRepo, messages);
+            events = new ShopEventManager(this, shop, stock);
+            events.load();
 
             contracts = new ContractManager(this, shop, economy, database, contractRepo, metaRepo,
                     playerRepo, transactionRepo, messages);
 
             TradeService trade = new TradeService(shop, stock, economy, database, playerRepo, stockRepo,
-                    transactionRepo, messages, contracts);
+                    transactionRepo, messages, contracts, events);
 
             layout = new GuiLayout(this);
             layout.reload();
-            guis = new GuiManager(this, layout, shop, stock, economy, trade, restock, contracts, messages);
-            restock.setHooks(guis::tickClocks, guis::refreshAll);
+            guis = new GuiManager(this, layout, shop, stock, economy, trade, restock, contracts, messages, events);
+            restock.setHooks(() -> { events.tick(); guis.tickClocks(); }, guis::refreshAll);
             restock.start();
             contracts.start();
 
             SenzyAdminCommand adminCommand = new SenzyAdminCommand(this, economy, shop, stock, restock,
-                    database, transactionRepo, guis, messages);
+                    database, transactionRepo, guis, messages, events);
             SenzyCommand command = new SenzyCommand(economy, guis, trade, restock, adminCommand, messages);
             PluginCommand senzy = Objects.requireNonNull(getCommand("senzy"), "command senzy tidak ada di plugin.yml");
             senzy.setExecutor(command);
@@ -170,6 +174,7 @@ public final class SenzyShop extends JavaPlugin {
         messages.reload();
         layout.reload();
         shop.load();
+        events.load();
         stock.reconcile();
         restock.onConfigReload();
     }

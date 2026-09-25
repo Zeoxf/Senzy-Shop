@@ -63,7 +63,7 @@ public final class CategoryGUI extends AbstractGui {
         slotItems.clear();
 
         List<ShopItem> list = items();
-        List<Integer> slots = layout.itemSlots;
+        List<Integer> slots = layout.categoryItemSlots.getOrDefault(category, layout.itemSlots);
         int start = currentPage() * slots.size();
         for (int i = 0; i < slots.size() && start + i < list.size(); i++) {
             ShopItem item = list.get(start + i);
@@ -90,9 +90,9 @@ public final class CategoryGUI extends AbstractGui {
                 "stockcolor", stock > 0 ? "&a" : "&c",
                 "stock", stock,
                 "max", gui.stock().getMax(item),
-                "buy", item.canBuy() ? m.money(item.buyPrice()) : "-",
-                "sell", item.canSell() ? m.money(item.sellPrice()) : "-");
-        return ItemUtil.icon(item.material(), 1, null, lore);
+                "buy", item.canBuy() ? m.money(gui.events().buyPrice(item)) : "-",
+                "sell", item.canSell() ? m.money(gui.events().sellPrice(item)) : "-");
+        return ItemUtil.icon(item.material(), Math.max(1, Math.min(item.material().getMaxStackSize(), stock)), MessageUtil.color(item.displayName()), lore);
     }
 
     @Override

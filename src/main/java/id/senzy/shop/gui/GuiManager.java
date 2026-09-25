@@ -4,6 +4,7 @@ import id.senzy.shop.SenzyShop;
 import id.senzy.shop.contract.ContractManager;
 import id.senzy.shop.contract.ContractType;
 import id.senzy.shop.economy.EconomyManager;
+import id.senzy.shop.event.ShopEventManager;
 import id.senzy.shop.restock.RestockManager;
 import id.senzy.shop.shop.ShopCategory;
 import id.senzy.shop.shop.ShopItem;
@@ -30,10 +31,11 @@ public final class GuiManager {
     private final RestockManager restock;
     private final ContractManager contracts;
     private final MessageUtil messages;
+    private final ShopEventManager events;
 
     public GuiManager(SenzyShop plugin, GuiLayout layout, ShopManager shop, StockManager stock,
                       EconomyManager economy, TradeService trade, RestockManager restock,
-                      ContractManager contracts, MessageUtil messages) {
+                      ContractManager contracts, MessageUtil messages, ShopEventManager events) {
         this.plugin = plugin;
         this.layout = layout;
         this.shop = shop;
@@ -43,6 +45,7 @@ public final class GuiManager {
         this.restock = restock;
         this.contracts = contracts;
         this.messages = messages;
+        this.events = events;
     }
 
     public GuiLayout layout() { return layout; }
@@ -53,6 +56,7 @@ public final class GuiManager {
     public RestockManager restock() { return restock; }
     public ContractManager contracts() { return contracts; }
     public MessageUtil messages() { return messages; }
+    public ShopEventManager events() { return events; }
 
     /** Jalankan di tick berikutnya (aman dipanggil dari dalam InventoryClickEvent). */
     public void later(Runnable task) {

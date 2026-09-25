@@ -26,6 +26,7 @@ public final class GuiLayout {
 
     // ---- List GUI (category / search) ----
     public List<Integer> itemSlots = List.of();
+    public final Map<ShopCategory, List<Integer>> categoryItemSlots = new EnumMap<>(ShopCategory.class);
     public int listRestockSlot = 45;
     public int listPrevSlot = 47;
     public int listBackSlot = 49;
@@ -55,12 +56,10 @@ public final class GuiLayout {
         FileConfiguration c = plugin.getConfig();
         mainRows = clamp(c.getInt("gui.main.rows", 6), 1, 6);
         categorySlots.clear();
-        categorySlots.put(ShopCategory.NATURAL, c.getInt("gui.main.category-slots.NATURAL", 10));
-        categorySlots.put(ShopCategory.ORE, c.getInt("gui.main.category-slots.ORE", 11));
-        categorySlots.put(ShopCategory.MATERIAL, c.getInt("gui.main.category-slots.MATERIAL", 12));
-        categorySlots.put(ShopCategory.FARMING, c.getInt("gui.main.category-slots.FARMING", 14));
-        categorySlots.put(ShopCategory.ANIMALS, c.getInt("gui.main.category-slots.ANIMALS", 15));
-        categorySlots.put(ShopCategory.FOOD, c.getInt("gui.main.category-slots.FOOD", 16));
+        int categoryDefaultSlot = 10;
+        for (ShopCategory category : ShopCategory.values()) {
+            categorySlots.put(category, c.getInt("gui.main.category-slots." + category.name(), categoryDefaultSlot++));
+        }
         mainSellSlot = c.getInt("gui.main.sell-slot", 28);
         mainBalanceSlot = c.getInt("gui.main.balance-slot", 30);
         mainContractsSlot = c.getInt("gui.main.contracts-slot", 32);
@@ -69,7 +68,12 @@ public final class GuiLayout {
         mainCloseSlot = c.getInt("gui.main.close-slot", 49);
 
         int rows = clamp(c.getInt("gui.list.item-rows", 5), 1, 5);
-        itemSlots = slotRange(0, rows);
+        itemSlots = readSlots(c.getIntegerList("gui.list.item-slots"), slotRange(0, rows), 54);
+        categoryItemSlots.clear();
+        for (ShopCategory category : ShopCategory.values()) {
+            List<Integer> configured = c.getIntegerList("gui.list.category-slots." + category.name());
+            categoryItemSlots.put(category, readSlots(configured, itemSlots, 54));
+        }
         listRestockSlot = c.getInt("gui.list.restock-slot", 45);
         listPrevSlot = c.getInt("gui.list.prev-slot", 47);
         listBackSlot = c.getInt("gui.list.back-slot", 49);
@@ -90,6 +94,13 @@ public final class GuiLayout {
         Material f = Material.matchMaterial(c.getString("gui.filler", "GRAY_STAINED_GLASS_PANE"));
         filler = f != null && f.isItem() ? f : Material.GRAY_STAINED_GLASS_PANE;
         clickCooldownMs = Math.max(0L, c.getLong("gui.click-cooldown-ms", 250L));
+    }
+
+    private static List<Integer> readSlots(List<Integer> configured, List<Integer> fallback, int size) {
+        if (configured == null || configured.isEmpty()) return fallback;
+        List<Integer> out = new ArrayList<>();
+        for (Integer slot : configured) if (slot != null && slot >= 0 && slot < size && !out.contains(slot)) out.add(slot);
+        return out.isEmpty() ? fallback : List.copyOf(out);
     }
 
     private static List<Integer> slotRange(int startSlot, int rows) {
