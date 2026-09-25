@@ -198,6 +198,7 @@ public final class TradeService {
         TransactionRecord rec = new TransactionRecord(0L, id.toString(), p.getName(),
                 TransactionRecord.Type.BUY, material.name(), amount, cost, before, after, System.currentTimeMillis());
         persist(id, List.of(rec), item);
+        economy.syncPdc(p);
         msg.send(p, "trade.buy-success", "amount", amount, "item", ItemUtil.prettyName(material),
                 "price", msg.money(cost));
         return true;
@@ -248,6 +249,7 @@ public final class TradeService {
         TransactionRecord rec = new TransactionRecord(0L, id.toString(), p.getName(),
                 TransactionRecord.Type.SELL, material.name(), removed, real, before, after, System.currentTimeMillis());
         persist(id, List.of(rec), null);
+        economy.syncPdc(p);
         contracts.recordSell(p, item, removed);      // hanya SELL yang valid & tereksekusi yang menambah progress
         msg.send(p, "trade.sell-success", "amount", removed, "item", ItemUtil.prettyName(material),
                 "price", msg.money(real));
@@ -300,6 +302,7 @@ public final class TradeService {
             return false;
         }
         persist(id, records, null);
+        economy.syncPdc(p);
         for (int i = 0; i < soldItems.size(); i++) contracts.recordSell(p, soldItems.get(i), soldAmounts.get(i));
         msg.send(p, "trade.sellall-success", "amount", items, "kinds", records.size(), "price", msg.money(total));
         if (limitReached) msg.send(p, "trade.balance-limit");

@@ -108,7 +108,9 @@ public final class SenzyShop extends JavaPlugin {
             getServer().getPluginManager().registerEvents(new PlayerListener(economy, contracts, guis), this);
 
             for (Player online : getServer().getOnlinePlayers()) {
-                economy.ensureAccount(online.getUniqueId(), online.getName());
+                boolean created = economy.ensureAccount(online.getUniqueId(), online.getName());
+                if (created) economy.restoreFromPdcIfPresent(online);
+                economy.syncPdc(online);
             }
         } catch (RuntimeException e) {
             getLogger().log(Level.SEVERE, "Gagal menginisialisasi SenzyShop. Plugin dimatikan.", e);

@@ -137,7 +137,17 @@ public final class ContractManager {
         YamlConfiguration yaml = YamlConfiguration.loadConfiguration(file);
         ConfigurationSection poolSection = yaml.getConfigurationSection(type.configKey() + ".pool");
         List<ContractPoolEntry> out = new ArrayList<>();
-        if (poolSection == null) return out;
+        if (poolSection == null) {
+            // Bisa berarti dua hal: section memang tidak ditulis di contracts.yml, ATAU seluruh
+            // file gagal di-parse (YAML rusak - YamlConfiguration diam-diam mengembalikan config
+            // kosong tanpa melempar exception ke sini). Beri warning eksplisit supaya kelihatan
+            // di console, bukan cuma "0 kontrak" tanpa penjelasan.
+            plugin.getLogger().warning("contracts.yml: section '" + type.configKey() + ".pool' tidak "
+                    + "ditemukan - cek apakah contracts.yml valid (YAML rusak akan membuat SEMUA "
+                    + "kontrak kosong tanpa error lain). Tidak ada kontrak " + type.configKey()
+                    + " yang akan tersedia sampai ini diperbaiki.");
+            return out;
+        }
         for (String key : poolSection.getKeys(false)) {
             ConfigurationSection e = poolSection.getConfigurationSection(key);
             if (e == null) continue;

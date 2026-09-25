@@ -6,6 +6,9 @@ import id.senzy.shop.database.PlayerRecord;
 import id.senzy.shop.database.PlayerRepository;
 import id.senzy.shop.database.TransactionRecord;
 import id.senzy.shop.database.TransactionRepository;
+import org.bukkit.NamespacedKey;
+import org.bukkit.entity.Player;
+import org.bukkit.persistence.PersistentDataType;
 
 import java.util.UUID;
 
@@ -73,11 +76,45 @@ public final class EconomyManager {
 
     // ---------- akun ----------
 
-    public void ensureAccount(UUID id, String name) {
+    /** @return true kalau akun ini BENAR-BENAR baru dibuat (baris database sebelumnya tidak ada). */
+    public boolean ensureAccount(UUID id, String name) {
         long starting = Math.max(0L, Math.min(maxBalance(),
                 plugin.getConfig().getLong("economy.starting-balance", 1000L)));
-        PlayerRecord rec = balances.ensure(id, name, starting, System.currentTimeMillis());
-        if (rec != null) db.run(c -> players.save(c, rec));
+        BalanceManager.EnsureResult res = balances.ensure(id, name, starting, System.currentTimeMillis());
+        if (res.toSave() != null) db.run(c -> players.save(c, res.toSave()));
+        return res.created();
+    }
+
+    // ---------- cadangan saldo di PersistentDataContainer milik pemain ----------
+    // SQLite TETAP sumber utama untuk semua transaksi & command admin (termasuk saat pemain
+    // offline, yang tidak bisa ditulisi lewat PDC karena keterbatasan API Paper). PDC di sini
+    // HANYA cadangan supaya saldo bisa dipulihkan kalau plugin/database dihapus lalu dipasang
+    // ulang - PDC ikut file playerdata Minecraft, bukan file plugin.
+
+    private NamespacedKey balanceKey() {
+        return new NamespacedKey(plugin, "balance");
+    }
+
+    /** Salin saldo saat ini ke PDC pemain (dipanggil tiap balance berubah & tiap kali join). */
+    public void syncPdc(Player player) {
+        player.getPersistentDataContainer().set(balanceKey(), PersistentDataType.LONG, getBalance(player.getUniqueId()));
+    }
+
+    /**
+     * Dipanggil HANYA saat akun baru pertama kali dibuat (baris database tidak ada sebelumnya).
+     * Kalau PDC pemain ternyata masih menyimpan saldo dari instalasi plugin sebelumnya, pulihkan
+     * itu ke database (tercatat di transaction log sebagai ADMIN, bukan diam-diam).
+     */
+    public void restoreFromPdcIfPresent(Player player) {
+        Long stored = player.getPersistentDataContainer().get(balanceKey(), PersistentDataType.LONG);
+        if (stored == null || stored <= 0) return;
+        UUID id = player.getUniqueId();
+        long amount = Math.max(0L, Math.min(stored, maxBalance()));
+        long before = balances.get(id);
+        TransactionRecord rec = new TransactionRecord(0L, id.toString(), player.getName(),
+                TransactionRecord.Type.ADMIN, "RESTORE_PDC (saldo lama dari playerdata)", 0L, amount,
+                before, amount, System.currentTimeMillis());
+        write(id, amount, rec);
     }
 
     // ---------- memory only (dipakai TradeService) ----------
@@ -140,6 +177,8 @@ public final class EconomyManager {
             players.save(c, snapshot);
             if (log != null) transactions.insert(c, log);
         });
+        Player online = plugin.getServer().getPlayer(id);
+        if (online != null) syncPdc(online);
         return true;
     }
 }

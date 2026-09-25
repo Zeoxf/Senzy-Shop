@@ -56,22 +56,26 @@ public final class BalanceManager {
         return true;
     }
 
-    /** Membuat akun baru / memperbarui nama. Mengembalikan record yang perlu disimpan, atau null. */
-    public synchronized PlayerRecord ensure(UUID id, String name, long starting, long now) {
+    /** Hasil ensure(): record yang perlu disimpan (atau null kalau tidak ada perubahan), dan
+     *  apakah akun ini BENAR-BENAR baru dibuat (bukan sekadar update nama pemain lama). */
+    public record EnsureResult(PlayerRecord toSave, boolean created) {}
+
+    /** Membuat akun baru / memperbarui nama. */
+    public synchronized EnsureResult ensure(UUID id, String name, long starting, long now) {
         PlayerRecord r = accounts.get(id);
         if (r == null) {
             PlayerRecord created = new PlayerRecord(id, name, starting, now, now);
             accounts.put(id, created);
             names.put(name.toLowerCase(Locale.ROOT), id);
-            return created;
+            return new EnsureResult(created, true);
         }
         if (!r.name().equals(name)) {
             names.remove(r.name().toLowerCase(Locale.ROOT));
             PlayerRecord renamed = new PlayerRecord(id, name, r.balance(), r.createdAt(), now);
             accounts.put(id, renamed);
             names.put(name.toLowerCase(Locale.ROOT), id);
-            return renamed;
+            return new EnsureResult(renamed, false);
         }
-        return null;
+        return new EnsureResult(null, false);
     }
 }
