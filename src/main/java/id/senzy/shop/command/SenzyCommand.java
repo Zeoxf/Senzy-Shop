@@ -41,15 +41,17 @@ public final class SenzyCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (!sender.hasPermission("senzy.use")) {
+        boolean adminAccess = isAdmin(sender);
+        if (!sender.hasPermission("senzy.use") && !adminAccess) {
             msg.send(sender, "general.no-permission");
             return true;
         }
         if (args.length == 0) {
-            msg.send(sender, "general.help");
+            sendHelp(sender, adminAccess);
             return true;
         }
         switch (args[0].toLowerCase(Locale.ROOT)) {
+            case "help", "?" -> sendHelp(sender, adminAccess);
             case "shop" -> {
                 if (args.length >= 2 && isShopConfigCommand(args[1])) {
                     if (!sender.hasPermission("senzy.shop.admin") && !sender.hasPermission("senzy.admin")) {
@@ -107,9 +109,18 @@ public final class SenzyCommand implements CommandExecutor, TabCompleter {
                 }
             }
             case "admin" -> admin.execute(sender, Arrays.copyOfRange(args, 1, args.length));
-            default -> msg.send(sender, "general.help");
+            default -> sendHelp(sender, adminAccess);
         }
         return true;
+    }
+
+    private boolean isAdmin(CommandSender sender) {
+        return sender.hasPermission("senzy.admin") || sender.hasPermission("senzy.shop.admin");
+    }
+
+    private void sendHelp(CommandSender sender, boolean adminAccess) {
+        msg.send(sender, "general.help");
+        if (adminAccess) msg.send(sender, "admin.help");
     }
 
     private boolean isShopConfigCommand(String s) {
@@ -147,7 +158,7 @@ public final class SenzyCommand implements CommandExecutor, TabCompleter {
                 }
             }
             guis.refreshAll();
-        } catch (Exception e) { sender.sendMessage("§cAngka/slot tidak valid."); }
+        } catch (NumberFormatException e) { sender.sendMessage("§cAngka/slot tidak valid."); } catch (java.io.IOException e) { sender.sendMessage("§cGagal memuat ulang GUI: " + e.getMessage()); }
     }
 
     private Player requirePlayer(CommandSender sender, String permission) {

@@ -56,7 +56,7 @@ public final class ShopManager {
     private void ensureBundledDefaultShop(String shopName) throws IOException {
         File dir = new File(plugin.getDataFolder(), "shop/" + safeName(shopName));
         if (!dir.exists() && !dir.mkdirs()) throw new IOException("Tidak bisa membuat " + dir);
-        String[] files = {"message.yml","blocks.yml","items.yml","sword.yml","armor.yml","food.yml","farming.yml","ores.yml","materials.yml","mobs.yml","tools.yml","utility.yml","rare.yml"};
+        String[] files = {"message.yml","blocks.yml","wood.yml","nether.yml","end.yml","ores.yml","materials.yml","farming.yml","plants.yml","food.yml","mobs.yml","tools_weapons.yml","armor.yml","utility.yml","transport.yml","items.yml","rare.yml"};
         for (String name : files) {
             File target = new File(dir, name);
             if (!target.exists() && plugin.getResource("shop/senzyshop/" + name) != null) plugin.saveResource("shop/senzyshop/" + name, false);
@@ -111,6 +111,7 @@ public final class ShopManager {
         String fileCategory = file.getName().substring(0, file.getName().length() - 4);
         YamlConfiguration yaml = YamlConfiguration.loadConfiguration(file);
         ConfigurationSection root = yaml;
+        Map<String, Set<Integer>> occupied = new HashMap<>();
         for (String id : root.getKeys(false)) {
             ConfigurationSection s = root.getConfigurationSection(id);
             if (s == null) continue;
@@ -121,12 +122,12 @@ public final class ShopManager {
                 category = new ShopCategory(categoryId, categoryId, Material.CHEST, cats.size());
                 cats.put(categoryId, category);
             }
-            ShopItem item = parseCustomItem(id, s, category);
+            ShopItem item = parseCustomItem(id, s, category, occupied.computeIfAbsent(category.id(), k -> new HashSet<>()));
             if (item != null) put(items, item);
         }
     }
 
-    private ShopItem parseCustomItem(String id, ConfigurationSection s, ShopCategory category) {
+    private ShopItem parseCustomItem(String id, ConfigurationSection s, ShopCategory category, Set<Integer> occupied) {
         String matName = s.getString("material", id);
         Material material = validate(matName);
         if (material == null) { warn(id, "material tidak dikenal/terlarang: " + matName); return null; }
@@ -142,18 +143,51 @@ public final class ShopManager {
             warn(id, "stock tidak valid; min>=0, max>=min, chance 0.01-1.0"); return null;
         }
         String display = s.getString("display-name", "&f" + id.replace('_', ' '));
-        // "slot" boleh melebihi kapasitas 1 halaman (gui.list.item-slots) - kelebihannya otomatis
-        // dialihkan ke halaman berikutnya oleh CategoryGUI (slot 45 = halaman 2 slot 0, dst).
-        // Batas atas hanya jaga-jaga dari typo (mis. salah ketik jadi jutaan).
-        int slot = Math.max(0, Math.min(9999, s.getInt("slot", 0)));
-        // "page" opsional untuk menaruh item di halaman tertentu tanpa menghitung slot manual.
-        // Jika "slot" sudah melebihi 1 halaman (overflow), hasil overflow itu MENANG atas "page"
-        // yang ditulis manual - kalau keduanya dipakai bersamaan dan bentrok, hasilnya bisa
-        // tertimpa/tidak sesuai (lihat komentar di CategoryGUI#resolvePage).
-        int page = Math.max(1, s.getInt("page", 1));
+        Placement placement = resolvePlacement(s, occupied);
+        if (placement == null) { warn(id, "slot/page tidak dapat ditempatkan pada GUI"); return null; }
+        int placementKey = placement.page * 36 + placement.slot;
+        if (s.contains("slot") && occupied.contains(placementKey)) {
+            warn(id, "slot bertabrakan pada page " + placement.page + ", slot " + placement.slot + "; slot eksplisit tetap diprioritaskan");
+        }
+        occupied.add(placementKey);
         Set<String> worlds = Set.copyOf(new HashSet<>(s.getStringList("worlds")));
         return new ShopItem(id.toLowerCase(Locale.ROOT), material, category, s.getBoolean("enabled", true), display,
-                slot, page, buy, sell, min, max, chance, worlds, PriceMode.FIXED, null, 0, 0);
+                placement.slot, placement.page, buy, sell, min, max, chance, worlds, PriceMode.FIXED, null, 0, 0);
+    }
+
+    private record Placement(int slot, int page) {}
+
+    /**
+     * Placement policy: slot wins over page. The category GUI has 4 item rows (36 slots);
+     * slots above 35 are automatically moved to the corresponding page. If slot is omitted,
+     * page is used and the first free slot on that page is selected.
+     */
+    private Placement resolvePlacement(ConfigurationSection s, Set<Integer> occupied) {
+        if (s.contains("slot")) {
+            int raw = s.getInt("slot", 0);
+            if (raw < 0) return null;
+            int page = raw / 36;
+            int slot = raw % 36;
+            if (occupied.contains(page * 36 + slot)) {
+                // Explicit slot is authoritative. A collision is kept visible in the log instead
+                // of silently letting page move the item somewhere unexpected.
+                return new Placement(slot, page);
+            }
+            return new Placement(slot, page);
+        }
+        int page = Math.max(0, s.getInt("page", 0));
+        for (int slot = 0; slot < 36; slot++) {
+            if (!occupied.contains(page * 36 + slot)) return new Placement(slot, page);
+        }
+        // Page penuh: append to the next free page.
+        int nextPage = page + 1;
+        while (nextPage < 1000) {
+            for (int slot = 0; slot < 36; slot++) {
+                if (!occupied.contains(nextPage * 36 + slot)) return new Placement(slot, nextPage);
+            }
+            nextPage++;
+        }
+        return null;
     }
 
     private Material validate(String name) {
@@ -205,8 +239,8 @@ public final class ShopManager {
         if (common == null) return null;
         long buy = s.getLong("buy-price", 0), sell = s.getLong("sell-price", 0);
         if (buy < 0 || sell < 0) return null;
-        return new ShopItem(common.id, common.material, common.category, common.enabled, common.display, common.slot,
-                common.page, buy, sell, common.min, common.max, common.chance, common.worlds, PriceMode.FIXED, null, 0, 0);
+        return new ShopItem(common.id, common.material, common.category, common.enabled, common.display, common.slot, 0,
+                buy, sell, common.min, common.max, common.chance, common.worlds, PriceMode.FIXED, null, 0, 0);
     }
 
     private ShopItem parseOreMultiplier(String id, ConfigurationSection s, Map<String, ShopItem> resolved, Map<String, ShopCategory> cats) {
@@ -217,12 +251,12 @@ public final class ShopManager {
         if (ore == null || ore.buyPrice() <= 0) return null;
         double mult = s.getDouble("multiplier", 1.5), ratio = s.getDouble("sell-ratio", 0.5);
         long buy = NumberUtil.scale(ore.buyPrice(), mult), sell = NumberUtil.ratio(buy, ratio);
-        return new ShopItem(common.id, common.material, common.category, common.enabled, common.display, common.slot,
-                common.page, buy, sell, common.min, common.max, common.chance, common.worlds, PriceMode.ORE_MULTIPLIER, ore.id(), mult, ratio);
+        return new ShopItem(common.id, common.material, common.category, common.enabled, common.display, common.slot, 0,
+                buy, sell, common.min, common.max, common.chance, common.worlds, PriceMode.ORE_MULTIPLIER, ore.id(), mult, ratio);
     }
 
     private record ShopItemCommon(String id, Material material, ShopCategory category, boolean enabled, String display,
-                                  int slot, int page, int min, int max, double chance, Set<String> worlds) {}
+                                  int slot, int min, int max, double chance, Set<String> worlds) {}
 
     private ShopItemCommon parseCommon(String id, ConfigurationSection s, Map<String, ShopCategory> cats) {
         Material material = validate(s.getString("material", id));
@@ -236,8 +270,7 @@ public final class ShopManager {
         double chance = st == null ? plugin.getConfig().getDouble("stock.default-chance", 1) : st.getDouble("chance", 1);
         if (chance > 1) chance /= 100;
         return new ShopItemCommon(id.toLowerCase(Locale.ROOT), material, category, s.getBoolean("enabled", true),
-                s.getString("display-name", "&f" + id.replace('_', ' ')), Math.max(0, s.getInt("slot", 0)),
-                Math.max(1, s.getInt("page", 1)), min, max, chance,
+                s.getString("display-name", "&f" + id.replace('_', ' ')), s.getInt("slot", 0), min, max, chance,
                 Set.copyOf(new HashSet<>(s.getStringList("worlds"))));
     }
 
@@ -319,7 +352,7 @@ public final class ShopManager {
     }
 
     public boolean addItem(String shopName, String categoryName, int slot, String itemName, int amount, double chance) {
-        if (slot < 0 || slot > 53 || amount < 0 || chance < 0.01 || chance > 1.0) return false;
+        if (slot < 0 || slot > 9999 || amount < 0 || chance < 0.01 || chance > 1.0) return false;
         File dir = new File(plugin.getDataFolder(), "shop/" + safeName(shopName));
         if (!dir.isDirectory()) return false;
         YamlConfiguration message = YamlConfiguration.loadConfiguration(new File(dir, "message.yml"));
@@ -344,19 +377,56 @@ public final class ShopManager {
         try { y.save(file); load(); return true; } catch (IOException e) { plugin.getLogger().log(Level.SEVERE, "Gagal menyimpan item", e); return false; }
     }
 
-    public boolean setPrice(String id, boolean isBuy, long price) {
-        if (id == null) return false;
-        String[] parts = id.split(":");
-        if (parts.length < 3) return false;
-        try {
-            String shopName = parts[0];
-            String categoryName = parts[1];
-            int slot = Integer.parseInt(parts[2]);
-            String path = isBuy ? "buy-price" : "sell-price";
-            return setPriceCustom(shopName, categoryName, slot, path, price, false);
-        } catch (Exception e) {
-            return false;
+    /**
+     * Mengubah harga item berdasarkan ID/material.
+     * Dipakai oleh /senzy admin setprice <item> <buy|sell> <harga>.
+     */
+    public boolean setPrice(String itemId, boolean buy, Long price) {
+        if (itemId == null || price == null || price < 0) return false;
+
+        ShopItem item = find(itemId);
+        if (item == null) return false;
+
+        String path = buy ? "buy-price" : "sell-price";
+
+        // Custom shop: simpan kembali ke file kategori item.
+        if (activeShop != null) {
+            File dir = activeDir();
+            if (dir != null) {
+                File file = new File(dir, ShopCategory.normalize(item.category().id()) + ".yml");
+                if (file.isFile()) {
+                    YamlConfiguration y = YamlConfiguration.loadConfiguration(file);
+                    y.set(item.id() + "." + path, price);
+                    try {
+                        y.save(file);
+                        load();
+                        return true;
+                    } catch (IOException e) {
+                        plugin.getLogger().log(Level.WARNING, "Gagal menyimpan harga item " + item.id(), e);
+                        return false;
+                    }
+                }
+            }
         }
+
+        // Fallback untuk format items.yml lama.
+        File legacy = new File(plugin.getDataFolder(), "items.yml");
+        if (legacy.isFile()) {
+            YamlConfiguration y = YamlConfiguration.loadConfiguration(legacy);
+            String legacyPath = "items." + item.id() + "." + path;
+            if (y.contains(legacyPath)) {
+                y.set(legacyPath, price);
+                try {
+                    y.save(legacy);
+                    load();
+                    return true;
+                } catch (IOException e) {
+                    plugin.getLogger().log(Level.WARNING, "Gagal menyimpan harga legacy " + item.id(), e);
+                }
+            }
+        }
+
+        return false;
     }
 
     public boolean setBuy(String shopName, String categoryName, int slot, long price) {
@@ -385,7 +455,11 @@ public final class ShopManager {
         if (!safeName(shopName).equals(activeShop)) loadCustom(safeName(shopName), new File(plugin.getDataFolder(), "shop/" + safeName(shopName)));
         ShopCategory c = category(categoryName);
         if (c == null) return null;
-        for (ShopItem i : byCategory(c)) if (i.slot() == slot) return i;
+        int rawPage = slot >= 36 ? slot / 36 : 0;
+        int rawSlot = slot >= 36 ? slot % 36 : slot;
+        for (ShopItem i : byCategory(c)) {
+            if (i.slot() == rawSlot && i.page() == rawPage) return i;
+        }
         return null;
     }
 

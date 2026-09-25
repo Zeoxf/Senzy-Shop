@@ -15,7 +15,7 @@ public final class GuiLayout {
     public int mainRows = 6;
     public final Map<ShopCategory, Integer> categorySlots = new LinkedHashMap<>();
     public List<Integer> itemSlots = List.of();
-    public int listRestockSlot = 45, listPrevSlot = 47, listBackSlot = 49, listNextSlot = 51, listBalanceSlot = 53, listSellAllSlot = 47;
+    public int listRestockSlot = 36, listPrevSlot = 42, listBackSlot = 45, listNextSlot = 48, listBalanceSlot = 50, listSellAllSlot = 39;
     public int contractDailyTabSlot = 3, contractWeeklyTabSlot = 5;
     public List<Integer> contractSlots = List.of();
     public int contractBackSlot = 49;
@@ -34,7 +34,7 @@ public final class GuiLayout {
         mainRows = clamp(c.getInt("gui.main.rows", 6), 1, 6);
         categorySlots.clear();
         if (shop != null) for (ShopCategory cat : shop.categories()) categorySlots.put(cat, cat.slot());
-        int rows = clamp(c.getInt("gui.list.item-rows", 5), 1, 5);
+        int rows = clamp(c.getInt("gui.list.item-rows", 4), 1, 4);
         itemSlots = readSlots(c.getIntegerList("gui.list.item-slots"), slotRange(0, rows), 54);
         listRestockSlot = c.getInt("gui.list.restock-slot", 45);
         listPrevSlot = c.getInt("gui.list.prev-slot", 47);

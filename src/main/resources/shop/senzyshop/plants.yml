@@ -1,0 +1,349 @@
+id: "plants9k2"
+acacia_sapling:
+  material: ACACIA_SAPLING
+  display-name: "&fAcacia Sapling"
+  category: PLANTS
+  buy-price: 8
+  sell-price: 3
+  enabled: true
+  slot: 0
+  stock:
+    min: 4
+    max: 32
+    chance: 1
+allium:
+  material: ALLIUM
+  display-name: "&fAllium"
+  category: PLANTS
+  buy-price: 12
+  sell-price: 4
+  enabled: true
+  slot: 1
+  stock:
+    min: 4
+    max: 32
+    chance: 0.7
+azalea:
+  material: AZALEA
+  display-name: "&fAzalea"
+  category: PLANTS
+  buy-price: 12
+  sell-price: 4
+  enabled: true
+  slot: 2
+  stock:
+    min: 4
+    max: 32
+    chance: 0.8
+azure_bluet:
+  material: AZURE_BLUET
+  display-name: "&fAzure Bluet"
+  category: PLANTS
+  buy-price: 10
+  sell-price: 3
+  enabled: true
+  slot: 3
+  stock:
+    min: 4
+    max: 32
+    chance: 0.8
+bamboo:
+  material: BAMBOO
+  display-name: "&fBamboo"
+  category: PLANTS
+  buy-price: 8
+  sell-price: 3
+  enabled: true
+  slot: 4
+  stock:
+    min: 8
+    max: 64
+    chance: 1
+birch_sapling:
+  material: BIRCH_SAPLING
+  display-name: "&fBirch Sapling"
+  category: PLANTS
+  buy-price: 8
+  sell-price: 3
+  enabled: true
+  slot: 5
+  stock:
+    min: 4
+    max: 32
+    chance: 1
+blue_orchid:
+  material: BLUE_ORCHID
+  display-name: "&fBlue Orchid"
+  category: PLANTS
+  buy-price: 12
+  sell-price: 4
+  enabled: true
+  slot: 6
+  stock:
+    min: 4
+    max: 32
+    chance: 0.7
+cave_vines:
+  material: CAVE_VINES
+  display-name: "&fCave Vines"
+  category: PLANTS
+  buy-price: 12
+  sell-price: 4
+  enabled: true
+  slot: 7
+  stock:
+    min: 8
+    max: 64
+    chance: 0.7
+cherry_sapling:
+  material: CHERRY_SAPLING
+  display-name: "&fCherry Sapling"
+  category: PLANTS
+  buy-price: 12
+  sell-price: 5
+  enabled: true
+  slot: 8
+  stock:
+    min: 4
+    max: 32
+    chance: 0.8
+cornflower:
+  material: CORNFLOWER
+  display-name: "&fCornflower"
+  category: PLANTS
+  buy-price: 12
+  sell-price: 4
+  enabled: true
+  slot: 9
+  stock:
+    min: 4
+    max: 32
+    chance: 0.7
+dandelion:
+  material: DANDELION
+  display-name: "&fDandelion"
+  category: PLANTS
+  buy-price: 8
+  sell-price: 3
+  enabled: true
+  slot: 10
+  stock:
+    min: 8
+    max: 64
+    chance: 1
+dark_oak_sapling:
+  material: DARK_OAK_SAPLING
+  display-name: "&fDark Oak Sapling"
+  category: PLANTS
+  buy-price: 10
+  sell-price: 4
+  enabled: true
+  slot: 11
+  stock:
+    min: 4
+    max: 32
+    chance: 0.9
+flowering_azalea:
+  material: FLOWERING_AZALEA
+  display-name: "&fFlowering Azalea"
+  category: PLANTS
+  buy-price: 15
+  sell-price: 5
+  enabled: true
+  slot: 12
+  stock:
+    min: 4
+    max: 32
+    chance: 0.7
+glow_lichen:
+  material: GLOW_LICHEN
+  display-name: "&fGlow Lichen"
+  category: PLANTS
+  buy-price: 12
+  sell-price: 4
+  enabled: true
+  slot: 13
+  stock:
+    min: 8
+    max: 64
+    chance: 0.8
+hanging_roots:
+  material: HANGING_ROOTS
+  display-name: "&fHanging Roots"
+  category: PLANTS
+  buy-price: 10
+  sell-price: 3
+  enabled: true
+  slot: 14
+  stock:
+    min: 8
+    max: 64
+    chance: 0.7
+jungle_sapling:
+  material: JUNGLE_SAPLING
+  display-name: "&fJungle Sapling"
+  category: PLANTS
+  buy-price: 8
+  sell-price: 3
+  enabled: true
+  slot: 15
+  stock:
+    min: 4
+    max: 32
+    chance: 1
+lilac:
+  material: LILAC
+  display-name: "&fLilac"
+  category: PLANTS
+  buy-price: 12
+  sell-price: 4
+  enabled: true
+  slot: 16
+  stock:
+    min: 4
+    max: 32
+    chance: 0.7
+lily_of_the_valley:
+  material: LILY_OF_THE_VALLEY
+  display-name: "&fLily of the Valley"
+  category: PLANTS
+  buy-price: 12
+  sell-price: 4
+  enabled: true
+  slot: 17
+  stock:
+    min: 4
+    max: 32
+    chance: 0.7
+mangrove_propagule:
+  material: MANGROVE_PROPAGULE
+  display-name: "&fMangrove Propagule"
+  category: PLANTS
+  buy-price: 12
+  sell-price: 5
+  enabled: true
+  slot: 18
+  stock:
+    min: 4
+    max: 32
+    chance: 0.8
+oak_sapling:
+  material: OAK_SAPLING
+  display-name: "&fOak Sapling"
+  category: PLANTS
+  buy-price: 8
+  sell-price: 3
+  enabled: true
+  slot: 19
+  stock:
+    min: 4
+    max: 32
+    chance: 1
+oxeye_daisy:
+  material: OXEYE_DAISY
+  display-name: "&fOxeye Daisy"
+  category: PLANTS
+  buy-price: 10
+  sell-price: 3
+  enabled: true
+  slot: 20
+  stock:
+    min: 4
+    max: 32
+    chance: 0.8
+peony:
+  material: PEONY
+  display-name: "&fPeony"
+  category: PLANTS
+  buy-price: 12
+  sell-price: 4
+  enabled: true
+  slot: 21
+  stock:
+    min: 4
+    max: 32
+    chance: 0.7
+pink_petals:
+  material: PINK_PETALS
+  display-name: "&fPink Petals"
+  category: PLANTS
+  buy-price: 10
+  sell-price: 3
+  enabled: true
+  slot: 22
+  stock:
+    min: 8
+    max: 64
+    chance: 0.8
+poppy:
+  material: POPPY
+  display-name: "&fPoppy"
+  category: PLANTS
+  buy-price: 8
+  sell-price: 3
+  enabled: true
+  slot: 23
+  stock:
+    min: 8
+    max: 64
+    chance: 1
+rose_bush:
+  material: ROSE_BUSH
+  display-name: "&fRose Bush"
+  category: PLANTS
+  buy-price: 12
+  sell-price: 4
+  enabled: true
+  slot: 24
+  stock:
+    min: 4
+    max: 32
+    chance: 0.7
+spore_blossom:
+  material: SPORE_BLOSSOM
+  display-name: "&fSpore Blossom"
+  category: PLANTS
+  buy-price: 80
+  sell-price: 25
+  enabled: true
+  slot: 25
+  stock:
+    min: 1
+    max: 4
+    chance: 0.3
+spruce_sapling:
+  material: SPRUCE_SAPLING
+  display-name: "&fSpruce Sapling"
+  category: PLANTS
+  buy-price: 8
+  sell-price: 3
+  enabled: true
+  slot: 26
+  stock:
+    min: 4
+    max: 32
+    chance: 1
+sunflower:
+  material: SUNFLOWER
+  display-name: "&fSunflower"
+  category: PLANTS
+  buy-price: 12
+  sell-price: 4
+  enabled: true
+  slot: 27
+  stock:
+    min: 4
+    max: 32
+    chance: 0.7
+wither_rose:
+  material: WITHER_ROSE
+  display-name: "&fWither Rose"
+  category: PLANTS
+  buy-price: 60
+  sell-price: 20
+  enabled: true
+  slot: 28
+  stock:
+    min: 1
+    max: 8
+    chance: 0.25

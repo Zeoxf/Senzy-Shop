@@ -1,0 +1,169 @@
+id: "transp9k2"
+acacia_boat:
+  material: ACACIA_BOAT
+  display-name: "&fAcacia Boat"
+  category: TRANSPORT
+  buy-price: 60
+  sell-price: 18
+  enabled: true
+  slot: 0
+  stock:
+    min: 1
+    max: 4
+    chance: 1
+bamboo_raft:
+  material: BAMBOO_RAFT
+  display-name: "&fBamboo Raft"
+  category: TRANSPORT
+  buy-price: 70
+  sell-price: 20
+  enabled: true
+  slot: 1
+  stock:
+    min: 1
+    max: 4
+    chance: 1
+birch_boat:
+  material: BIRCH_BOAT
+  display-name: "&fBirch Boat"
+  category: TRANSPORT
+  buy-price: 60
+  sell-price: 18
+  enabled: true
+  slot: 2
+  stock:
+    min: 1
+    max: 4
+    chance: 1
+cherry_boat:
+  material: CHERRY_BOAT
+  display-name: "&fCherry Boat"
+  category: TRANSPORT
+  buy-price: 70
+  sell-price: 20
+  enabled: true
+  slot: 3
+  stock:
+    min: 1
+    max: 4
+    chance: 1
+chest_minecart:
+  material: CHEST_MINECART
+  display-name: "&fChest Minecart"
+  category: TRANSPORT
+  buy-price: 180
+  sell-price: 50
+  enabled: true
+  slot: 4
+  stock:
+    min: 1
+    max: 2
+    chance: 0.5
+dark_oak_boat:
+  material: DARK_OAK_BOAT
+  display-name: "&fDark Oak Boat"
+  category: TRANSPORT
+  buy-price: 60
+  sell-price: 18
+  enabled: true
+  slot: 5
+  stock:
+    min: 1
+    max: 4
+    chance: 1
+furnace_minecart:
+  material: FURNACE_MINECART
+  display-name: "&fFurnace Minecart"
+  category: TRANSPORT
+  buy-price: 180
+  sell-price: 50
+  enabled: true
+  slot: 6
+  stock:
+    min: 1
+    max: 2
+    chance: 0.5
+hopper_minecart:
+  material: HOPPER_MINECART
+  display-name: "&fHopper Minecart"
+  category: TRANSPORT
+  buy-price: 300
+  sell-price: 80
+  enabled: true
+  slot: 7
+  stock:
+    min: 1
+    max: 2
+    chance: 0.3
+jungle_boat:
+  material: JUNGLE_BOAT
+  display-name: "&fJungle Boat"
+  category: TRANSPORT
+  buy-price: 60
+  sell-price: 18
+  enabled: true
+  slot: 8
+  stock:
+    min: 1
+    max: 4
+    chance: 1
+mangrove_boat:
+  material: MANGROVE_BOAT
+  display-name: "&fMangrove Boat"
+  category: TRANSPORT
+  buy-price: 70
+  sell-price: 20
+  enabled: true
+  slot: 9
+  stock:
+    min: 1
+    max: 4
+    chance: 1
+minecart:
+  material: MINECART
+  display-name: "&fMinecart"
+  category: TRANSPORT
+  buy-price: 120
+  sell-price: 35
+  enabled: true
+  slot: 10
+  stock:
+    min: 1
+    max: 4
+    chance: 0.8
+oak_boat:
+  material: OAK_BOAT
+  display-name: "&fOak Boat"
+  category: TRANSPORT
+  buy-price: 60
+  sell-price: 18
+  enabled: true
+  slot: 11
+  stock:
+    min: 1
+    max: 4
+    chance: 1
+spruce_boat:
+  material: SPRUCE_BOAT
+  display-name: "&fSpruce Boat"
+  category: TRANSPORT
+  buy-price: 60
+  sell-price: 18
+  enabled: true
+  slot: 12
+  stock:
+    min: 1
+    max: 4
+    chance: 1
+tnt_minecart:
+  material: TNT_MINECART
+  display-name: "&fTNT Minecart"
+  category: TRANSPORT
+  buy-price: 250
+  sell-price: 70
+  enabled: true
+  slot: 13
+  stock:
+    min: 1
+    max: 2
+    chance: 0.3

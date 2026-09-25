@@ -46,11 +46,11 @@ public final class ConfirmGUI extends AbstractGui {
         GuiLayout layout = gui.layout();
         if (slot == layout.confirmYesSlot) {
             gui.trade().buy(viewer, item, amount);   // jumlah PERSIS yang ditampilkan di dialog ini
-            gui.openCategory(viewer, item.category(), 0);
+            gui.openCategory(viewer, item.category(), item.page());
             return;
         }
         if (slot == layout.confirmNoSlot) {
-            gui.openCategory(viewer, item.category(), 0);
+            gui.openCategory(viewer, item.category(), item.page());
         }
     }
 }

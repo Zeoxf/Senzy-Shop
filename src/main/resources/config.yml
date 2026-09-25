@@ -81,24 +81,20 @@ gui:
     restock-slot: 40
     close-slot: 49
   list:
-    # Layout item dapat diatur bebas. Slot yang tidak diisi tetap filler glass.
-    item-rows: 5
-    # Opsional: daftar slot global. Jika diisi, menjadi fallback semua kategori.
-    item-slots: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44]
-    # Slot per kategori. Contoh: items hanya muncul pada slot yang kamu tentukan.
-    category-slots:
-      NATURAL: [10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25, 28, 29, 30, 31, 32, 33, 34]
-      ORE: [10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25]
-      MATERIAL: [10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25]
-      FARMING: [10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25]
-      ANIMALS: [10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25]
-      FOOD: [10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25]
-    restock-slot: 45
-    prev-slot: 47
-    back-slot: 49
-    next-slot: 51
-    balance-slot: 53
-    sellall-slot: 47
+    # Kategori menggunakan 4 baris pertama (36 slot). Dua baris bawah khusus kontrol.
+    item-rows: 4
+    item-slots: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35]
+    restock-slot: 36
+    sellall-slot: 39
+    prev-slot: 42
+    back-slot: 45
+    next-slot: 48
+    balance-slot: 50
+  placement:
+    item-slots-per-page: 36
+    bottom-control-rows: 2
+    slot-priority: true
+    overflow-slot-page: true
   contract:
     daily-tab-slot: 3
     weekly-tab-slot: 5

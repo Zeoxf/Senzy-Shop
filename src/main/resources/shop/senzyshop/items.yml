@@ -1,414 +1,349 @@
-# ==========================================================
-# SenzyShop - kategori: items
-# Auto-generated dari katalog item Minecraft 1.21.x (bahan dasar saja,
-# tidak termasuk varian turunan seperti tangga/pagar/pintu/slab/dll).
-#
-# 'slot' diisi berurutan mulai dari 0. Kalau kategori ini punya lebih item
-# daripada kapasitas 1 halaman (gui.list.item-slots, default 45), sisanya
-# OTOMATIS lanjut ke halaman berikutnya (slot 45 = halaman 2 slot 0, dst).
-# Field 'page' opsional juga bisa dipakai untuk memaksa 1 item ke halaman
-# tertentu tanpa mengetik angka slot besar - tapi kalau 'slot' sudah
-# overflow ke halaman lain, hasil overflow itu yang menang.
-
-dandelion:
-  material: DANDELION
-  display-name: "&eDandelion"
+id: "items9k2"
+bolt_armor_trim:
+  material: BOLT_ARMOR_TRIM_SMITHING_TEMPLATE
+  display-name: "&fBolt Armor Trim"
+  category: ITEMS
+  buy-price: 3000
+  sell-price: 1000
+  enabled: true
   slot: 0
-  category: items
-  buy-price: 15
-  sell-price: 7
-  enabled: true
   stock:
-    min: 16
-    max: 64
-    chance: 0.7
-
-poppy:
-  material: POPPY
-  display-name: "&cPoppy"
+    min: 1
+    max: 1
+    chance: 0.05
+coast_armor_trim:
+  material: COAST_ARMOR_TRIM_SMITHING_TEMPLATE
+  display-name: "&fCoast Armor Trim"
+  category: ITEMS
+  buy-price: 1500
+  sell-price: 500
+  enabled: true
   slot: 1
-  category: items
-  buy-price: 15
-  sell-price: 7
-  enabled: true
   stock:
-    min: 16
-    max: 64
-    chance: 0.7
-
-blue_orchid:
-  material: BLUE_ORCHID
-  display-name: "&bBlue Orchid"
-  slot: 2
-  category: items
-  buy-price: 20
-  sell-price: 10
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.5
-
-allium:
-  material: ALLIUM
-  display-name: "&dAllium"
-  slot: 3
-  category: items
-  buy-price: 20
-  sell-price: 10
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.5
-
-azure_bluet:
-  material: AZURE_BLUET
-  display-name: "&fAzure Bluet"
-  slot: 4
-  category: items
-  buy-price: 20
-  sell-price: 10
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.5
-
-red_tulip:
-  material: RED_TULIP
-  display-name: "&cRed Tulip"
-  slot: 5
-  category: items
-  buy-price: 18
-  sell-price: 9
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.55
-
-orange_tulip:
-  material: ORANGE_TULIP
-  display-name: "&6Orange Tulip"
-  slot: 6
-  category: items
-  buy-price: 18
-  sell-price: 9
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.55
-
-white_tulip:
-  material: WHITE_TULIP
-  display-name: "&fWhite Tulip"
-  slot: 7
-  category: items
-  buy-price: 18
-  sell-price: 9
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.55
-
-pink_tulip:
-  material: PINK_TULIP
-  display-name: "&dPink Tulip"
-  slot: 8
-  category: items
-  buy-price: 18
-  sell-price: 9
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.55
-
-oxeye_daisy:
-  material: OXEYE_DAISY
-  display-name: "&fOxeye Daisy"
-  slot: 9
-  category: items
-  buy-price: 18
-  sell-price: 9
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.55
-
-cornflower:
-  material: CORNFLOWER
-  display-name: "&9Cornflower"
-  slot: 10
-  category: items
-  buy-price: 20
-  sell-price: 10
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.5
-
-lily_of_the_valley:
-  material: LILY_OF_THE_VALLEY
-  display-name: "&fLily of the Valley"
-  slot: 11
-  category: items
-  buy-price: 22
-  sell-price: 11
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.45
-
-sunflower:
-  material: SUNFLOWER
-  display-name: "&eSunflower"
-  slot: 12
-  category: items
-  buy-price: 25
-  sell-price: 12
-  enabled: true
-  stock:
-    min: 8
-    max: 32
-    chance: 0.4
-
-lilac:
-  material: LILAC
-  display-name: "&dLilac"
-  slot: 13
-  category: items
-  buy-price: 25
-  sell-price: 12
-  enabled: true
-  stock:
-    min: 8
-    max: 32
-    chance: 0.4
-
-rose_bush:
-  material: ROSE_BUSH
-  display-name: "&cRose Bush"
-  slot: 14
-  category: items
-  buy-price: 25
-  sell-price: 12
-  enabled: true
-  stock:
-    min: 8
-    max: 32
-    chance: 0.4
-
-peony:
-  material: PEONY
-  display-name: "&dPeony"
-  slot: 15
-  category: items
-  buy-price: 25
-  sell-price: 12
-  enabled: true
-  stock:
-    min: 8
-    max: 32
-    chance: 0.4
-
-wither_rose:
-  material: WITHER_ROSE
-  display-name: "&8Wither Rose"
-  slot: 16
-  category: items
-  buy-price: 120
-  sell-price: 60
-  enabled: true
-  stock:
-    min: 2
-    max: 8
+    min: 1
+    max: 2
     chance: 0.1
-
-torchflower:
-  material: TORCHFLOWER
-  display-name: "&6Torchflower"
-  slot: 17
-  category: items
-  buy-price: 50
-  sell-price: 25
+dragon_breath:
+  material: DRAGON_BREATH
+  display-name: "&fDragon's Breath"
+  category: ITEMS
+  buy-price: 250
+  sell-price: 80
   enabled: true
-  stock:
-    min: 4
-    max: 16
-    chance: 0.25
-
-pitcher_plant:
-  material: PITCHER_PLANT
-  display-name: "&2Pitcher Plant"
-  slot: 18
-  category: items
-  buy-price: 50
-  sell-price: 25
-  enabled: true
-  stock:
-    min: 4
-    max: 16
-    chance: 0.25
-
-brown_mushroom:
-  material: BROWN_MUSHROOM
-  display-name: "&6Brown Mushroom"
-  slot: 19
-  category: items
-  buy-price: 20
-  sell-price: 10
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.5
-
-red_mushroom:
-  material: RED_MUSHROOM
-  display-name: "&cRed Mushroom"
-  slot: 20
-  category: items
-  buy-price: 20
-  sell-price: 10
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.5
-
-crimson_fungus:
-  material: CRIMSON_FUNGUS
-  display-name: "&4Crimson Fungus"
-  slot: 21
-  category: items
-  buy-price: 30
-  sell-price: 15
-  enabled: true
-  stock:
-    min: 8
-    max: 32
-    chance: 0.3
-
-warped_fungus:
-  material: WARPED_FUNGUS
-  display-name: "&3Warped Fungus"
-  slot: 22
-  category: items
-  buy-price: 30
-  sell-price: 15
-  enabled: true
-  stock:
-    min: 8
-    max: 32
-    chance: 0.3
-
-seagrass:
-  material: SEAGRASS
-  display-name: "&2Seagrass"
-  slot: 23
-  category: items
-  buy-price: 15
-  sell-price: 7
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.6
-
-sea_pickle:
-  material: SEA_PICKLE
-  display-name: "&2Sea Pickle"
-  slot: 24
-  category: items
-  buy-price: 35
-  sell-price: 17
-  enabled: true
-  stock:
-    min: 8
-    max: 32
-    chance: 0.3
-
-nether_sprouts:
-  material: NETHER_SPROUTS
-  display-name: "&2Nether Sprouts"
-  slot: 25
-  category: items
-  buy-price: 25
-  sell-price: 12
-  enabled: true
-  stock:
-    min: 8
-    max: 32
-    chance: 0.35
-
-twisting_vines:
-  material: TWISTING_VINES
-  display-name: "&2Twisting Vines"
-  slot: 26
-  category: items
-  buy-price: 25
-  sell-price: 12
-  enabled: true
-  stock:
-    min: 8
-    max: 32
-    chance: 0.35
-
-weeping_vines:
-  material: WEEPING_VINES
-  display-name: "&4Weeping Vines"
-  slot: 27
-  category: items
-  buy-price: 25
-  sell-price: 12
-  enabled: true
-  stock:
-    min: 8
-    max: 32
-    chance: 0.35
-
-big_dripleaf:
-  material: BIG_DRIPLEAF
-  display-name: "&2Big Dripleaf"
-  slot: 28
-  category: items
-  buy-price: 30
-  sell-price: 15
-  enabled: true
-  stock:
-    min: 8
-    max: 32
-    chance: 0.3
-
-small_dripleaf:
-  material: SMALL_DRIPLEAF
-  display-name: "&2Small Dripleaf"
-  slot: 29
-  category: items
-  buy-price: 25
-  sell-price: 12
-  enabled: true
-  stock:
-    min: 8
-    max: 32
-    chance: 0.3
-
-spore_blossom:
-  material: SPORE_BLOSSOM
-  display-name: "&dSpore Blossom"
-  slot: 30
-  category: items
-  buy-price: 60
-  sell-price: 30
-  enabled: true
+  slot: 2
   stock:
     min: 2
     max: 8
-    chance: 0.15
+    chance: 0.3
+dune_armor_trim:
+  material: DUNE_ARMOR_TRIM_SMITHING_TEMPLATE
+  display-name: "&fDune Armor Trim"
+  category: ITEMS
+  buy-price: 1500
+  sell-price: 500
+  enabled: true
+  slot: 3
+  stock:
+    min: 1
+    max: 2
+    chance: 0.1
+elytra:
+  material: ELYTRA
+  display-name: "&fElytra"
+  category: ITEMS
+  buy-price: 10000
+  sell-price: 3500
+  enabled: true
+  slot: 4
+  stock:
+    min: 1
+    max: 1
+    chance: 0.05
+experience_bottle:
+  material: EXPERIENCE_BOTTLE
+  display-name: "&fBottle o' Enchanting"
+  category: ITEMS
+  buy-price: 80
+  sell-price: 25
+  enabled: true
+  slot: 5
+  stock:
+    min: 4
+    max: 32
+    chance: 0.6
+flow_armor_trim:
+  material: FLOW_ARMOR_TRIM_SMITHING_TEMPLATE
+  display-name: "&fFlow Armor Trim"
+  category: ITEMS
+  buy-price: 3000
+  sell-price: 1000
+  enabled: true
+  slot: 6
+  stock:
+    min: 1
+    max: 1
+    chance: 0.05
+goat_horn:
+  material: GOAT_HORN
+  display-name: "&fGoat Horn"
+  category: ITEMS
+  buy-price: 180
+  sell-price: 90
+  enabled: true
+  slot: 7
+  stock:
+    min: 1
+    max: 4
+    chance: 0.25
+heart_of_the_sea:
+  material: HEART_OF_THE_SEA
+  display-name: "&fHeart of the Sea"
+  category: ITEMS
+  buy-price: 2000
+  sell-price: 750
+  enabled: true
+  slot: 8
+  stock:
+    min: 1
+    max: 2
+    chance: 0.1
+host_armor_trim:
+  material: HOST_ARMOR_TRIM_SMITHING_TEMPLATE
+  display-name: "&fHost Armor Trim"
+  category: ITEMS
+  buy-price: 2500
+  sell-price: 800
+  enabled: true
+  slot: 9
+  stock:
+    min: 1
+    max: 2
+    chance: 0.08
+name_tag:
+  material: NAME_TAG
+  display-name: "&fName Tag"
+  category: ITEMS
+  buy-price: 200
+  sell-price: 70
+  enabled: true
+  slot: 10
+  stock:
+    min: 1
+    max: 5
+    chance: 0.5
+nether_star:
+  material: NETHER_STAR
+  display-name: "&fNether Star"
+  category: ITEMS
+  buy-price: 5000
+  sell-price: 2000
+  enabled: true
+  slot: 11
+  stock:
+    min: 1
+    max: 2
+    chance: 0.05
+netherite_upgrade_smithing_template:
+  material: NETHERITE_UPGRADE_SMITHING_TEMPLATE
+  display-name: "&fNetherite Upgrade Template"
+  category: ITEMS
+  buy-price: 3500
+  sell-price: 1000
+  enabled: true
+  slot: 12
+  stock:
+    min: 1
+    max: 3
+    chance: 0.1
+ominous_bottle:
+  material: OMINOUS_BOTTLE
+  display-name: "&fOminous Bottle"
+  category: ITEMS
+  buy-price: 300
+  sell-price: 90
+  enabled: true
+  slot: 13
+  stock:
+    min: 1
+    max: 4
+    chance: 0.2
+ominous_trial_key:
+  material: OMINOUS_TRIAL_KEY
+  display-name: "&fOminous Trial Key"
+  category: ITEMS
+  buy-price: 800
+  sell-price: 250
+  enabled: true
+  slot: 14
+  stock:
+    min: 1
+    max: 2
+    chance: 0.1
+raiser_armor_trim:
+  material: RAISER_ARMOR_TRIM_SMITHING_TEMPLATE
+  display-name: "&fRaiser Armor Trim"
+  category: ITEMS
+  buy-price: 2500
+  sell-price: 800
+  enabled: true
+  slot: 15
+  stock:
+    min: 1
+    max: 2
+    chance: 0.08
+saddle:
+  material: SADDLE
+  display-name: "&fSaddle"
+  category: ITEMS
+  buy-price: 300
+  sell-price: 100
+  enabled: true
+  slot: 16
+  stock:
+    min: 1
+    max: 3
+    chance: 0.4
+sentry_armor_trim:
+  material: SENTRY_ARMOR_TRIM_SMITHING_TEMPLATE
+  display-name: "&fSentry Armor Trim"
+  category: ITEMS
+  buy-price: 1500
+  sell-price: 500
+  enabled: true
+  slot: 17
+  stock:
+    min: 1
+    max: 2
+    chance: 0.1
+shaper_armor_trim:
+  material: SHAPER_ARMOR_TRIM_SMITHING_TEMPLATE
+  display-name: "&fShaper Armor Trim"
+  category: ITEMS
+  buy-price: 2500
+  sell-price: 800
+  enabled: true
+  slot: 18
+  stock:
+    min: 1
+    max: 2
+    chance: 0.08
+silence_armor_trim:
+  material: SILENCE_ARMOR_TRIM_SMITHING_TEMPLATE
+  display-name: "&fSilence Armor Trim"
+  category: ITEMS
+  buy-price: 8000
+  sell-price: 2500
+  enabled: true
+  slot: 19
+  stock:
+    min: 1
+    max: 1
+    chance: 0.02
+spire_armor_trim:
+  material: SPIRE_ARMOR_TRIM_SMITHING_TEMPLATE
+  display-name: "&fSpire Armor Trim"
+  category: ITEMS
+  buy-price: 2500
+  sell-price: 800
+  enabled: true
+  slot: 20
+  stock:
+    min: 1
+    max: 2
+    chance: 0.08
+tide_armor_trim:
+  material: TIDE_ARMOR_TRIM_SMITHING_TEMPLATE
+  display-name: "&fTide Armor Trim"
+  category: ITEMS
+  buy-price: 2500
+  sell-price: 800
+  enabled: true
+  slot: 21
+  stock:
+    min: 1
+    max: 2
+    chance: 0.08
+totem_of_undying:
+  material: TOTEM_OF_UNDYING
+  display-name: "&fTotem of Undying"
+  category: ITEMS
+  buy-price: 2500
+  sell-price: 800
+  enabled: true
+  slot: 22
+  stock:
+    min: 1
+    max: 2
+    chance: 0.1
+trial_key:
+  material: TRIAL_KEY
+  display-name: "&fTrial Key"
+  category: ITEMS
+  buy-price: 250
+  sell-price: 80
+  enabled: true
+  slot: 23
+  stock:
+    min: 1
+    max: 4
+    chance: 0.25
+trident:
+  material: TRIDENT
+  display-name: "&fTrident"
+  category: ITEMS
+  buy-price: 3500
+  sell-price: 1200
+  enabled: true
+  slot: 24
+  stock:
+    min: 1
+    max: 1
+    chance: 0.1
+vex_armor_trim:
+  material: VEX_ARMOR_TRIM_SMITHING_TEMPLATE
+  display-name: "&fVex Armor Trim"
+  category: ITEMS
+  buy-price: 2500
+  sell-price: 800
+  enabled: true
+  slot: 25
+  stock:
+    min: 1
+    max: 2
+    chance: 0.08
+ward_armor_trim:
+  material: WARD_ARMOR_TRIM_SMITHING_TEMPLATE
+  display-name: "&fWard Armor Trim"
+  category: ITEMS
+  buy-price: 2500
+  sell-price: 800
+  enabled: true
+  slot: 26
+  stock:
+    min: 1
+    max: 2
+    chance: 0.08
+wayfinder_armor_trim:
+  material: WAYFINDER_ARMOR_TRIM_SMITHING_TEMPLATE
+  display-name: "&fWayfinder Armor Trim"
+  category: ITEMS
+  buy-price: 2500
+  sell-price: 800
+  enabled: true
+  slot: 27
+  stock:
+    min: 1
+    max: 2
+    chance: 0.08
+wild_armor_trim:
+  material: WILD_ARMOR_TRIM_SMITHING_TEMPLATE
+  display-name: "&fWild Armor Trim"
+  category: ITEMS
+  buy-price: 1500
+  sell-price: 500
+  enabled: true
+  slot: 28
+  stock:
+    min: 1
+    max: 2
+    chance: 0.1

@@ -1,2 +1,301 @@
-# Item configuration for category: utility
-# Empty slots remain gray glass in the GUI.
+id: "utilit9k2"
+armor_stand:
+  material: ARMOR_STAND
+  display-name: "&fArmor Stand"
+  category: UTILITY
+  buy-price: 60
+  sell-price: 18
+  enabled: true
+  slot: 0
+  stock:
+    min: 1
+    max: 4
+    chance: 0.8
+book:
+  material: BOOK
+  display-name: "&fBook"
+  category: UTILITY
+  buy-price: 30
+  sell-price: 10
+  enabled: true
+  slot: 1
+  stock:
+    min: 4
+    max: 32
+    chance: 1
+bowl:
+  material: BOWL
+  display-name: "&fBowl"
+  category: UTILITY
+  buy-price: 5
+  sell-price: 1
+  enabled: true
+  slot: 2
+  stock:
+    min: 16
+    max: 64
+    chance: 1
+bucket:
+  material: BUCKET
+  display-name: "&fBucket"
+  category: UTILITY
+  buy-price: 80
+  sell-price: 25
+  enabled: true
+  slot: 3
+  stock:
+    min: 1
+    max: 4
+    chance: 0.8
+bundle:
+  material: BUNDLE
+  display-name: "&fBundle"
+  category: UTILITY
+  buy-price: 35
+  sell-price: 17
+  enabled: true
+  slot: 4
+  stock:
+    min: 1
+    max: 8
+    chance: 0.5
+chest:
+  material: CHEST
+  display-name: "&fChest"
+  category: UTILITY
+  buy-price: 80
+  sell-price: 25
+  enabled: true
+  slot: 5
+  stock:
+    min: 1
+    max: 4
+    chance: 1
+clock:
+  material: CLOCK
+  display-name: "&fClock"
+  category: UTILITY
+  buy-price: 120
+  sell-price: 35
+  enabled: true
+  slot: 6
+  stock:
+    min: 1
+    max: 4
+    chance: 0.6
+compass:
+  material: COMPASS
+  display-name: "&fCompass"
+  category: UTILITY
+  buy-price: 100
+  sell-price: 30
+  enabled: true
+  slot: 7
+  stock:
+    min: 1
+    max: 4
+    chance: 0.7
+firework_rocket:
+  material: FIREWORK_ROCKET
+  display-name: "&fFirework Rocket"
+  category: UTILITY
+  buy-price: 30
+  sell-price: 8
+  enabled: true
+  slot: 8
+  stock:
+    min: 8
+    max: 64
+    chance: 0.8
+fishing_rod:
+  material: FISHING_ROD
+  display-name: "&fFishing Rod"
+  category: UTILITY
+  buy-price: 80
+  sell-price: 25
+  enabled: true
+  slot: 9
+  stock:
+    min: 1
+    max: 4
+    chance: 0.8
+flint_and_steel:
+  material: FLINT_AND_STEEL
+  display-name: "&fFlint and Steel"
+  category: UTILITY
+  buy-price: 40
+  sell-price: 12
+  enabled: true
+  slot: 10
+  stock:
+    min: 1
+    max: 4
+    chance: 0.8
+glass_bottle:
+  material: GLASS_BOTTLE
+  display-name: "&fGlass Bottle"
+  category: UTILITY
+  buy-price: 12
+  sell-price: 4
+  enabled: true
+  slot: 11
+  stock:
+    min: 8
+    max: 64
+    chance: 1
+glow_item_frame:
+  material: GLOW_ITEM_FRAME
+  display-name: "&fGlow Item Frame"
+  category: UTILITY
+  buy-price: 80
+  sell-price: 25
+  enabled: true
+  slot: 12
+  stock:
+    min: 2
+    max: 16
+    chance: 0.5
+item_frame:
+  material: ITEM_FRAME
+  display-name: "&fItem Frame"
+  category: UTILITY
+  buy-price: 40
+  sell-price: 12
+  enabled: true
+  slot: 13
+  stock:
+    min: 4
+    max: 32
+    chance: 0.8
+lava_bucket:
+  material: LAVA_BUCKET
+  display-name: "&fLava Bucket"
+  category: UTILITY
+  buy-price: 150
+  sell-price: 45
+  enabled: true
+  slot: 14
+  stock:
+    min: 1
+    max: 1
+    chance: 0.5
+lead:
+  material: LEAD
+  display-name: "&fLead"
+  category: UTILITY
+  buy-price: 40
+  sell-price: 12
+  enabled: true
+  slot: 15
+  stock:
+    min: 1
+    max: 4
+    chance: 0.7
+map:
+  material: MAP
+  display-name: "&fMap"
+  category: UTILITY
+  buy-price: 80
+  sell-price: 25
+  enabled: true
+  slot: 16
+  stock:
+    min: 1
+    max: 8
+    chance: 0.7
+milk_bucket:
+  material: MILK_BUCKET
+  display-name: "&fMilk Bucket"
+  category: UTILITY
+  buy-price: 100
+  sell-price: 30
+  enabled: true
+  slot: 17
+  stock:
+    min: 1
+    max: 1
+    chance: 0.6
+painting:
+  material: PAINTING
+  display-name: "&fPainting"
+  category: UTILITY
+  buy-price: 30
+  sell-price: 10
+  enabled: true
+  slot: 18
+  stock:
+    min: 4
+    max: 32
+    chance: 0.8
+paper:
+  material: PAPER
+  display-name: "&fPaper"
+  category: UTILITY
+  buy-price: 8
+  sell-price: 3
+  enabled: true
+  slot: 19
+  stock:
+    min: 16
+    max: 64
+    chance: 1
+powder_snow_bucket:
+  material: POWDER_SNOW_BUCKET
+  display-name: "&fPowder Snow Bucket"
+  category: UTILITY
+  buy-price: 120
+  sell-price: 35
+  enabled: true
+  slot: 20
+  stock:
+    min: 1
+    max: 1
+    chance: 0.4
+shears:
+  material: SHEARS
+  display-name: "&fShears"
+  category: UTILITY
+  buy-price: 80
+  sell-price: 25
+  enabled: true
+  slot: 21
+  stock:
+    min: 1
+    max: 4
+    chance: 0.8
+spyglass:
+  material: SPYGLASS
+  display-name: "&fSpyglass"
+  category: UTILITY
+  buy-price: 150
+  sell-price: 45
+  enabled: true
+  slot: 22
+  stock:
+    min: 1
+    max: 4
+    chance: 0.5
+stick:
+  material: STICK
+  display-name: "&fStick"
+  category: UTILITY
+  buy-price: 4
+  sell-price: 1
+  enabled: true
+  slot: 23
+  stock:
+    min: 16
+    max: 64
+    chance: 1
+water_bucket:
+  material: WATER_BUCKET
+  display-name: "&fWater Bucket"
+  category: UTILITY
+  buy-price: 100
+  sell-price: 30
+  enabled: true
+  slot: 24
+  stock:
+    min: 1
+    max: 1
+    chance: 0.7

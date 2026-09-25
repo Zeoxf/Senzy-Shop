@@ -1,297 +1,313 @@
-# ==========================================================
-# SenzyShop - kategori: food
-# Auto-generated dari katalog item Minecraft 1.21.x (bahan dasar saja,
-# tidak termasuk varian turunan seperti tangga/pagar/pintu/slab/dll).
-#
-# 'slot' diisi berurutan mulai dari 0. Kalau kategori ini punya lebih item
-# daripada kapasitas 1 halaman (gui.list.item-slots, default 45), sisanya
-# OTOMATIS lanjut ke halaman berikutnya (slot 45 = halaman 2 slot 0, dst).
-# Field 'page' opsional juga bisa dipakai untuk memaksa 1 item ke halaman
-# tertentu tanpa mengetik angka slot besar - tapi kalau 'slot' sudah
-# overflow ke halaman lain, hasil overflow itu yang menang.
-
+id: "food9k2"
 apple:
   material: APPLE
-  display-name: "&cApple"
-  slot: 0
-  category: food
+  display-name: "&fApple"
+  category: FOOD
   buy-price: 25
-  sell-price: 12
+  sell-price: 8
   enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.6
-
-bread:
-  material: BREAD
-  display-name: "&eBread"
-  slot: 1
-  category: food
-  buy-price: 35
-  sell-price: 17
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.6
-
-egg:
-  material: EGG
-  display-name: "&fEgg"
-  slot: 2
-  category: food
-  buy-price: 15
-  sell-price: 7
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.7
-
-milk_bucket:
-  material: MILK_BUCKET
-  display-name: "&fMilk Bucket"
-  slot: 3
-  category: food
-  buy-price: 40
-  sell-price: 20
-  enabled: true
+  slot: 0
   stock:
     min: 4
-    max: 16
-    chance: 0.4
-
-honey_bottle:
-  material: HONEY_BOTTLE
-  display-name: "&6Honey Bottle"
-  slot: 4
-  category: food
-  buy-price: 60
-  sell-price: 30
-  enabled: true
-  stock:
-    min: 4
-    max: 16
-    chance: 0.3
-
+    max: 32
+    chance: 0.8
 beef:
   material: BEEF
-  display-name: "&cRaw Beef"
-  slot: 5
-  category: food
-  buy-price: 25
-  sell-price: 12
+  display-name: "&fRaw Beef"
+  category: FOOD
+  buy-price: 15
+  sell-price: 5
   enabled: true
+  slot: 1
   stock:
-    min: 16
+    min: 8
     max: 64
-    chance: 0.6
-
-cooked_beef:
-  material: COOKED_BEEF
-  display-name: "&6Steak"
-  slot: 6
-  category: food
-  buy-price: 45
-  sell-price: 22
+    chance: 1
+bread:
+  material: BREAD
+  display-name: "&fBread"
+  category: FOOD
+  buy-price: 18
+  sell-price: 7
   enabled: true
+  slot: 2
   stock:
-    min: 16
+    min: 8
     max: 64
-    chance: 0.55
-
-porkchop:
-  material: PORKCHOP
-  display-name: "&cRaw Porkchop"
-  slot: 7
-  category: food
-  buy-price: 25
-  sell-price: 12
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.6
-
-cooked_porkchop:
-  material: COOKED_PORKCHOP
-  display-name: "&6Cooked Porkchop"
-  slot: 8
-  category: food
-  buy-price: 45
-  sell-price: 22
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.55
-
+    chance: 1
 chicken:
   material: CHICKEN
   display-name: "&fRaw Chicken"
-  slot: 9
-  category: food
-  buy-price: 20
-  sell-price: 10
+  category: FOOD
+  buy-price: 15
+  sell-price: 5
   enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.6
-
-cooked_chicken:
-  material: COOKED_CHICKEN
-  display-name: "&6Cooked Chicken"
-  slot: 10
-  category: food
-  buy-price: 38
-  sell-price: 19
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.55
-
-mutton:
-  material: MUTTON
-  display-name: "&cRaw Mutton"
-  slot: 11
-  category: food
-  buy-price: 20
-  sell-price: 10
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.55
-
-cooked_mutton:
-  material: COOKED_MUTTON
-  display-name: "&6Cooked Mutton"
-  slot: 12
-  category: food
-  buy-price: 38
-  sell-price: 19
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.5
-
-rabbit:
-  material: RABBIT
-  display-name: "&cRaw Rabbit"
-  slot: 13
-  category: food
-  buy-price: 20
-  sell-price: 10
-  enabled: true
+  slot: 3
   stock:
     min: 8
-    max: 32
-    chance: 0.4
-
-cooked_rabbit:
-  material: COOKED_RABBIT
-  display-name: "&6Cooked Rabbit"
-  slot: 14
-  category: food
-  buy-price: 38
-  sell-price: 19
+    max: 64
+    chance: 1
+chorus_fruit:
+  material: CHORUS_FRUIT
+  display-name: "&fChorus Fruit"
+  category: FOOD
+  buy-price: 30
+  sell-price: 10
   enabled: true
+  slot: 4
   stock:
     min: 8
-    max: 32
-    chance: 0.4
-
+    max: 64
+    chance: 0.7
 cod:
   material: COD
   display-name: "&fRaw Cod"
-  slot: 15
-  category: food
-  buy-price: 22
-  sell-price: 11
+  category: FOOD
+  buy-price: 12
+  sell-price: 4
   enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.5
-
-cooked_cod:
-  material: COOKED_COD
-  display-name: "&6Cooked Cod"
-  slot: 16
-  category: food
-  buy-price: 40
-  sell-price: 20
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.45
-
-salmon:
-  material: SALMON
-  display-name: "&cRaw Salmon"
-  slot: 17
-  category: food
-  buy-price: 25
-  sell-price: 12
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.45
-
-cooked_salmon:
-  material: COOKED_SALMON
-  display-name: "&6Cooked Salmon"
-  slot: 18
-  category: food
-  buy-price: 45
-  sell-price: 22
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.4
-
-tropical_fish:
-  material: TROPICAL_FISH
-  display-name: "&bTropical Fish"
-  slot: 19
-  category: food
-  buy-price: 50
-  sell-price: 25
-  enabled: true
-  stock:
-    min: 4
-    max: 16
-    chance: 0.2
-
-pufferfish:
-  material: PUFFERFISH
-  display-name: "&aPufferfish"
-  slot: 20
-  category: food
-  buy-price: 55
-  sell-price: 27
-  enabled: true
-  stock:
-    min: 4
-    max: 16
-    chance: 0.2
-
-chorus_fruit:
-  material: CHORUS_FRUIT
-  display-name: "&dChorus Fruit"
-  slot: 21
-  category: food
-  buy-price: 350
-  sell-price: 175
-  enabled: true
+  slot: 5
   stock:
     min: 8
+    max: 64
+    chance: 1
+cooked_beef:
+  material: COOKED_BEEF
+  display-name: "&fSteak"
+  category: FOOD
+  buy-price: 18
+  sell-price: 7
+  enabled: true
+  slot: 6
+  stock:
+    min: 8
+    max: 64
+    chance: 1
+cooked_chicken:
+  material: COOKED_CHICKEN
+  display-name: "&fCooked Chicken"
+  category: FOOD
+  buy-price: 18
+  sell-price: 7
+  enabled: true
+  slot: 7
+  stock:
+    min: 8
+    max: 64
+    chance: 1
+cooked_cod:
+  material: COOKED_COD
+  display-name: "&fCooked Cod"
+  category: FOOD
+  buy-price: 16
+  sell-price: 6
+  enabled: true
+  slot: 8
+  stock:
+    min: 8
+    max: 64
+    chance: 1
+cooked_mutton:
+  material: COOKED_MUTTON
+  display-name: "&fCooked Mutton"
+  category: FOOD
+  buy-price: 18
+  sell-price: 7
+  enabled: true
+  slot: 9
+  stock:
+    min: 8
+    max: 64
+    chance: 1
+cooked_porkchop:
+  material: COOKED_PORKCHOP
+  display-name: "&fCooked Porkchop"
+  category: FOOD
+  buy-price: 18
+  sell-price: 7
+  enabled: true
+  slot: 10
+  stock:
+    min: 8
+    max: 64
+    chance: 1
+cooked_rabbit:
+  material: COOKED_RABBIT
+  display-name: "&fCooked Rabbit"
+  category: FOOD
+  buy-price: 22
+  sell-price: 8
+  enabled: true
+  slot: 11
+  stock:
+    min: 8
+    max: 64
+    chance: 0.8
+cooked_salmon:
+  material: COOKED_SALMON
+  display-name: "&fCooked Salmon"
+  category: FOOD
+  buy-price: 20
+  sell-price: 7
+  enabled: true
+  slot: 12
+  stock:
+    min: 8
+    max: 64
+    chance: 1
+cookie:
+  material: COOKIE
+  display-name: "&fCookie"
+  category: FOOD
+  buy-price: 10
+  sell-price: 3
+  enabled: true
+  slot: 13
+  stock:
+    min: 16
+    max: 64
+    chance: 1
+dried_kelp:
+  material: DRIED_KELP
+  display-name: "&fDried Kelp"
+  category: FOOD
+  buy-price: 10
+  sell-price: 3
+  enabled: true
+  slot: 14
+  stock:
+    min: 16
+    max: 64
+    chance: 1
+enchanted_golden_apple:
+  material: ENCHANTED_GOLDEN_APPLE
+  display-name: "&fEnchanted Golden Apple"
+  category: FOOD
+  buy-price: 3000
+  sell-price: 1000
+  enabled: true
+  slot: 15
+  stock:
+    min: 1
+    max: 2
+    chance: 0.08
+golden_apple:
+  material: GOLDEN_APPLE
+  display-name: "&fGolden Apple"
+  category: FOOD
+  buy-price: 350
+  sell-price: 120
+  enabled: true
+  slot: 16
+  stock:
+    min: 2
+    max: 16
+    chance: 0.5
+golden_carrot:
+  material: GOLDEN_CARROT
+  display-name: "&fGolden Carrot"
+  category: FOOD
+  buy-price: 80
+  sell-price: 30
+  enabled: true
+  slot: 17
+  stock:
+    min: 4
     max: 32
-    chance: 0.15
+    chance: 0.8
+honey_bottle:
+  material: HONEY_BOTTLE
+  display-name: "&fHoney Bottle"
+  category: FOOD
+  buy-price: 24
+  sell-price: 12
+  enabled: true
+  slot: 18
+  stock:
+    min: 2
+    max: 16
+    chance: 0.6
+melon_slice:
+  material: MELON_SLICE
+  display-name: "&fMelon Slice"
+  category: FOOD
+  buy-price: 8
+  sell-price: 3
+  enabled: true
+  slot: 19
+  stock:
+    min: 16
+    max: 64
+    chance: 1
+mutton:
+  material: MUTTON
+  display-name: "&fRaw Mutton"
+  category: FOOD
+  buy-price: 15
+  sell-price: 5
+  enabled: true
+  slot: 20
+  stock:
+    min: 8
+    max: 64
+    chance: 1
+porkchop:
+  material: PORKCHOP
+  display-name: "&fRaw Porkchop"
+  category: FOOD
+  buy-price: 15
+  sell-price: 5
+  enabled: true
+  slot: 21
+  stock:
+    min: 8
+    max: 64
+    chance: 1
+pufferfish:
+  material: PUFFERFISH
+  display-name: "&fPufferfish"
+  category: FOOD
+  buy-price: 30
+  sell-price: 8
+  enabled: true
+  slot: 22
+  stock:
+    min: 4
+    max: 32
+    chance: 0.6
+rabbit:
+  material: RABBIT
+  display-name: "&fRaw Rabbit"
+  category: FOOD
+  buy-price: 18
+  sell-price: 6
+  enabled: true
+  slot: 23
+  stock:
+    min: 8
+    max: 64
+    chance: 0.8
+salmon:
+  material: SALMON
+  display-name: "&fRaw Salmon"
+  category: FOOD
+  buy-price: 15
+  sell-price: 5
+  enabled: true
+  slot: 24
+  stock:
+    min: 8
+    max: 64
+    chance: 1
+tropical_fish:
+  material: TROPICAL_FISH
+  display-name: "&fTropical Fish"
+  category: FOOD
+  buy-price: 25
+  sell-price: 8
+  enabled: true
+  slot: 25
+  stock:
+    min: 8
+    max: 64
+    chance: 0.7

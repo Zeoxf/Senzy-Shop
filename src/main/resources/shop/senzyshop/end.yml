@@ -1,0 +1,37 @@
+id: "end9k2"
+chorus_flower:
+  material: CHORUS_FLOWER
+  display-name: "&fChorus Flower"
+  category: END
+  buy-price: 25
+  sell-price: 9
+  enabled: true
+  slot: 0
+  stock:
+    min: 8
+    max: 64
+    chance: 0.7
+chorus_plant:
+  material: CHORUS_PLANT
+  display-name: "&fChorus Plant"
+  category: END
+  buy-price: 20
+  sell-price: 7
+  enabled: true
+  slot: 1
+  stock:
+    min: 8
+    max: 64
+    chance: 0.8
+purpur_block:
+  material: PURPUR_BLOCK
+  display-name: "&fPurpur Block"
+  category: END
+  buy-price: 15
+  sell-price: 6
+  enabled: true
+  slot: 2
+  stock:
+    min: 8
+    max: 64
+    chance: 1

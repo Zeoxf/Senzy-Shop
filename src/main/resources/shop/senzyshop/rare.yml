@@ -1,89 +1,253 @@
-# ==========================================================
-# SenzyShop - kategori: rare
-# Auto-generated dari katalog item Minecraft 1.21.x (bahan dasar saja,
-# tidak termasuk varian turunan seperti tangga/pagar/pintu/slab/dll).
-#
-# 'slot' diisi berurutan mulai dari 0. Kalau kategori ini punya lebih item
-# daripada kapasitas 1 halaman (gui.list.item-slots, default 45), sisanya
-# OTOMATIS lanjut ke halaman berikutnya (slot 45 = halaman 2 slot 0, dst).
-# Field 'page' opsional juga bisa dipakai untuk memaksa 1 item ke halaman
-# tertentu tanpa mengetik angka slot besar - tapi kalau 'slot' sudah
-# overflow ke halaman lain, hasil overflow itu yang menang.
-
-ancient_debris:
-  material: ANCIENT_DEBRIS
-  display-name: "&8Ancient Debris"
-  slot: 0
-  category: rare
-  buy-price: 20000
-  sell-price: 10000
-  enabled: true
-  stock:
-    min: 1
-    max: 2
-    chance: 0.01
-
-shulker_shell:
-  material: SHULKER_SHELL
-  display-name: "&dShulker Shell"
-  slot: 1
-  category: rare
-  buy-price: 8000
-  sell-price: 4000
-  enabled: true
-  stock:
-    min: 1
-    max: 2
-    chance: 0.05
-
-nether_star:
-  material: NETHER_STAR
-  display-name: "&fNether Star"
-  slot: 2
-  category: rare
-  buy-price: 100000
-  sell-price: 50000
-  enabled: true
-  stock:
-    min: 1
-    max: 1
-    chance: 0.01
-
-heart_of_the_sea:
-  material: HEART_OF_THE_SEA
-  display-name: "&bHeart of the Sea"
-  slot: 3
-  category: rare
-  buy-price: 15000
-  sell-price: 7500
-  enabled: true
-  stock:
-    min: 1
-    max: 1
-    chance: 0.02
-
-totem_of_undying:
-  material: TOTEM_OF_UNDYING
-  display-name: "&eTotem of Undying"
-  slot: 4
-  category: rare
-  buy-price: 60000
-  sell-price: 30000
-  enabled: true
-  stock:
-    min: 1
-    max: 1
-    chance: 0.01
-
+id: "rare9k2"
 dragon_egg:
   material: DRAGON_EGG
-  display-name: "&5Dragon Egg"
-  slot: 5
-  category: rare
-  buy-price: 1000000
-  sell-price: 500000
+  display-name: "&fDragon Egg"
+  category: COLLECTIBLES
+  buy-price: 50000
+  sell-price: 25000
   enabled: true
+  slot: 0
   stock:
     min: 1
     max: 1
-    chance: 0.005
+    chance: 0.01
+music_disc_11:
+  material: MUSIC_DISC_11
+  display-name: "&fMusic Disc 11"
+  category: COLLECTIBLES
+  buy-price: 450
+  sell-price: 150
+  enabled: true
+  slot: 1
+  stock:
+    min: 1
+    max: 1
+    chance: 0.15
+music_disc_13:
+  material: MUSIC_DISC_13
+  display-name: "&fMusic Disc 13"
+  category: COLLECTIBLES
+  buy-price: 300
+  sell-price: 100
+  enabled: true
+  slot: 2
+  stock:
+    min: 1
+    max: 1
+    chance: 0.25
+music_disc_5:
+  material: MUSIC_DISC_5
+  display-name: "&fMusic Disc 5"
+  category: COLLECTIBLES
+  buy-price: 900
+  sell-price: 300
+  enabled: true
+  slot: 3
+  stock:
+    min: 1
+    max: 1
+    chance: 0.06
+music_disc_blocks:
+  material: MUSIC_DISC_BLOCKS
+  display-name: "&fMusic Disc Blocks"
+  category: COLLECTIBLES
+  buy-price: 350
+  sell-price: 120
+  enabled: true
+  slot: 4
+  stock:
+    min: 1
+    max: 1
+    chance: 0.2
+music_disc_cat:
+  material: MUSIC_DISC_CAT
+  display-name: "&fMusic Disc Cat"
+  category: COLLECTIBLES
+  buy-price: 300
+  sell-price: 100
+  enabled: true
+  slot: 5
+  stock:
+    min: 1
+    max: 1
+    chance: 0.25
+music_disc_chirp:
+  material: MUSIC_DISC_CHIRP
+  display-name: "&fMusic Disc Chirp"
+  category: COLLECTIBLES
+  buy-price: 350
+  sell-price: 120
+  enabled: true
+  slot: 6
+  stock:
+    min: 1
+    max: 1
+    chance: 0.2
+music_disc_creator:
+  material: MUSIC_DISC_CREATOR
+  display-name: "&fMusic Disc Creator"
+  category: COLLECTIBLES
+  buy-price: 900
+  sell-price: 300
+  enabled: true
+  slot: 7
+  stock:
+    min: 1
+    max: 1
+    chance: 0.08
+music_disc_creator_music_box:
+  material: MUSIC_DISC_CREATOR_MUSIC_BOX
+  display-name: "&fMusic Disc Creator Music Box"
+  category: COLLECTIBLES
+  buy-price: 900
+  sell-price: 300
+  enabled: true
+  slot: 8
+  stock:
+    min: 1
+    max: 1
+    chance: 0.08
+music_disc_far:
+  material: MUSIC_DISC_FAR
+  display-name: "&fMusic Disc Far"
+  category: COLLECTIBLES
+  buy-price: 350
+  sell-price: 120
+  enabled: true
+  slot: 9
+  stock:
+    min: 1
+    max: 1
+    chance: 0.2
+music_disc_mall:
+  material: MUSIC_DISC_MALL
+  display-name: "&fMusic Disc Mall"
+  category: COLLECTIBLES
+  buy-price: 350
+  sell-price: 120
+  enabled: true
+  slot: 10
+  stock:
+    min: 1
+    max: 1
+    chance: 0.2
+music_disc_mellohi:
+  material: MUSIC_DISC_MELLOHI
+  display-name: "&fMusic Disc Mellohi"
+  category: COLLECTIBLES
+  buy-price: 350
+  sell-price: 120
+  enabled: true
+  slot: 11
+  stock:
+    min: 1
+    max: 1
+    chance: 0.2
+music_disc_otherside:
+  material: MUSIC_DISC_OTHERSIDE
+  display-name: "&fMusic Disc Otherside"
+  category: COLLECTIBLES
+  buy-price: 900
+  sell-price: 300
+  enabled: true
+  slot: 12
+  stock:
+    min: 1
+    max: 1
+    chance: 0.08
+music_disc_pigstep:
+  material: MUSIC_DISC_PIGSTEP
+  display-name: "&fMusic Disc Pigstep"
+  category: COLLECTIBLES
+  buy-price: 800
+  sell-price: 250
+  enabled: true
+  slot: 13
+  stock:
+    min: 1
+    max: 1
+    chance: 0.08
+music_disc_precipice:
+  material: MUSIC_DISC_PRECIPICE
+  display-name: "&fMusic Disc Precipice"
+  category: COLLECTIBLES
+  buy-price: 900
+  sell-price: 300
+  enabled: true
+  slot: 14
+  stock:
+    min: 1
+    max: 1
+    chance: 0.08
+music_disc_relic:
+  material: MUSIC_DISC_RELIC
+  display-name: "&fMusic Disc Relic"
+  category: COLLECTIBLES
+  buy-price: 900
+  sell-price: 300
+  enabled: true
+  slot: 15
+  stock:
+    min: 1
+    max: 1
+    chance: 0.08
+music_disc_stal:
+  material: MUSIC_DISC_STAL
+  display-name: "&fMusic Disc Stal"
+  category: COLLECTIBLES
+  buy-price: 350
+  sell-price: 120
+  enabled: true
+  slot: 16
+  stock:
+    min: 1
+    max: 1
+    chance: 0.2
+music_disc_strad:
+  material: MUSIC_DISC_STRAD
+  display-name: "&fMusic Disc Strad"
+  category: COLLECTIBLES
+  buy-price: 350
+  sell-price: 120
+  enabled: true
+  slot: 17
+  stock:
+    min: 1
+    max: 1
+    chance: 0.2
+music_disc_wait:
+  material: MUSIC_DISC_WAIT
+  display-name: "&fMusic Disc Wait"
+  category: COLLECTIBLES
+  buy-price: 350
+  sell-price: 120
+  enabled: true
+  slot: 18
+  stock:
+    min: 1
+    max: 1
+    chance: 0.2
+music_disc_ward:
+  material: MUSIC_DISC_WARD
+  display-name: "&fMusic Disc Ward"
+  category: COLLECTIBLES
+  buy-price: 350
+  sell-price: 120
+  enabled: true
+  slot: 19
+  stock:
+    min: 1
+    max: 1
+    chance: 0.2
+eye_armor_trim_smithing_template:
+  material: EYE_ARMOR_TRIM_SMITHING_TEMPLATE
+  display-name: "&5Eye Armor Trim Smithing Template"
+  category: COLLECTIBLES
+  buy-price: 3000
+  sell-price: 1500
+  enabled: true
+  page: 1
+  stock:
+    min: 1
+    max: 2
+    chance: 0.08

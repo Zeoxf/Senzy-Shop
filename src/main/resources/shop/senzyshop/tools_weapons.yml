@@ -1,0 +1,409 @@
+id: "tools_9k2"
+bow:
+  material: BOW
+  display-name: "&fBow"
+  category: TOOLS_WEAPONS
+  buy-price: 120
+  sell-price: 35
+  enabled: true
+  slot: 0
+  stock:
+    min: 1
+    max: 2
+    chance: 0.8
+crossbow:
+  material: CROSSBOW
+  display-name: "&fCrossbow"
+  category: TOOLS_WEAPONS
+  buy-price: 180
+  sell-price: 50
+  enabled: true
+  slot: 1
+  stock:
+    min: 1
+    max: 2
+    chance: 0.6
+diamond_axe:
+  material: DIAMOND_AXE
+  display-name: "&fDiamond Axe"
+  category: TOOLS_WEAPONS
+  buy-price: 900
+  sell-price: 250
+  enabled: true
+  slot: 2
+  stock:
+    min: 1
+    max: 1
+    chance: 0.3
+diamond_hoe:
+  material: DIAMOND_HOE
+  display-name: "&fDiamond Hoe"
+  category: TOOLS_WEAPONS
+  buy-price: 700
+  sell-price: 200
+  enabled: true
+  slot: 3
+  stock:
+    min: 1
+    max: 1
+    chance: 0.3
+diamond_pickaxe:
+  material: DIAMOND_PICKAXE
+  display-name: "&fDiamond Pickaxe"
+  category: TOOLS_WEAPONS
+  buy-price: 900
+  sell-price: 250
+  enabled: true
+  slot: 4
+  stock:
+    min: 1
+    max: 1
+    chance: 0.3
+diamond_shovel:
+  material: DIAMOND_SHOVEL
+  display-name: "&fDiamond Shovel"
+  category: TOOLS_WEAPONS
+  buy-price: 700
+  sell-price: 200
+  enabled: true
+  slot: 5
+  stock:
+    min: 1
+    max: 1
+    chance: 0.3
+diamond_sword:
+  material: DIAMOND_SWORD
+  display-name: "&fDiamond Sword"
+  category: TOOLS_WEAPONS
+  buy-price: 900
+  sell-price: 250
+  enabled: true
+  slot: 6
+  stock:
+    min: 1
+    max: 1
+    chance: 0.3
+golden_axe:
+  material: GOLDEN_AXE
+  display-name: "&fGolden Axe"
+  category: TOOLS_WEAPONS
+  buy-price: 150
+  sell-price: 40
+  enabled: true
+  slot: 7
+  stock:
+    min: 1
+    max: 1
+    chance: 0.5
+golden_hoe:
+  material: GOLDEN_HOE
+  display-name: "&fGolden Hoe"
+  category: TOOLS_WEAPONS
+  buy-price: 120
+  sell-price: 30
+  enabled: true
+  slot: 8
+  stock:
+    min: 1
+    max: 1
+    chance: 0.5
+golden_pickaxe:
+  material: GOLDEN_PICKAXE
+  display-name: "&fGolden Pickaxe"
+  category: TOOLS_WEAPONS
+  buy-price: 150
+  sell-price: 40
+  enabled: true
+  slot: 9
+  stock:
+    min: 1
+    max: 1
+    chance: 0.5
+golden_shovel:
+  material: GOLDEN_SHOVEL
+  display-name: "&fGolden Shovel"
+  category: TOOLS_WEAPONS
+  buy-price: 120
+  sell-price: 30
+  enabled: true
+  slot: 10
+  stock:
+    min: 1
+    max: 1
+    chance: 0.5
+golden_sword:
+  material: GOLDEN_SWORD
+  display-name: "&fGolden Sword"
+  category: TOOLS_WEAPONS
+  buy-price: 150
+  sell-price: 40
+  enabled: true
+  slot: 11
+  stock:
+    min: 1
+    max: 1
+    chance: 0.5
+iron_axe:
+  material: IRON_AXE
+  display-name: "&fIron Axe"
+  category: TOOLS_WEAPONS
+  buy-price: 120
+  sell-price: 35
+  enabled: true
+  slot: 12
+  stock:
+    min: 1
+    max: 1
+    chance: 0.8
+iron_hoe:
+  material: IRON_HOE
+  display-name: "&fIron Hoe"
+  category: TOOLS_WEAPONS
+  buy-price: 100
+  sell-price: 28
+  enabled: true
+  slot: 13
+  stock:
+    min: 1
+    max: 1
+    chance: 0.8
+iron_pickaxe:
+  material: IRON_PICKAXE
+  display-name: "&fIron Pickaxe"
+  category: TOOLS_WEAPONS
+  buy-price: 120
+  sell-price: 35
+  enabled: true
+  slot: 14
+  stock:
+    min: 1
+    max: 1
+    chance: 0.8
+iron_shovel:
+  material: IRON_SHOVEL
+  display-name: "&fIron Shovel"
+  category: TOOLS_WEAPONS
+  buy-price: 100
+  sell-price: 28
+  enabled: true
+  slot: 15
+  stock:
+    min: 1
+    max: 1
+    chance: 0.8
+iron_sword:
+  material: IRON_SWORD
+  display-name: "&fIron Sword"
+  category: TOOLS_WEAPONS
+  buy-price: 120
+  sell-price: 35
+  enabled: true
+  slot: 16
+  stock:
+    min: 1
+    max: 1
+    chance: 0.8
+mace:
+  material: MACE
+  display-name: "&fMace"
+  category: TOOLS_WEAPONS
+  buy-price: 4000
+  sell-price: 1200
+  enabled: true
+  slot: 17
+  stock:
+    min: 1
+    max: 1
+    chance: 0.08
+netherite_axe:
+  material: NETHERITE_AXE
+  display-name: "&fNetherite Axe"
+  category: TOOLS_WEAPONS
+  buy-price: 5500
+  sell-price: 1800
+  enabled: true
+  slot: 18
+  stock:
+    min: 1
+    max: 1
+    chance: 0.05
+netherite_hoe:
+  material: NETHERITE_HOE
+  display-name: "&fNetherite Hoe"
+  category: TOOLS_WEAPONS
+  buy-price: 4500
+  sell-price: 1500
+  enabled: true
+  slot: 19
+  stock:
+    min: 1
+    max: 1
+    chance: 0.05
+netherite_pickaxe:
+  material: NETHERITE_PICKAXE
+  display-name: "&fNetherite Pickaxe"
+  category: TOOLS_WEAPONS
+  buy-price: 5500
+  sell-price: 1800
+  enabled: true
+  slot: 20
+  stock:
+    min: 1
+    max: 1
+    chance: 0.05
+netherite_shovel:
+  material: NETHERITE_SHOVEL
+  display-name: "&fNetherite Shovel"
+  category: TOOLS_WEAPONS
+  buy-price: 4500
+  sell-price: 1500
+  enabled: true
+  slot: 21
+  stock:
+    min: 1
+    max: 1
+    chance: 0.05
+netherite_sword:
+  material: NETHERITE_SWORD
+  display-name: "&fNetherite Sword"
+  category: TOOLS_WEAPONS
+  buy-price: 5500
+  sell-price: 1800
+  enabled: true
+  slot: 22
+  stock:
+    min: 1
+    max: 1
+    chance: 0.05
+shield:
+  material: SHIELD
+  display-name: "&fShield"
+  category: TOOLS_WEAPONS
+  buy-price: 150
+  sell-price: 45
+  enabled: true
+  slot: 23
+  stock:
+    min: 1
+    max: 2
+    chance: 0.8
+stone_axe:
+  material: STONE_AXE
+  display-name: "&fStone Axe"
+  category: TOOLS_WEAPONS
+  buy-price: 45
+  sell-price: 12
+  enabled: true
+  slot: 24
+  stock:
+    min: 1
+    max: 1
+    chance: 0.9
+stone_hoe:
+  material: STONE_HOE
+  display-name: "&fStone Hoe"
+  category: TOOLS_WEAPONS
+  buy-price: 35
+  sell-price: 9
+  enabled: true
+  slot: 25
+  stock:
+    min: 1
+    max: 1
+    chance: 0.9
+stone_pickaxe:
+  material: STONE_PICKAXE
+  display-name: "&fStone Pickaxe"
+  category: TOOLS_WEAPONS
+  buy-price: 45
+  sell-price: 12
+  enabled: true
+  slot: 26
+  stock:
+    min: 1
+    max: 1
+    chance: 0.9
+stone_shovel:
+  material: STONE_SHOVEL
+  display-name: "&fStone Shovel"
+  category: TOOLS_WEAPONS
+  buy-price: 35
+  sell-price: 9
+  enabled: true
+  slot: 27
+  stock:
+    min: 1
+    max: 1
+    chance: 0.9
+stone_sword:
+  material: STONE_SWORD
+  display-name: "&fStone Sword"
+  category: TOOLS_WEAPONS
+  buy-price: 45
+  sell-price: 12
+  enabled: true
+  slot: 28
+  stock:
+    min: 1
+    max: 1
+    chance: 0.9
+wooden_axe:
+  material: WOODEN_AXE
+  display-name: "&fWooden Axe"
+  category: TOOLS_WEAPONS
+  buy-price: 25
+  sell-price: 6
+  enabled: true
+  slot: 29
+  stock:
+    min: 1
+    max: 1
+    chance: 0.8
+wooden_hoe:
+  material: WOODEN_HOE
+  display-name: "&fWooden Hoe"
+  category: TOOLS_WEAPONS
+  buy-price: 18
+  sell-price: 4
+  enabled: true
+  slot: 30
+  stock:
+    min: 1
+    max: 1
+    chance: 0.8
+wooden_pickaxe:
+  material: WOODEN_PICKAXE
+  display-name: "&fWooden Pickaxe"
+  category: TOOLS_WEAPONS
+  buy-price: 25
+  sell-price: 6
+  enabled: true
+  slot: 31
+  stock:
+    min: 1
+    max: 1
+    chance: 0.8
+wooden_shovel:
+  material: WOODEN_SHOVEL
+  display-name: "&fWooden Shovel"
+  category: TOOLS_WEAPONS
+  buy-price: 18
+  sell-price: 4
+  enabled: true
+  slot: 32
+  stock:
+    min: 1
+    max: 1
+    chance: 0.8
+wooden_sword:
+  material: WOODEN_SWORD
+  display-name: "&fWooden Sword"
+  category: TOOLS_WEAPONS
+  buy-price: 25
+  sell-price: 6
+  enabled: true
+  slot: 33
+  stock:
+    min: 1
+    max: 1
+    chance: 0.8

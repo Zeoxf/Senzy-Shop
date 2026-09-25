@@ -1,2 +1,313 @@
-# Item configuration for category: armor
-# Empty slots remain gray glass in the GUI.
+id: "armor9k2"
+chainmail_boots:
+  material: CHAINMAIL_BOOTS
+  display-name: "&fChainmail Boots"
+  category: ARMOR
+  buy-price: 220
+  sell-price: 60
+  enabled: true
+  slot: 0
+  stock:
+    min: 1
+    max: 1
+    chance: 0.35
+chainmail_chestplate:
+  material: CHAINMAIL_CHESTPLATE
+  display-name: "&fChainmail Chestplate"
+  category: ARMOR
+  buy-price: 400
+  sell-price: 110
+  enabled: true
+  slot: 1
+  stock:
+    min: 1
+    max: 1
+    chance: 0.35
+chainmail_helmet:
+  material: CHAINMAIL_HELMET
+  display-name: "&fChainmail Helmet"
+  category: ARMOR
+  buy-price: 250
+  sell-price: 70
+  enabled: true
+  slot: 2
+  stock:
+    min: 1
+    max: 1
+    chance: 0.35
+chainmail_leggings:
+  material: CHAINMAIL_LEGGINGS
+  display-name: "&fChainmail Leggings"
+  category: ARMOR
+  buy-price: 350
+  sell-price: 95
+  enabled: true
+  slot: 3
+  stock:
+    min: 1
+    max: 1
+    chance: 0.35
+diamond_boots:
+  material: DIAMOND_BOOTS
+  display-name: "&fDiamond Boots"
+  category: ARMOR
+  buy-price: 900
+  sell-price: 250
+  enabled: true
+  slot: 4
+  stock:
+    min: 1
+    max: 1
+    chance: 0.3
+diamond_chestplate:
+  material: DIAMOND_CHESTPLATE
+  display-name: "&fDiamond Chestplate"
+  category: ARMOR
+  buy-price: 1600
+  sell-price: 450
+  enabled: true
+  slot: 5
+  stock:
+    min: 1
+    max: 1
+    chance: 0.3
+diamond_helmet:
+  material: DIAMOND_HELMET
+  display-name: "&fDiamond Helmet"
+  category: ARMOR
+  buy-price: 1000
+  sell-price: 280
+  enabled: true
+  slot: 6
+  stock:
+    min: 1
+    max: 1
+    chance: 0.3
+diamond_leggings:
+  material: DIAMOND_LEGGINGS
+  display-name: "&fDiamond Leggings"
+  category: ARMOR
+  buy-price: 1500
+  sell-price: 420
+  enabled: true
+  slot: 7
+  stock:
+    min: 1
+    max: 1
+    chance: 0.3
+golden_boots:
+  material: GOLDEN_BOOTS
+  display-name: "&fGolden Boots"
+  category: ARMOR
+  buy-price: 280
+  sell-price: 75
+  enabled: true
+  slot: 8
+  stock:
+    min: 1
+    max: 1
+    chance: 0.5
+golden_chestplate:
+  material: GOLDEN_CHESTPLATE
+  display-name: "&fGolden Chestplate"
+  category: ARMOR
+  buy-price: 500
+  sell-price: 130
+  enabled: true
+  slot: 9
+  stock:
+    min: 1
+    max: 1
+    chance: 0.5
+golden_helmet:
+  material: GOLDEN_HELMET
+  display-name: "&fGolden Helmet"
+  category: ARMOR
+  buy-price: 300
+  sell-price: 80
+  enabled: true
+  slot: 10
+  stock:
+    min: 1
+    max: 1
+    chance: 0.5
+golden_leggings:
+  material: GOLDEN_LEGGINGS
+  display-name: "&fGolden Leggings"
+  category: ARMOR
+  buy-price: 450
+  sell-price: 120
+  enabled: true
+  slot: 11
+  stock:
+    min: 1
+    max: 1
+    chance: 0.5
+iron_boots:
+  material: IRON_BOOTS
+  display-name: "&fIron Boots"
+  category: ARMOR
+  buy-price: 160
+  sell-price: 45
+  enabled: true
+  slot: 12
+  stock:
+    min: 1
+    max: 1
+    chance: 0.7
+iron_chestplate:
+  material: IRON_CHESTPLATE
+  display-name: "&fIron Chestplate"
+  category: ARMOR
+  buy-price: 300
+  sell-price: 85
+  enabled: true
+  slot: 13
+  stock:
+    min: 1
+    max: 1
+    chance: 0.7
+iron_helmet:
+  material: IRON_HELMET
+  display-name: "&fIron Helmet"
+  category: ARMOR
+  buy-price: 180
+  sell-price: 50
+  enabled: true
+  slot: 14
+  stock:
+    min: 1
+    max: 1
+    chance: 0.7
+iron_leggings:
+  material: IRON_LEGGINGS
+  display-name: "&fIron Leggings"
+  category: ARMOR
+  buy-price: 280
+  sell-price: 75
+  enabled: true
+  slot: 15
+  stock:
+    min: 1
+    max: 1
+    chance: 0.7
+leather_boots:
+  material: LEATHER_BOOTS
+  display-name: "&fLeather Boots"
+  category: ARMOR
+  buy-price: 70
+  sell-price: 18
+  enabled: true
+  slot: 16
+  stock:
+    min: 1
+    max: 1
+    chance: 0.7
+leather_chestplate:
+  material: LEATHER_CHESTPLATE
+  display-name: "&fLeather Chestplate"
+  category: ARMOR
+  buy-price: 120
+  sell-price: 30
+  enabled: true
+  slot: 17
+  stock:
+    min: 1
+    max: 1
+    chance: 0.7
+leather_helmet:
+  material: LEATHER_HELMET
+  display-name: "&fLeather Helmet"
+  category: ARMOR
+  buy-price: 80
+  sell-price: 20
+  enabled: true
+  slot: 18
+  stock:
+    min: 1
+    max: 1
+    chance: 0.7
+leather_leggings:
+  material: LEATHER_LEGGINGS
+  display-name: "&fLeather Leggings"
+  category: ARMOR
+  buy-price: 100
+  sell-price: 25
+  enabled: true
+  slot: 19
+  stock:
+    min: 1
+    max: 1
+    chance: 0.7
+netherite_boots:
+  material: NETHERITE_BOOTS
+  display-name: "&fNetherite Boots"
+  category: ARMOR
+  buy-price: 5500
+  sell-price: 1800
+  enabled: true
+  slot: 20
+  stock:
+    min: 1
+    max: 1
+    chance: 0.05
+netherite_chestplate:
+  material: NETHERITE_CHESTPLATE
+  display-name: "&fNetherite Chestplate"
+  category: ARMOR
+  buy-price: 9500
+  sell-price: 3200
+  enabled: true
+  slot: 21
+  stock:
+    min: 1
+    max: 1
+    chance: 0.05
+netherite_helmet:
+  material: NETHERITE_HELMET
+  display-name: "&fNetherite Helmet"
+  category: ARMOR
+  buy-price: 6000
+  sell-price: 2000
+  enabled: true
+  slot: 22
+  stock:
+    min: 1
+    max: 1
+    chance: 0.05
+netherite_leggings:
+  material: NETHERITE_LEGGINGS
+  display-name: "&fNetherite Leggings"
+  category: ARMOR
+  buy-price: 9000
+  sell-price: 3000
+  enabled: true
+  slot: 23
+  stock:
+    min: 1
+    max: 1
+    chance: 0.05
+turtle_helmet:
+  material: TURTLE_HELMET
+  display-name: "&fTurtle Helmet"
+  category: ARMOR
+  buy-price: 500
+  sell-price: 150
+  enabled: true
+  slot: 24
+  stock:
+    min: 1
+    max: 1
+    chance: 0.2
+wolf_armor:
+  material: WOLF_ARMOR
+  display-name: "&fWolf Armor"
+  category: ARMOR
+  buy-price: 350
+  sell-price: 100
+  enabled: true
+  slot: 25
+  stock:
+    min: 1
+    max: 2
+    chance: 0.3

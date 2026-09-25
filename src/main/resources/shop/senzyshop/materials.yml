@@ -1,572 +1,469 @@
-# ==========================================================
-# SenzyShop - kategori: materials
-# Auto-generated dari katalog item Minecraft 1.21.x (bahan dasar saja).
-#
-# Contoh PAKAI 'page' SECARA EKSPLISIT: seluruh dye (16 warna) di bawah
-# sengaja ditaruh di 'page: 2' walau 'slot'-nya sendiri masih kecil (0-15),
-# supaya mereka rapi mulai dari slot pertama halaman 2, dibandingkan hanya
-# mengandalkan slot menggelembung otomatis dari item-item di atasnya.
-# Kalau 'slot' sebuah item SUDAH overflow (>= kapasitas 1 halaman), hasil
-# overflow itu tetap menang dibanding 'page' manual manapun.
-
-coal:
-  material: COAL
-  display-name: "&8Coal"
-  slot: 0
-  category: materials
-  buy-price: 60
-  sell-price: 30
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.8
-
-raw_iron:
-  material: RAW_IRON
-  display-name: "&6Raw Iron"
-  slot: 1
-  category: materials
-  buy-price: 120
-  sell-price: 60
-  enabled: true
-  stock:
-    min: 8
-    max: 32
-    chance: 0.6
-
-iron_ingot:
-  material: IRON_INGOT
-  display-name: "&fIron Ingot"
-  slot: 2
-  category: materials
-  buy-price: 150
-  sell-price: 75
-  enabled: true
-  stock:
-    min: 8
-    max: 32
-    chance: 0.6
-
-iron_nugget:
-  material: IRON_NUGGET
-  display-name: "&fIron Nugget"
-  slot: 3
-  category: materials
-  buy-price: 18
-  sell-price: 9
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.6
-
-raw_copper:
-  material: RAW_COPPER
-  display-name: "&6Raw Copper"
-  slot: 4
-  category: materials
-  buy-price: 90
-  sell-price: 45
-  enabled: true
-  stock:
-    min: 8
-    max: 32
-    chance: 0.65
-
-copper_ingot:
-  material: COPPER_INGOT
-  display-name: "&6Copper Ingot"
-  slot: 5
-  category: materials
-  buy-price: 113
-  sell-price: 56
-  enabled: true
-  stock:
-    min: 8
-    max: 32
-    chance: 0.65
-
-raw_gold:
-  material: RAW_GOLD
-  display-name: "&6Raw Gold"
-  slot: 6
-  category: materials
-  buy-price: 300
-  sell-price: 150
-  enabled: true
-  stock:
-    min: 4
-    max: 16
-    chance: 0.35
-
-gold_ingot:
-  material: GOLD_INGOT
-  display-name: "&6Gold Ingot"
-  slot: 7
-  category: materials
-  buy-price: 375
-  sell-price: 187
-  enabled: true
-  stock:
-    min: 4
-    max: 16
-    chance: 0.35
-
-gold_nugget:
-  material: GOLD_NUGGET
-  display-name: "&6Gold Nugget"
-  slot: 8
-  category: materials
-  buy-price: 45
-  sell-price: 22
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.35
-
-redstone:
-  material: REDSTONE
-  display-name: "&cRedstone"
-  slot: 9
-  category: materials
-  buy-price: 263
-  sell-price: 131
-  enabled: true
-  stock:
-    min: 8
-    max: 32
-    chance: 0.35
-
-lapis_lazuli:
-  material: LAPIS_LAZULI
-  display-name: "&9Lapis Lazuli"
-  slot: 10
-  category: materials
-  buy-price: 270
-  sell-price: 135
-  enabled: true
-  stock:
-    min: 8
-    max: 32
-    chance: 0.35
-
-diamond:
-  material: DIAMOND
-  display-name: "&bDiamond"
-  slot: 11
-  category: materials
-  buy-price: 750
-  sell-price: 375
-  enabled: true
-  stock:
-    min: 2
-    max: 8
-    chance: 0.12
-
-emerald:
-  material: EMERALD
-  display-name: "&aEmerald"
-  slot: 12
-  category: materials
-  buy-price: 1125
-  sell-price: 562
-  enabled: true
-  stock:
-    min: 1
-    max: 5
-    chance: 0.05
-
+id: "materi9k2"
 amethyst_shard:
   material: AMETHYST_SHARD
-  display-name: "&dAmethyst Shard"
-  slot: 13
-  category: materials
-  buy-price: 220
-  sell-price: 110
-  enabled: true
-  stock:
-    min: 8
-    max: 32
-    chance: 0.3
-
-quartz:
-  material: QUARTZ
-  display-name: "&fNether Quartz"
-  slot: 14
-  category: materials
-  buy-price: 300
-  sell-price: 150
-  enabled: true
-  stock:
-    min: 8
-    max: 32
-    chance: 0.25
-
-glowstone_dust:
-  material: GLOWSTONE_DUST
-  display-name: "&eGlowstone Dust"
-  slot: 15
-  category: materials
-  buy-price: 250
-  sell-price: 125
-  enabled: true
-  stock:
-    min: 8
-    max: 32
-    chance: 0.3
-
-flint:
-  material: FLINT
-  display-name: "&7Flint"
-  slot: 16
-  category: materials
-  buy-price: 30
-  sell-price: 15
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.6
-
-clay_ball:
-  material: CLAY_BALL
-  display-name: "&bClay Ball"
-  slot: 17
-  category: materials
-  buy-price: 15
-  sell-price: 7
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.7
-
-brick:
-  material: BRICK
-  display-name: "&cBrick"
-  slot: 18
-  category: materials
-  buy-price: 25
-  sell-price: 12
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.55
-
-nether_brick:
-  material: NETHER_BRICK
-  display-name: "&4Nether Brick"
-  slot: 19
-  category: materials
-  buy-price: 35
-  sell-price: 17
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.45
-
-sugar:
-  material: SUGAR
-  display-name: "&fSugar"
-  slot: 20
-  category: materials
+  display-name: "&fAmethyst Shard"
+  category: MATERIAL
   buy-price: 20
-  sell-price: 10
+  sell-price: 8
   enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.7
-
-prismarine_shard:
-  material: PRISMARINE_SHARD
-  display-name: "&bPrismarine Shard"
-  slot: 21
-  category: materials
-  buy-price: 140
-  sell-price: 70
-  enabled: true
-  stock:
-    min: 8
-    max: 32
-    chance: 0.3
-
-prismarine_crystals:
-  material: PRISMARINE_CRYSTALS
-  display-name: "&bPrismarine Crystals"
-  slot: 22
-  category: materials
-  buy-price: 180
-  sell-price: 90
-  enabled: true
-  stock:
-    min: 8
-    max: 32
-    chance: 0.25
-
-echo_shard:
-  material: ECHO_SHARD
-  display-name: "&3Echo Shard"
-  slot: 23
-  category: materials
-  buy-price: 1800
-  sell-price: 900
-  enabled: true
-  stock:
-    min: 1
-    max: 4
-    chance: 0.06
-
-netherite_scrap:
-  material: NETHERITE_SCRAP
-  display-name: "&8Netherite Scrap"
-  slot: 24
-  category: materials
-  buy-price: 25000
-  sell-price: 12500
-  enabled: true
-  stock:
-    min: 1
-    max: 2
-    chance: 0.01
-
-netherite_ingot:
-  material: NETHERITE_INGOT
-  display-name: "&8Netherite Ingot"
-  slot: 25
-  category: materials
-  buy-price: 50000
-  sell-price: 25000
-  enabled: true
-  stock:
-    min: 1
-    max: 2
-    chance: 0.01
-
-white_dye:
-  material: WHITE_DYE
-  display-name: "&fWhite Dye"
   slot: 0
-  page: 2
-  category: materials
-  buy-price: 25
-  sell-price: 12
-  enabled: true
   stock:
-    min: 8
+    min: 4
     max: 32
-    chance: 0.6
-
-orange_dye:
-  material: ORANGE_DYE
-  display-name: "&fOrange Dye"
-  slot: 1
-  page: 2
-  category: materials
-  buy-price: 25
-  sell-price: 12
-  enabled: true
-  stock:
-    min: 8
-    max: 32
-    chance: 0.6
-
-magenta_dye:
-  material: MAGENTA_DYE
-  display-name: "&fMagenta Dye"
-  slot: 2
-  page: 2
-  category: materials
-  buy-price: 25
-  sell-price: 12
-  enabled: true
-  stock:
-    min: 8
-    max: 32
-    chance: 0.6
-
-light_blue_dye:
-  material: LIGHT_BLUE_DYE
-  display-name: "&fLight Blue Dye"
-  slot: 3
-  page: 2
-  category: materials
-  buy-price: 25
-  sell-price: 12
-  enabled: true
-  stock:
-    min: 8
-    max: 32
-    chance: 0.6
-
-yellow_dye:
-  material: YELLOW_DYE
-  display-name: "&fYellow Dye"
-  slot: 4
-  page: 2
-  category: materials
-  buy-price: 25
-  sell-price: 12
-  enabled: true
-  stock:
-    min: 8
-    max: 32
-    chance: 0.6
-
-lime_dye:
-  material: LIME_DYE
-  display-name: "&fLime Dye"
-  slot: 5
-  page: 2
-  category: materials
-  buy-price: 25
-  sell-price: 12
-  enabled: true
-  stock:
-    min: 8
-    max: 32
-    chance: 0.6
-
-pink_dye:
-  material: PINK_DYE
-  display-name: "&fPink Dye"
-  slot: 6
-  page: 2
-  category: materials
-  buy-price: 25
-  sell-price: 12
-  enabled: true
-  stock:
-    min: 8
-    max: 32
-    chance: 0.6
-
-gray_dye:
-  material: GRAY_DYE
-  display-name: "&fGray Dye"
-  slot: 7
-  page: 2
-  category: materials
-  buy-price: 25
-  sell-price: 12
-  enabled: true
-  stock:
-    min: 8
-    max: 32
-    chance: 0.6
-
-light_gray_dye:
-  material: LIGHT_GRAY_DYE
-  display-name: "&fLight Gray Dye"
-  slot: 8
-  page: 2
-  category: materials
-  buy-price: 25
-  sell-price: 12
-  enabled: true
-  stock:
-    min: 8
-    max: 32
-    chance: 0.6
-
-cyan_dye:
-  material: CYAN_DYE
-  display-name: "&fCyan Dye"
-  slot: 9
-  page: 2
-  category: materials
-  buy-price: 25
-  sell-price: 12
-  enabled: true
-  stock:
-    min: 8
-    max: 32
-    chance: 0.6
-
-purple_dye:
-  material: PURPLE_DYE
-  display-name: "&fPurple Dye"
-  slot: 10
-  page: 2
-  category: materials
-  buy-price: 25
-  sell-price: 12
-  enabled: true
-  stock:
-    min: 8
-    max: 32
-    chance: 0.6
-
-blue_dye:
-  material: BLUE_DYE
-  display-name: "&fBlue Dye"
-  slot: 11
-  page: 2
-  category: materials
-  buy-price: 25
-  sell-price: 12
-  enabled: true
-  stock:
-    min: 8
-    max: 32
-    chance: 0.6
-
-brown_dye:
-  material: BROWN_DYE
-  display-name: "&fBrown Dye"
-  slot: 12
-  page: 2
-  category: materials
-  buy-price: 25
-  sell-price: 12
-  enabled: true
-  stock:
-    min: 8
-    max: 32
-    chance: 0.6
-
-green_dye:
-  material: GREEN_DYE
-  display-name: "&fGreen Dye"
-  slot: 13
-  page: 2
-  category: materials
-  buy-price: 25
-  sell-price: 12
-  enabled: true
-  stock:
-    min: 8
-    max: 32
-    chance: 0.6
-
-red_dye:
-  material: RED_DYE
-  display-name: "&fRed Dye"
-  slot: 14
-  page: 2
-  category: materials
-  buy-price: 25
-  sell-price: 12
-  enabled: true
-  stock:
-    min: 8
-    max: 32
-    chance: 0.6
-
+    chance: 0.8
 black_dye:
   material: BLACK_DYE
   display-name: "&fBlack Dye"
-  slot: 15
-  page: 2
-  category: materials
-  buy-price: 25
-  sell-price: 12
+  category: MATERIAL
+  buy-price: 8
+  sell-price: 4
   enabled: true
+  slot: 1
   stock:
     min: 8
+    max: 64
+    chance: 1.0
+blue_dye:
+  material: BLUE_DYE
+  display-name: "&fBlue Dye"
+  category: MATERIAL
+  buy-price: 8
+  sell-price: 4
+  enabled: true
+  slot: 2
+  stock:
+    min: 8
+    max: 64
+    chance: 1.0
+brick:
+  material: BRICK
+  display-name: "&fBrick"
+  category: MATERIAL
+  buy-price: 10
+  sell-price: 4
+  enabled: true
+  slot: 3
+  stock:
+    min: 16
+    max: 64
+    chance: 1
+brown_dye:
+  material: BROWN_DYE
+  display-name: "&fBrown Dye"
+  category: MATERIAL
+  buy-price: 8
+  sell-price: 4
+  enabled: true
+  slot: 4
+  stock:
+    min: 8
+    max: 64
+    chance: 1.0
+charcoal:
+  material: CHARCOAL
+  display-name: "&fCharcoal"
+  category: MATERIAL
+  buy-price: 15
+  sell-price: 6
+  enabled: true
+  slot: 5
+  stock:
+    min: 16
+    max: 64
+    chance: 1
+clay_ball:
+  material: CLAY_BALL
+  display-name: "&fClay Ball"
+  category: MATERIAL
+  buy-price: 5
+  sell-price: 2
+  enabled: true
+  slot: 6
+  stock:
+    min: 16
+    max: 64
+    chance: 1
+coal:
+  material: COAL
+  display-name: "&fCoal"
+  category: MATERIAL
+  buy-price: 15
+  sell-price: 6
+  enabled: true
+  slot: 7
+  stock:
+    min: 16
+    max: 64
+    chance: 1
+copper_ingot:
+  material: COPPER_INGOT
+  display-name: "&fCopper Ingot"
+  category: MATERIAL
+  buy-price: 25
+  sell-price: 10
+  enabled: true
+  slot: 8
+  stock:
+    min: 8
+    max: 48
+    chance: 0.9
+cyan_dye:
+  material: CYAN_DYE
+  display-name: "&fCyan Dye"
+  category: MATERIAL
+  buy-price: 8
+  sell-price: 4
+  enabled: true
+  slot: 9
+  stock:
+    min: 8
+    max: 64
+    chance: 1.0
+diamond:
+  material: DIAMOND
+  display-name: "&fDiamond"
+  category: MATERIAL
+  buy-price: 400
+  sell-price: 150
+  enabled: true
+  slot: 10
+  stock:
+    min: 2
+    max: 12
+    chance: 0.4
+emerald:
+  material: EMERALD
+  display-name: "&fEmerald"
+  category: MATERIAL
+  buy-price: 300
+  sell-price: 100
+  enabled: true
+  slot: 11
+  stock:
+    min: 2
+    max: 16
+    chance: 0.5
+flint:
+  material: FLINT
+  display-name: "&fFlint"
+  category: MATERIAL
+  buy-price: 10
+  sell-price: 4
+  enabled: true
+  slot: 12
+  stock:
+    min: 8
+    max: 48
+    chance: 1
+gold_ingot:
+  material: GOLD_INGOT
+  display-name: "&fGold Ingot"
+  category: MATERIAL
+  buy-price: 90
+  sell-price: 40
+  enabled: true
+  slot: 13
+  stock:
+    min: 4
+    max: 24
+    chance: 0.8
+gray_dye:
+  material: GRAY_DYE
+  display-name: "&fGray Dye"
+  category: MATERIAL
+  buy-price: 8
+  sell-price: 4
+  enabled: true
+  slot: 14
+  stock:
+    min: 8
+    max: 64
+    chance: 1.0
+green_dye:
+  material: GREEN_DYE
+  display-name: "&fGreen Dye"
+  category: MATERIAL
+  buy-price: 8
+  sell-price: 4
+  enabled: true
+  slot: 15
+  stock:
+    min: 8
+    max: 64
+    chance: 1.0
+honeycomb:
+  material: HONEYCOMB
+  display-name: "&fHoneycomb"
+  category: MATERIAL
+  buy-price: 18
+  sell-price: 9
+  enabled: true
+  slot: 16
+  stock:
+    min: 4
     max: 32
-    chance: 0.6
+    chance: 0.8
+iron_ingot:
+  material: IRON_INGOT
+  display-name: "&fIron Ingot"
+  category: MATERIAL
+  buy-price: 50
+  sell-price: 22
+  enabled: true
+  slot: 17
+  stock:
+    min: 8
+    max: 48
+    chance: 0.9
+lapis_lazuli:
+  material: LAPIS_LAZULI
+  display-name: "&fLapis Lazuli"
+  category: MATERIAL
+  buy-price: 12
+  sell-price: 5
+  enabled: true
+  slot: 18
+  stock:
+    min: 16
+    max: 64
+    chance: 1
+light_blue_dye:
+  material: LIGHT_BLUE_DYE
+  display-name: "&fLight Blue Dye"
+  category: MATERIAL
+  buy-price: 8
+  sell-price: 4
+  enabled: true
+  slot: 19
+  stock:
+    min: 8
+    max: 64
+    chance: 1.0
+light_gray_dye:
+  material: LIGHT_GRAY_DYE
+  display-name: "&fLight Gray Dye"
+  category: MATERIAL
+  buy-price: 8
+  sell-price: 4
+  enabled: true
+  slot: 20
+  stock:
+    min: 8
+    max: 64
+    chance: 1.0
+lime_dye:
+  material: LIME_DYE
+  display-name: "&fLime Dye"
+  category: MATERIAL
+  buy-price: 8
+  sell-price: 4
+  enabled: true
+  slot: 21
+  stock:
+    min: 8
+    max: 64
+    chance: 1.0
+magenta_dye:
+  material: MAGENTA_DYE
+  display-name: "&fMagenta Dye"
+  category: MATERIAL
+  buy-price: 8
+  sell-price: 4
+  enabled: true
+  slot: 22
+  stock:
+    min: 8
+    max: 64
+    chance: 1.0
+nether_brick:
+  material: NETHER_BRICK
+  display-name: "&fNether Brick"
+  category: MATERIAL
+  buy-price: 10
+  sell-price: 4
+  enabled: true
+  slot: 23
+  stock:
+    min: 16
+    max: 64
+    chance: 1
+netherite_ingot:
+  material: NETHERITE_INGOT
+  display-name: "&fNetherite Ingot"
+  category: MATERIAL
+  buy-price: 5000
+  sell-price: 2000
+  enabled: true
+  slot: 24
+  stock:
+    min: 1
+    max: 2
+    chance: 0.05
+netherite_scrap:
+  material: NETHERITE_SCRAP
+  display-name: "&fNetherite Scrap"
+  category: MATERIAL
+  buy-price: 1200
+  sell-price: 450
+  enabled: true
+  slot: 25
+  stock:
+    min: 1
+    max: 4
+    chance: 0.15
+orange_dye:
+  material: ORANGE_DYE
+  display-name: "&fOrange Dye"
+  category: MATERIAL
+  buy-price: 8
+  sell-price: 4
+  enabled: true
+  slot: 26
+  stock:
+    min: 8
+    max: 64
+    chance: 1.0
+pink_dye:
+  material: PINK_DYE
+  display-name: "&fPink Dye"
+  category: MATERIAL
+  buy-price: 8
+  sell-price: 4
+  enabled: true
+  slot: 27
+  stock:
+    min: 8
+    max: 64
+    chance: 1.0
+prismarine_crystals:
+  material: PRISMARINE_CRYSTALS
+  display-name: "&fPrismarine Crystals"
+  category: MATERIAL
+  buy-price: 20
+  sell-price: 8
+  enabled: true
+  slot: 28
+  stock:
+    min: 8
+    max: 64
+    chance: 0.7
+prismarine_shard:
+  material: PRISMARINE_SHARD
+  display-name: "&fPrismarine Shard"
+  category: MATERIAL
+  buy-price: 12
+  sell-price: 5
+  enabled: true
+  slot: 29
+  stock:
+    min: 8
+    max: 64
+    chance: 0.9
+purple_dye:
+  material: PURPLE_DYE
+  display-name: "&fPurple Dye"
+  category: MATERIAL
+  buy-price: 8
+  sell-price: 4
+  enabled: true
+  slot: 30
+  stock:
+    min: 8
+    max: 64
+    chance: 1.0
+quartz:
+  material: QUARTZ
+  display-name: "&fQuartz"
+  category: MATERIAL
+  buy-price: 10
+  sell-price: 4
+  enabled: true
+  slot: 31
+  stock:
+    min: 16
+    max: 64
+    chance: 1
+raw_copper:
+  material: RAW_COPPER
+  display-name: "&fRaw Copper"
+  category: MATERIAL
+  buy-price: 20
+  sell-price: 8
+  enabled: true
+  slot: 32
+  stock:
+    min: 8
+    max: 48
+    chance: 0.9
+raw_gold:
+  material: RAW_GOLD
+  display-name: "&fRaw Gold"
+  category: MATERIAL
+  buy-price: 80
+  sell-price: 35
+  enabled: true
+  slot: 33
+  stock:
+    min: 4
+    max: 24
+    chance: 0.7
+raw_iron:
+  material: RAW_IRON
+  display-name: "&fRaw Iron"
+  category: MATERIAL
+  buy-price: 40
+  sell-price: 18
+  enabled: true
+  slot: 34
+  stock:
+    min: 8
+    max: 48
+    chance: 0.8
+red_dye:
+  material: RED_DYE
+  display-name: "&fRed Dye"
+  category: MATERIAL
+  buy-price: 8
+  sell-price: 4
+  enabled: true
+  slot: 35
+  stock:
+    min: 8
+    max: 64
+    chance: 1.0
+redstone:
+  material: REDSTONE
+  display-name: "&fRedstone"
+  category: MATERIAL
+  buy-price: 10
+  sell-price: 4
+  enabled: true
+  page: 1
+  stock:
+    min: 16
+    max: 64
+    chance: 1
+white_dye:
+  material: WHITE_DYE
+  display-name: "&fWhite Dye"
+  category: MATERIAL
+  buy-price: 8
+  sell-price: 4
+  enabled: true
+  page: 1
+  stock:
+    min: 8
+    max: 64
+    chance: 1.0
+yellow_dye:
+  material: YELLOW_DYE
+  display-name: "&fYellow Dye"
+  category: MATERIAL
+  buy-price: 8
+  sell-price: 4
+  enabled: true
+  page: 1
+  stock:
+    min: 8
+    max: 64
+    chance: 1.0

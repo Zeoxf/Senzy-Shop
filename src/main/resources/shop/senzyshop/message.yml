@@ -2,36 +2,45 @@ id: "hupz27"
 name: "§aSenzy-§bShop"
 
 categories:
-  blocks: {slot: 10, name: "Blocks", texture: DIRT}
-  items: {slot: 11, name: "Items", texture: CHEST}
-  sword: {slot: 12, name: "Sword", texture: DIAMOND_SWORD}
-  armor: {slot: 13, name: "Armor", texture: DIAMOND_CHESTPLATE}
-  food: {slot: 14, name: "Food", texture: COOKED_BEEF}
-  farming: {slot: 15, name: "Farming", texture: WHEAT}
-  ores: {slot: 16, name: "Ores", texture: DIAMOND_ORE}
-  materials: {slot: 17, name: "Materials", texture: IRON_INGOT}
-  mobs: {slot: 18, name: "Mobs", texture: BLAZE_ROD}
-  tools: {slot: 19, name: "Tools", texture: DIAMOND_PICKAXE}
-  utility: {slot: 20, name: "Utility", texture: COMPASS}
-  rare: {slot: 21, name: "Rare", texture: NETHER_STAR}
+  blocks: {slot: 0, name: "Blocks", texture: DIRT}
+  wood: {slot: 1, name: "Wood", texture: OAK_LOG}
+  nether: {slot: 2, name: "Nether", texture: NETHERRACK}
+  end: {slot: 3, name: "End", texture: END_STONE}
+  ores: {slot: 4, name: "Ores", texture: DIAMOND_ORE}
+  materials: {slot: 5, name: "Materials", texture: IRON_INGOT}
+  farming: {slot: 6, name: "Farming", texture: WHEAT}
+  plants: {slot: 7, name: "Plants", texture: OAK_SAPLING}
+  food: {slot: 8, name: "Food", texture: COOKED_BEEF}
+  mobs: {slot: 9, name: "Mob Drops", texture: BLAZE_ROD}
+  tools_weapons: {slot: 10, name: "Tools & Weapons", texture: DIAMOND_PICKAXE}
+  armor: {slot: 11, name: "Armor", texture: DIAMOND_CHESTPLATE}
+  utility: {slot: 12, name: "Utility", texture: COMPASS}
+  transport: {slot: 13, name: "Transport", texture: MINECART}
+  items: {slot: 14, name: "Items", texture: CHEST}
+  rare: {slot: 15, name: "Rare", texture: NETHER_STAR}
 
 texture:
   category:
     blocks: DIRT
-    items: CHEST
-    sword: DIAMOND_SWORD
-    armor: DIAMOND_CHESTPLATE
-    food: COOKED_BEEF
-    farming: WHEAT
+    wood: OAK_LOG
+    nether: NETHERRACK
+    end: END_STONE
     ores: DIAMOND_ORE
     materials: IRON_INGOT
+    farming: WHEAT
+    plants: OAK_SAPLING
+    food: COOKED_BEEF
     mobs: BLAZE_ROD
-    tools: DIAMOND_PICKAXE
+    tools_weapons: DIAMOND_PICKAXE
+    armor: DIAMOND_CHESTPLATE
     utility: COMPASS
+    transport: MINECART
+    items: CHEST
     rare: NETHER_STAR
 
 settings:
   rows: 6
+  item-rows: 4
   empty-slot:
     material: GRAY_STAINED_GLASS_PANE
     display-name: " "
@@ -45,15 +54,9 @@ amount-selector:
   amounts: [1, 2, 4, 8, 16, 32, 64, 128]
   limit-to-stock: true
 
-messages:
-  no-permission: "§cKamu tidak memiliki izin."
-  shop-not-found: "§cShop tidak ditemukan: §f{name}"
-  category-not-found: "§cKategori tidak ditemukan: §f{name}"
-  item-not-found: "§cItem tidak ditemukan."
-  out-of-stock: "§cItem sedang habis."
-  not-enough-money: "§cUang tidak cukup."
-  purchased: "§aMembeli §f{amount}x {item} §adengan harga §f{price}."
-  sold: "§aMenjual §f{amount}x {item} §adengan harga §f{price}."
-  shop-created: "§aShop §f{name} §aberhasil dibuat."
-  category-created: "§aKategori §f{name} §aberhasil dibuat."
-  item-created: "§aItem §f{item} §aberhasil ditambahkan."
+placement:
+  item-slots-per-page: 36
+  bottom-control-rows: 2
+  slot-priority: true
+  overflow-slot-page: true
+  rule: "Jika slot ada, slot menang. Slot 0-35 berada di page 0; slot 36+ otomatis dipindahkan ke page berikutnya. Jika slot tidak ada, page dipakai dan slot pertama yang kosong dipilih."

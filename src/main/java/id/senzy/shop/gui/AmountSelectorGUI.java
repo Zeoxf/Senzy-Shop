@@ -50,7 +50,7 @@ public final class AmountSelectorGUI extends AbstractGui {
         if (slot == gui.layout().selectorIncreaseSlot) {
             amount = nextAmount(amount); render(); return;
         }
-        if (slot == gui.layout().selectorCancelSlot) { gui.openCategory(viewer, item.category(), 0); return; }
+        if (slot == gui.layout().selectorCancelSlot) { gui.openCategory(viewer, item.category(), item.page()); return; }
         if (slot == gui.layout().selectorConfirmSlot) {
             gui.attemptBuy(viewer, item, amount);
         }

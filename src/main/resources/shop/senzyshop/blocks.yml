@@ -1,1467 +1,553 @@
-# ==========================================================
-# SenzyShop - kategori: blocks
-# Auto-generated dari katalog item Minecraft 1.21.x (bahan dasar saja,
-# tidak termasuk varian turunan seperti tangga/pagar/pintu/slab/dll).
-#
-# 'slot' diisi berurutan mulai dari 0. Kalau kategori ini punya lebih item
-# daripada kapasitas 1 halaman (gui.list.item-slots, default 45), sisanya
-# OTOMATIS lanjut ke halaman berikutnya (slot 45 = halaman 2 slot 0, dst).
-# Field 'page' opsional juga bisa dipakai untuk memaksa 1 item ke halaman
-# tertentu tanpa mengetik angka slot besar - tapi kalau 'slot' sudah
-# overflow ke halaman lain, hasil overflow itu yang menang.
-
-dirt:
-  material: DIRT
-  display-name: "&7Dirt"
-  slot: 0
-  category: blocks
-  buy-price: 8
-  sell-price: 4
-  enabled: true
-  stock:
-    min: 32
-    max: 128
-    chance: 1.0
-
-grass_block:
-  material: GRASS_BLOCK
-  display-name: "&aGrass Block"
-  slot: 1
-  category: blocks
-  buy-price: 15
-  sell-price: 7
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.9
-
-coarse_dirt:
-  material: COARSE_DIRT
-  display-name: "&7Coarse Dirt"
-  slot: 2
-  category: blocks
-  buy-price: 12
-  sell-price: 6
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.8
-
-podzol:
-  material: PODZOL
-  display-name: "&6Podzol"
-  slot: 3
-  category: blocks
-  buy-price: 18
-  sell-price: 9
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.7
-
-rooted_dirt:
-  material: ROOTED_DIRT
-  display-name: "&6Rooted Dirt"
-  slot: 4
-  category: blocks
-  buy-price: 20
-  sell-price: 10
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.6
-
-mud:
-  material: MUD
-  display-name: "&8Mud"
-  slot: 5
-  category: blocks
-  buy-price: 15
-  sell-price: 7
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.7
-
-muddy_mangrove_roots:
-  material: MUDDY_MANGROVE_ROOTS
-  display-name: "&8Muddy Mangrove Roots"
-  slot: 6
-  category: blocks
-  buy-price: 22
-  sell-price: 11
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.6
-
-mycelium:
-  material: MYCELIUM
-  display-name: "&5Mycelium"
-  slot: 7
-  category: blocks
-  buy-price: 30
-  sell-price: 15
-  enabled: true
-  stock:
-    min: 8
-    max: 32
-    chance: 0.4
-
-clay:
-  material: CLAY
-  display-name: "&bClay"
-  slot: 8
-  category: blocks
-  buy-price: 20
-  sell-price: 10
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.8
-
-sand:
-  material: SAND
-  display-name: "&eSand"
-  slot: 9
-  category: blocks
-  buy-price: 10
-  sell-price: 5
-  enabled: true
-  stock:
-    min: 32
-    max: 128
-    chance: 1.0
-
-red_sand:
-  material: RED_SAND
-  display-name: "&6Red Sand"
-  slot: 10
-  category: blocks
-  buy-price: 15
-  sell-price: 7
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.8
-
-gravel:
-  material: GRAVEL
-  display-name: "&7Gravel"
-  slot: 11
-  category: blocks
-  buy-price: 10
-  sell-price: 5
-  enabled: true
-  stock:
-    min: 32
-    max: 128
-    chance: 1.0
-
-snow_block:
-  material: SNOW_BLOCK
-  display-name: "&fSnow Block"
-  slot: 12
-  category: blocks
-  buy-price: 12
-  sell-price: 6
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.7
-
-ice:
-  material: ICE
-  display-name: "&bIce"
-  slot: 13
-  category: blocks
-  buy-price: 25
-  sell-price: 12
-  enabled: true
-  stock:
-    min: 8
-    max: 32
-    chance: 0.5
-
-packed_ice:
-  material: PACKED_ICE
-  display-name: "&bPacked Ice"
-  slot: 14
-  category: blocks
+id: "blocks9k2"
+amethyst_block:
+  material: AMETHYST_BLOCK
+  display-name: "&fAmethyst Block"
+  category: NATURAL
   buy-price: 40
   sell-price: 20
   enabled: true
+  slot: 0
   stock:
-    min: 8
-    max: 32
-    chance: 0.4
-
-blue_ice:
-  material: BLUE_ICE
-  display-name: "&9Blue Ice"
-  slot: 15
-  category: blocks
-  buy-price: 70
-  sell-price: 35
-  enabled: true
-  stock:
-    min: 4
+    min: 2
     max: 16
-    chance: 0.25
-
-sponge:
-  material: SPONGE
-  display-name: "&eSponge"
-  slot: 16
-  category: blocks
-  buy-price: 120
-  sell-price: 60
-  enabled: true
-  stock:
-    min: 4
-    max: 16
-    chance: 0.2
-
-wet_sponge:
-  material: WET_SPONGE
-  display-name: "&eWet Sponge"
-  slot: 17
-  category: blocks
-  buy-price: 90
-  sell-price: 45
-  enabled: true
-  stock:
-    min: 4
-    max: 16
-    chance: 0.2
-
-moss_block:
-  material: MOSS_BLOCK
-  display-name: "&aMoss Block"
-  slot: 18
-  category: blocks
-  buy-price: 20
-  sell-price: 10
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.7
-
-moss_carpet:
-  material: MOSS_CARPET
-  display-name: "&aMoss Carpet"
-  slot: 19
-  category: blocks
-  buy-price: 15
-  sell-price: 7
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.7
-
-vine:
-  material: VINE
-  display-name: "&2Vine"
-  slot: 20
-  category: blocks
-  buy-price: 18
-  sell-price: 9
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.7
-
-glow_lichen:
-  material: GLOW_LICHEN
-  display-name: "&eGlow Lichen"
-  slot: 21
-  category: blocks
-  buy-price: 25
-  sell-price: 12
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.5
-
-chorus_flower:
-  material: CHORUS_FLOWER
-  display-name: "&dChorus Flower"
-  slot: 22
-  category: blocks
-  buy-price: 500
-  sell-price: 250
-  enabled: true
-  stock:
-    min: 4
-    max: 16
-    chance: 0.12
-
-stone:
-  material: STONE
-  display-name: "&7Stone"
-  slot: 23
-  category: blocks
-  buy-price: 8
-  sell-price: 4
-  enabled: true
-  stock:
-    min: 32
-    max: 128
-    chance: 1.0
-
-cobblestone:
-  material: COBBLESTONE
-  display-name: "&7Cobblestone"
-  slot: 24
-  category: blocks
-  buy-price: 5
-  sell-price: 2
-  enabled: true
-  stock:
-    min: 64
-    max: 256
-    chance: 1.0
-
-deepslate:
-  material: DEEPSLATE
-  display-name: "&8Deepslate"
-  slot: 25
-  category: blocks
-  buy-price: 10
-  sell-price: 5
-  enabled: true
-  stock:
-    min: 32
-    max: 128
-    chance: 1.0
-
-cobbled_deepslate:
-  material: COBBLED_DEEPSLATE
-  display-name: "&8Cobbled Deepslate"
-  slot: 26
-  category: blocks
-  buy-price: 8
-  sell-price: 4
-  enabled: true
-  stock:
-    min: 32
-    max: 128
-    chance: 1.0
-
-granite:
-  material: GRANITE
-  display-name: "&cGranite"
-  slot: 27
-  category: blocks
-  buy-price: 12
-  sell-price: 6
-  enabled: true
-  stock:
-    min: 32
-    max: 128
-    chance: 0.9
-
-diorite:
-  material: DIORITE
-  display-name: "&fDiorite"
-  slot: 28
-  category: blocks
-  buy-price: 12
-  sell-price: 6
-  enabled: true
-  stock:
-    min: 32
-    max: 128
-    chance: 0.9
-
+    chance: 0.75
 andesite:
   material: ANDESITE
-  display-name: "&7Andesite"
-  slot: 29
-  category: blocks
-  buy-price: 12
+  display-name: "&fAndesite"
+  category: NATURAL
+  buy-price: 6
+  sell-price: 2
+  enabled: true
+  slot: 1
+  stock:
+    min: 8
+    max: 64
+    chance: 1
+basalt:
+  material: BASALT
+  display-name: "&fBasalt"
+  category: NATURAL
+  buy-price: 8
+  sell-price: 3
+  enabled: true
+  slot: 2
+  stock:
+    min: 8
+    max: 64
+    chance: 1
+bedrock:
+  material: BEDROCK
+  display-name: "&fBedrock"
+  category: NATURAL
+  buy-price: 99999
+  sell-price: 0
+  enabled: true
+  slot: 3
+  stock:
+    min: 0
+    max: 0
+    chance: 0
+bee_nest:
+  material: BEE_NEST
+  display-name: "&fBee Nest"
+  category: NATURAL
+  buy-price: 80
+  sell-price: 40
+  enabled: true
+  slot: 4
+  stock:
+    min: 1
+    max: 8
+    chance: 0.35
+blackstone:
+  material: BLACKSTONE
+  display-name: "&fBlackstone"
+  category: NATURAL
+  buy-price: 8
+  sell-price: 3
+  enabled: true
+  slot: 5
+  stock:
+    min: 8
+    max: 64
+    chance: 1
+blue_ice:
+  material: BLUE_ICE
+  display-name: "&fBlue Ice"
+  category: NATURAL
+  buy-price: 100
+  sell-price: 40
+  enabled: true
+  slot: 6
+  stock:
+    min: 4
+    max: 32
+    chance: 0.8
+bricks:
+  material: BRICKS
+  display-name: "&fBricks"
+  category: NATURAL
+  buy-price: 16
   sell-price: 6
   enabled: true
+  slot: 7
   stock:
-    min: 32
-    max: 128
-    chance: 0.9
-
-tuff:
-  material: TUFF
-  display-name: "&7Tuff"
-  slot: 30
-  category: blocks
-  buy-price: 12
-  sell-price: 6
-  enabled: true
-  stock:
-    min: 32
-    max: 128
-    chance: 0.9
-
+    min: 8
+    max: 64
+    chance: 1
 calcite:
   material: CALCITE
   display-name: "&fCalcite"
-  slot: 31
-  category: blocks
-  buy-price: 20
-  sell-price: 10
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.6
-
-dripstone_block:
-  material: DRIPSTONE_BLOCK
-  display-name: "&6Dripstone Block"
-  slot: 32
-  category: blocks
-  buy-price: 18
-  sell-price: 9
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.7
-
-sandstone:
-  material: SANDSTONE
-  display-name: "&eSandstone"
-  slot: 33
-  category: blocks
-  buy-price: 18
-  sell-price: 9
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.8
-
-red_sandstone:
-  material: RED_SANDSTONE
-  display-name: "&6Red Sandstone"
-  slot: 34
-  category: blocks
-  buy-price: 22
-  sell-price: 11
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.7
-
-bone_block:
-  material: BONE_BLOCK
-  display-name: "&fBone Block"
-  slot: 35
-  category: blocks
-  buy-price: 45
-  sell-price: 22
-  enabled: true
-  stock:
-    min: 8
-    max: 32
-    chance: 0.3
-
-sculk:
-  material: SCULK
-  display-name: "&3Sculk"
-  slot: 36
-  category: blocks
-  buy-price: 60
-  sell-price: 30
-  enabled: true
-  stock:
-    min: 8
-    max: 32
-    chance: 0.2
-
-netherrack:
-  material: NETHERRACK
-  display-name: "&cNetherrack"
-  slot: 37
-  category: blocks
-  buy-price: 10
+  category: NATURAL
+  buy-price: 12
   sell-price: 5
   enabled: true
+  slot: 8
   stock:
-    min: 32
-    max: 128
-    chance: 1.0
-
-soul_sand:
-  material: SOUL_SAND
-  display-name: "&8Soul Sand"
-  slot: 38
-  category: blocks
-  buy-price: 100
-  sell-price: 50
+    min: 8
+    max: 64
+    chance: 1
+clay:
+  material: CLAY
+  display-name: "&fClay"
+  category: NATURAL
+  buy-price: 12
+  sell-price: 5
   enabled: true
+  slot: 9
+  stock:
+    min: 8
+    max: 64
+    chance: 1
+cobbled_deepslate:
+  material: COBBLED_DEEPSLATE
+  display-name: "&fCobbled Deepslate"
+  category: NATURAL
+  buy-price: 4
+  sell-price: 1
+  enabled: true
+  slot: 10
   stock:
     min: 16
     max: 64
-    chance: 0.35
-
-soul_soil:
-  material: SOUL_SOIL
-  display-name: "&8Soul Soil"
-  slot: 39
-  category: blocks
-  buy-price: 100
-  sell-price: 50
+    chance: 1
+cobblestone:
+  material: COBBLESTONE
+  display-name: "&fCobblestone"
+  category: NATURAL
+  buy-price: 4
+  sell-price: 1
   enabled: true
+  slot: 11
   stock:
     min: 16
     max: 64
-    chance: 0.3
-
-magma_block:
-  material: MAGMA_BLOCK
-  display-name: "&cMagma Block"
-  slot: 40
-  category: blocks
-  buy-price: 150
-  sell-price: 75
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.25
-
-glowstone:
-  material: GLOWSTONE
-  display-name: "&eGlowstone"
-  slot: 41
-  category: blocks
-  buy-price: 900
-  sell-price: 450
-  enabled: true
-  stock:
-    min: 4
-    max: 16
-    chance: 0.2
-
-blackstone:
-  material: BLACKSTONE
-  display-name: "&8Blackstone"
-  slot: 42
-  category: blocks
-  buy-price: 25
-  sell-price: 12
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.6
-
-basalt:
-  material: BASALT
-  display-name: "&8Basalt"
-  slot: 43
-  category: blocks
-  buy-price: 20
-  sell-price: 10
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.6
-
-obsidian:
-  material: OBSIDIAN
-  display-name: "&5Obsidian"
-  slot: 44
-  category: blocks
-  buy-price: 600
-  sell-price: 300
-  enabled: true
-  stock:
-    min: 2
-    max: 8
-    chance: 0.15
-
+    chance: 1
 crying_obsidian:
   material: CRYING_OBSIDIAN
-  display-name: "&5Crying Obsidian"
-  slot: 45
-  category: blocks
-  buy-price: 1500
-  sell-price: 750
-  enabled: true
-  stock:
-    min: 1
-    max: 4
-    chance: 0.08
-
-end_stone:
-  material: END_STONE
-  display-name: "&eEnd Stone"
-  slot: 46
-  category: blocks
+  display-name: "&fCrying Obsidian"
+  category: NATURAL
   buy-price: 80
-  sell-price: 40
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.3
-
-end_stone_bricks:
-  material: END_STONE_BRICKS
-  display-name: "&eEnd Stone Bricks"
-  slot: 47
-  category: blocks
-  buy-price: 120
-  sell-price: 60
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.25
-
-purpur_block:
-  material: PURPUR_BLOCK
-  display-name: "&dPurpur Block"
-  slot: 48
-  category: blocks
-  buy-price: 200
-  sell-price: 100
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.2
-
-quartz_block:
-  material: QUARTZ_BLOCK
-  display-name: "&fQuartz Block"
-  slot: 49
-  category: blocks
-  buy-price: 500
-  sell-price: 250
-  enabled: true
-  stock:
-    min: 8
-    max: 32
-    chance: 0.2
-
-bricks:
-  material: BRICKS
-  display-name: "&cBricks"
-  slot: 50
-  category: blocks
-  buy-price: 60
   sell-price: 30
   enabled: true
+  slot: 12
   stock:
-    min: 16
-    max: 64
-    chance: 0.5
-
-nether_bricks:
-  material: NETHER_BRICKS
-  display-name: "&4Nether Bricks"
-  slot: 51
-  category: blocks
-  buy-price: 70
-  sell-price: 35
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.45
-
-prismarine:
-  material: PRISMARINE
-  display-name: "&bPrismarine"
-  slot: 52
-  category: blocks
-  buy-price: 180
-  sell-price: 90
-  enabled: true
-  stock:
-    min: 8
-    max: 32
-    chance: 0.3
-
-prismarine_bricks:
-  material: PRISMARINE_BRICKS
-  display-name: "&bPrismarine Bricks"
-  slot: 53
-  category: blocks
-  buy-price: 220
-  sell-price: 110
-  enabled: true
-  stock:
-    min: 8
-    max: 32
-    chance: 0.25
-
-dark_prismarine:
-  material: DARK_PRISMARINE
-  display-name: "&bDark Prismarine"
-  slot: 54
-  category: blocks
-  buy-price: 220
-  sell-price: 110
-  enabled: true
-  stock:
-    min: 8
-    max: 32
-    chance: 0.25
-
-sea_lantern:
-  material: SEA_LANTERN
-  display-name: "&bSea Lantern"
-  slot: 55
-  category: blocks
-  buy-price: 350
-  sell-price: 175
-  enabled: true
-  stock:
-    min: 4
+    min: 2
     max: 16
-    chance: 0.15
-
+    chance: 0.6
+deepslate:
+  material: DEEPSLATE
+  display-name: "&fDeepslate"
+  category: NATURAL
+  buy-price: 8
+  sell-price: 3
+  enabled: true
+  slot: 13
+  stock:
+    min: 16
+    max: 64
+    chance: 1
+diorite:
+  material: DIORITE
+  display-name: "&fDiorite"
+  category: NATURAL
+  buy-price: 6
+  sell-price: 2
+  enabled: true
+  slot: 14
+  stock:
+    min: 8
+    max: 64
+    chance: 1
+dirt:
+  material: DIRT
+  display-name: "&fDirt"
+  category: NATURAL
+  buy-price: 4
+  sell-price: 1
+  enabled: true
+  slot: 15
+  stock:
+    min: 16
+    max: 64
+    chance: 1
+dripstone_block:
+  material: DRIPSTONE_BLOCK
+  display-name: "&fDripstone Block"
+  category: NATURAL
+  buy-price: 10
+  sell-price: 4
+  enabled: true
+  slot: 16
+  stock:
+    min: 8
+    max: 64
+    chance: 1
+end_stone:
+  material: END_STONE
+  display-name: "&fEnd Stone"
+  category: NATURAL
+  buy-price: 10
+  sell-price: 4
+  enabled: true
+  slot: 17
+  stock:
+    min: 16
+    max: 64
+    chance: 1
 glass:
   material: GLASS
   display-name: "&fGlass"
-  slot: 56
-  category: blocks
-  buy-price: 25
-  sell-price: 12
+  category: NATURAL
+  buy-price: 8
+  sell-price: 3
   enabled: true
+  slot: 18
+  stock:
+    min: 8
+    max: 64
+    chance: 1
+granite:
+  material: GRANITE
+  display-name: "&fGranite"
+  category: NATURAL
+  buy-price: 6
+  sell-price: 2
+  enabled: true
+  slot: 19
+  stock:
+    min: 8
+    max: 64
+    chance: 1
+grass_block:
+  material: GRASS_BLOCK
+  display-name: "&fGrass Block"
+  category: NATURAL
+  buy-price: 8
+  sell-price: 3
+  enabled: true
+  slot: 20
+  stock:
+    min: 8
+    max: 64
+    chance: 1
+gravel:
+  material: GRAVEL
+  display-name: "&fGravel"
+  category: NATURAL
+  buy-price: 6
+  sell-price: 2
+  enabled: true
+  slot: 21
   stock:
     min: 16
     max: 64
-    chance: 0.7
-
-honeycomb_block:
-  material: HONEYCOMB_BLOCK
-  display-name: "&6Honeycomb Block"
-  slot: 57
-  category: blocks
-  buy-price: 300
-  sell-price: 150
+    chance: 1
+ice:
+  material: ICE
+  display-name: "&fIce"
+  category: NATURAL
+  buy-price: 10
+  sell-price: 4
   enabled: true
+  slot: 22
   stock:
     min: 8
-    max: 32
-    chance: 0.2
-
-hay_block:
-  material: HAY_BLOCK
-  display-name: "&eHay Block"
-  slot: 58
-  category: blocks
-  buy-price: 80
-  sell-price: 40
+    max: 64
+    chance: 1
+moss_block:
+  material: MOSS_BLOCK
+  display-name: "&fMoss Block"
+  category: NATURAL
+  buy-price: 10
+  sell-price: 4
   enabled: true
+  slot: 23
   stock:
     min: 8
-    max: 32
-    chance: 0.4
-
-slime_block:
-  material: SLIME_BLOCK
-  display-name: "&aSlime Block"
-  slot: 59
-  category: blocks
-  buy-price: 400
-  sell-price: 200
+    max: 64
+    chance: 1
+moss_carpet:
+  material: MOSS_CARPET
+  display-name: "&fMoss Carpet"
+  category: NATURAL
+  buy-price: 6
+  sell-price: 2
   enabled: true
+  slot: 24
+  stock:
+    min: 8
+    max: 64
+    chance: 1
+mud:
+  material: MUD
+  display-name: "&fMud"
+  category: NATURAL
+  buy-price: 6
+  sell-price: 2
+  enabled: true
+  slot: 25
+  stock:
+    min: 8
+    max: 64
+    chance: 1
+mycelium:
+  material: MYCELIUM
+  display-name: "&fMycelium"
+  category: NATURAL
+  buy-price: 14
+  sell-price: 5
+  enabled: true
+  slot: 26
   stock:
     min: 4
-    max: 16
-    chance: 0.15
-
-honey_block:
-  material: HONEY_BLOCK
-  display-name: "&6Honey Block"
-  slot: 60
-  category: blocks
-  buy-price: 450
-  sell-price: 225
+    max: 32
+    chance: 0.8
+netherrack:
+  material: NETHERRACK
+  display-name: "&fNetherrack"
+  category: NATURAL
+  buy-price: 4
+  sell-price: 1
   enabled: true
+  slot: 27
+  stock:
+    min: 16
+    max: 64
+    chance: 1
+obsidian:
+  material: OBSIDIAN
+  display-name: "&fObsidian"
+  category: NATURAL
+  buy-price: 40
+  sell-price: 15
+  enabled: true
+  slot: 28
   stock:
     min: 4
-    max: 16
-    chance: 0.15
-
-dried_kelp_block:
-  material: DRIED_KELP_BLOCK
-  display-name: "&2Dried Kelp Block"
-  slot: 61
-  category: blocks
-  buy-price: 90
-  sell-price: 45
+    max: 32
+    chance: 0.8
+packed_ice:
+  material: PACKED_ICE
+  display-name: "&fPacked Ice"
+  category: NATURAL
+  buy-price: 30
+  sell-price: 12
   enabled: true
+  slot: 29
   stock:
     min: 8
-    max: 32
-    chance: 0.3
-
-coal_block:
-  material: COAL_BLOCK
-  display-name: "&8Block of Coal"
-  slot: 62
-  category: blocks
-  buy-price: 500
-  sell-price: 250
+    max: 64
+    chance: 1
+podzol:
+  material: PODZOL
+  display-name: "&fPodzol"
+  category: NATURAL
+  buy-price: 8
+  sell-price: 3
   enabled: true
+  slot: 30
+  stock:
+    min: 8
+    max: 64
+    chance: 1
+pointed_dripstone:
+  material: POINTED_DRIPSTONE
+  display-name: "&fPointed Dripstone"
+  category: NATURAL
+  buy-price: 12
+  sell-price: 5
+  enabled: true
+  slot: 31
+  stock:
+    min: 8
+    max: 64
+    chance: 1
+prismarine:
+  material: PRISMARINE
+  display-name: "&fPrismarine"
+  category: NATURAL
+  buy-price: 20
+  sell-price: 8
+  enabled: true
+  slot: 32
+  stock:
+    min: 8
+    max: 64
+    chance: 1
+red_sand:
+  material: RED_SAND
+  display-name: "&fRed Sand"
+  category: NATURAL
+  buy-price: 8
+  sell-price: 3
+  enabled: true
+  slot: 33
+  stock:
+    min: 8
+    max: 64
+    chance: 1
+red_sandstone:
+  material: RED_SANDSTONE
+  display-name: "&fRed Sandstone"
+  category: NATURAL
+  buy-price: 12
+  sell-price: 5
+  enabled: true
+  slot: 34
+  stock:
+    min: 8
+    max: 64
+    chance: 1
+rooted_dirt:
+  material: ROOTED_DIRT
+  display-name: "&fRooted Dirt"
+  category: NATURAL
+  buy-price: 8
+  sell-price: 3
+  enabled: true
+  slot: 35
+  stock:
+    min: 8
+    max: 64
+    chance: 1
+sand:
+  material: SAND
+  display-name: "&fSand"
+  category: NATURAL
+  buy-price: 6
+  sell-price: 2
+  enabled: true
+  page: 1
+  stock:
+    min: 16
+    max: 64
+    chance: 1
+sandstone:
+  material: SANDSTONE
+  display-name: "&fSandstone"
+  category: NATURAL
+  buy-price: 10
+  sell-price: 4
+  enabled: true
+  page: 1
+  stock:
+    min: 8
+    max: 64
+    chance: 1
+sea_lantern:
+  material: SEA_LANTERN
+  display-name: "&fSea Lantern"
+  category: NATURAL
+  buy-price: 35
+  sell-price: 15
+  enabled: true
+  page: 1
+  stock:
+    min: 4
+    max: 32
+    chance: 1
+snow:
+  material: SNOW
+  display-name: "&fSnow"
+  category: NATURAL
+  buy-price: 4
+  sell-price: 1
+  enabled: true
+  page: 1
+  stock:
+    min: 16
+    max: 64
+    chance: 1
+snow_block:
+  material: SNOW_BLOCK
+  display-name: "&fSnow Block"
+  category: NATURAL
+  buy-price: 6
+  sell-price: 2
+  enabled: true
+  page: 1
+  stock:
+    min: 8
+    max: 64
+    chance: 1
+sponge:
+  material: SPONGE
+  display-name: "&fSponge"
+  category: NATURAL
+  buy-price: 150
+  sell-price: 50
+  enabled: true
+  page: 1
   stock:
     min: 2
-    max: 8
-    chance: 0.3
-
-iron_block:
-  material: IRON_BLOCK
-  display-name: "&fBlock of Iron"
-  slot: 63
-  category: blocks
-  buy-price: 1300
-  sell-price: 650
-  enabled: true
-  stock:
-    min: 1
-    max: 6
-    chance: 0.2
-
-copper_block:
-  material: COPPER_BLOCK
-  display-name: "&6Block of Copper"
-  slot: 64
-  category: blocks
-  buy-price: 950
-  sell-price: 475
-  enabled: true
-  stock:
-    min: 1
-    max: 6
-    chance: 0.22
-
-gold_block:
-  material: GOLD_BLOCK
-  display-name: "&6Block of Gold"
-  slot: 65
-  category: blocks
-  buy-price: 3300
-  sell-price: 1650
-  enabled: true
-  stock:
-    min: 1
-    max: 4
-    chance: 0.1
-
-redstone_block:
-  material: REDSTONE_BLOCK
-  display-name: "&cBlock of Redstone"
-  slot: 66
-  category: blocks
-  buy-price: 2300
-  sell-price: 1150
-  enabled: true
-  stock:
-    min: 1
-    max: 4
-    chance: 0.12
-
-lapis_block:
-  material: LAPIS_BLOCK
-  display-name: "&9Block of Lapis Lazuli"
-  slot: 67
-  category: blocks
-  buy-price: 2350
-  sell-price: 1175
-  enabled: true
-  stock:
-    min: 1
-    max: 4
-    chance: 0.12
-
-diamond_block:
-  material: DIAMOND_BLOCK
-  display-name: "&bBlock of Diamond"
-  slot: 68
-  category: blocks
-  buy-price: 6500
-  sell-price: 3250
-  enabled: true
-  stock:
-    min: 1
-    max: 2
-    chance: 0.03
-
-emerald_block:
-  material: EMERALD_BLOCK
-  display-name: "&aBlock of Emerald"
-  slot: 69
-  category: blocks
-  buy-price: 9800
-  sell-price: 4900
-  enabled: true
-  stock:
-    min: 1
-    max: 2
-    chance: 0.02
-
-raw_iron_block:
-  material: RAW_IRON_BLOCK
-  display-name: "&6Block of Raw Iron"
-  slot: 70
-  category: blocks
-  buy-price: 1250
-  sell-price: 625
-  enabled: true
-  stock:
-    min: 1
-    max: 6
-    chance: 0.2
-
-raw_copper_block:
-  material: RAW_COPPER_BLOCK
-  display-name: "&6Block of Raw Copper"
-  slot: 71
-  category: blocks
-  buy-price: 900
-  sell-price: 450
-  enabled: true
-  stock:
-    min: 1
-    max: 6
-    chance: 0.22
-
-raw_gold_block:
-  material: RAW_GOLD_BLOCK
-  display-name: "&6Block of Raw Gold"
-  slot: 72
-  category: blocks
-  buy-price: 3200
-  sell-price: 1600
-  enabled: true
-  stock:
-    min: 1
-    max: 4
-    chance: 0.1
-
-netherite_block:
-  material: NETHERITE_BLOCK
-  display-name: "&8Block of Netherite"
-  slot: 73
-  category: blocks
-  buy-price: 450000
-  sell-price: 225000
-  enabled: true
-  stock:
-    min: 1
-    max: 1
-    chance: 0.01
-
-oak_log:
-  material: OAK_LOG
-  display-name: "&6Oak Log"
-  slot: 74
-  category: blocks
-  buy-price: 20
-  sell-price: 10
-  enabled: true
-  stock:
-    min: 32
-    max: 128
-    chance: 1.0
-
-spruce_log:
-  material: SPRUCE_LOG
-  display-name: "&6Spruce Log"
-  slot: 75
-  category: blocks
-  buy-price: 20
-  sell-price: 10
-  enabled: true
-  stock:
-    min: 32
-    max: 128
-    chance: 1.0
-
-birch_log:
-  material: BIRCH_LOG
-  display-name: "&fBirch Log"
-  slot: 76
-  category: blocks
-  buy-price: 20
-  sell-price: 10
-  enabled: true
-  stock:
-    min: 32
-    max: 128
-    chance: 1.0
-
-jungle_log:
-  material: JUNGLE_LOG
-  display-name: "&6Jungle Log"
-  slot: 77
-  category: blocks
-  buy-price: 22
-  sell-price: 11
-  enabled: true
-  stock:
-    min: 32
-    max: 128
-    chance: 0.9
-
-acacia_log:
-  material: ACACIA_LOG
-  display-name: "&6Acacia Log"
-  slot: 78
-  category: blocks
-  buy-price: 22
-  sell-price: 11
-  enabled: true
-  stock:
-    min: 32
-    max: 128
-    chance: 0.9
-
-dark_oak_log:
-  material: DARK_OAK_LOG
-  display-name: "&8Dark Oak Log"
-  slot: 79
-  category: blocks
-  buy-price: 25
-  sell-price: 12
-  enabled: true
-  stock:
-    min: 32
-    max: 128
-    chance: 0.8
-
-mangrove_log:
-  material: MANGROVE_LOG
-  display-name: "&4Mangrove Log"
-  slot: 80
-  category: blocks
-  buy-price: 30
-  sell-price: 15
-  enabled: true
-  stock:
-    min: 24
-    max: 96
-    chance: 0.7
-
-cherry_log:
-  material: CHERRY_LOG
-  display-name: "&dCherry Log"
-  slot: 81
-  category: blocks
-  buy-price: 30
-  sell-price: 15
-  enabled: true
-  stock:
-    min: 24
-    max: 96
-    chance: 0.7
-
-bamboo_block:
-  material: BAMBOO_BLOCK
-  display-name: "&aBamboo Block"
-  slot: 82
-  category: blocks
-  buy-price: 25
-  sell-price: 12
-  enabled: true
-  stock:
-    min: 24
-    max: 96
-    chance: 0.8
-
-crimson_stem:
-  material: CRIMSON_STEM
-  display-name: "&4Crimson Stem"
-  slot: 83
-  category: blocks
-  buy-price: 45
-  sell-price: 22
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.35
-
-warped_stem:
-  material: WARPED_STEM
-  display-name: "&3Warped Stem"
-  slot: 84
-  category: blocks
-  buy-price: 45
-  sell-price: 22
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.35
-
-oak_planks:
-  material: OAK_PLANKS
-  display-name: "&6Oak Planks"
-  slot: 85
-  category: blocks
-  buy-price: 6
-  sell-price: 3
-  enabled: true
-  stock:
-    min: 32
-    max: 128
-    chance: 1.0
-
-spruce_planks:
-  material: SPRUCE_PLANKS
-  display-name: "&6Spruce Planks"
-  slot: 86
-  category: blocks
-  buy-price: 6
-  sell-price: 3
-  enabled: true
-  stock:
-    min: 32
-    max: 128
-    chance: 1.0
-
-birch_planks:
-  material: BIRCH_PLANKS
-  display-name: "&fBirch Planks"
-  slot: 87
-  category: blocks
-  buy-price: 6
-  sell-price: 3
-  enabled: true
-  stock:
-    min: 32
-    max: 128
-    chance: 1.0
-
-jungle_planks:
-  material: JUNGLE_PLANKS
-  display-name: "&6Jungle Planks"
-  slot: 88
-  category: blocks
-  buy-price: 7
-  sell-price: 3
-  enabled: true
-  stock:
-    min: 32
-    max: 128
-    chance: 0.9
-
-acacia_planks:
-  material: ACACIA_PLANKS
-  display-name: "&6Acacia Planks"
-  slot: 89
-  category: blocks
-  buy-price: 7
-  sell-price: 3
-  enabled: true
-  stock:
-    min: 32
-    max: 128
-    chance: 0.9
-
-dark_oak_planks:
-  material: DARK_OAK_PLANKS
-  display-name: "&8Dark Oak Planks"
-  slot: 90
-  category: blocks
+    max: 16
+    chance: 0.5
+stone:
+  material: STONE
+  display-name: "&fStone"
+  category: NATURAL
   buy-price: 8
-  sell-price: 4
+  sell-price: 3
   enabled: true
-  stock:
-    min: 32
-    max: 128
-    chance: 0.8
-
-mangrove_planks:
-  material: MANGROVE_PLANKS
-  display-name: "&4Mangrove Planks"
-  slot: 91
-  category: blocks
-  buy-price: 9
-  sell-price: 4
-  enabled: true
-  stock:
-    min: 24
-    max: 96
-    chance: 0.7
-
-cherry_planks:
-  material: CHERRY_PLANKS
-  display-name: "&dCherry Planks"
-  slot: 92
-  category: blocks
-  buy-price: 9
-  sell-price: 4
-  enabled: true
-  stock:
-    min: 24
-    max: 96
-    chance: 0.7
-
-bamboo_planks:
-  material: BAMBOO_PLANKS
-  display-name: "&aBamboo Planks"
-  slot: 93
-  category: blocks
-  buy-price: 8
-  sell-price: 4
-  enabled: true
-  stock:
-    min: 24
-    max: 96
-    chance: 0.8
-
-crimson_planks:
-  material: CRIMSON_PLANKS
-  display-name: "&4Crimson Planks"
-  slot: 94
-  category: blocks
-  buy-price: 14
-  sell-price: 7
-  enabled: true
+  page: 1
   stock:
     min: 16
     max: 64
-    chance: 0.35
-
-warped_planks:
-  material: WARPED_PLANKS
-  display-name: "&3Warped Planks"
-  slot: 95
-  category: blocks
-  buy-price: 14
-  sell-price: 7
+    chance: 1
+terracotta:
+  material: TERRACOTTA
+  display-name: "&fTerracotta"
+  category: NATURAL
+  buy-price: 12
+  sell-price: 5
   enabled: true
+  page: 1
   stock:
-    min: 16
+    min: 8
     max: 64
-    chance: 0.35
-
-white_wool:
-  material: WHITE_WOOL
-  display-name: "&fWhite Wool"
-  slot: 96
-  category: blocks
-  buy-price: 20
-  sell-price: 8
+    chance: 1
+tinted_glass:
+  material: TINTED_GLASS
+  display-name: "&fTinted Glass"
+  category: NATURAL
+  buy-price: 25
+  sell-price: 10
   enabled: true
+  page: 1
   stock:
-    min: 16
-    max: 64
-    chance: 0.8
-
-orange_wool:
-  material: ORANGE_WOOL
-  display-name: "&fOrange Wool"
-  slot: 97
-  category: blocks
-  buy-price: 20
-  sell-price: 8
+    min: 4
+    max: 32
+    chance: 1
+tuff:
+  material: TUFF
+  display-name: "&fTuff"
+  category: NATURAL
+  buy-price: 6
+  sell-price: 2
   enabled: true
+  page: 1
   stock:
-    min: 16
+    min: 8
     max: 64
-    chance: 0.8
-
-magenta_wool:
-  material: MAGENTA_WOOL
-  display-name: "&fMagenta Wool"
-  slot: 98
-  category: blocks
-  buy-price: 20
-  sell-price: 8
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.8
-
-light_blue_wool:
-  material: LIGHT_BLUE_WOOL
-  display-name: "&fLight Blue Wool"
-  slot: 99
-  category: blocks
-  buy-price: 20
-  sell-price: 8
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.8
-
-yellow_wool:
-  material: YELLOW_WOOL
-  display-name: "&fYellow Wool"
-  slot: 100
-  category: blocks
-  buy-price: 20
-  sell-price: 8
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.8
-
-lime_wool:
-  material: LIME_WOOL
-  display-name: "&fLime Wool"
-  slot: 101
-  category: blocks
-  buy-price: 20
-  sell-price: 8
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.8
-
-pink_wool:
-  material: PINK_WOOL
-  display-name: "&fPink Wool"
-  slot: 102
-  category: blocks
-  buy-price: 20
-  sell-price: 8
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.8
-
-gray_wool:
-  material: GRAY_WOOL
-  display-name: "&fGray Wool"
-  slot: 103
-  category: blocks
-  buy-price: 20
-  sell-price: 8
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.8
-
-light_gray_wool:
-  material: LIGHT_GRAY_WOOL
-  display-name: "&fLight Gray Wool"
-  slot: 104
-  category: blocks
-  buy-price: 20
-  sell-price: 8
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.8
-
-cyan_wool:
-  material: CYAN_WOOL
-  display-name: "&fCyan Wool"
-  slot: 105
-  category: blocks
-  buy-price: 20
-  sell-price: 8
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.8
-
-purple_wool:
-  material: PURPLE_WOOL
-  display-name: "&fPurple Wool"
-  slot: 106
-  category: blocks
-  buy-price: 20
-  sell-price: 8
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.8
-
-blue_wool:
-  material: BLUE_WOOL
-  display-name: "&fBlue Wool"
-  slot: 107
-  category: blocks
-  buy-price: 20
-  sell-price: 8
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.8
-
-brown_wool:
-  material: BROWN_WOOL
-  display-name: "&fBrown Wool"
-  slot: 108
-  category: blocks
-  buy-price: 20
-  sell-price: 8
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.8
-
-green_wool:
-  material: GREEN_WOOL
-  display-name: "&fGreen Wool"
-  slot: 109
-  category: blocks
-  buy-price: 20
-  sell-price: 8
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.8
-
-red_wool:
-  material: RED_WOOL
-  display-name: "&fRed Wool"
-  slot: 110
-  category: blocks
-  buy-price: 20
-  sell-price: 8
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.8
-
-black_wool:
-  material: BLACK_WOOL
-  display-name: "&fBlack Wool"
-  slot: 111
-  category: blocks
-  buy-price: 20
-  sell-price: 8
-  enabled: true
-  stock:
-    min: 16
-    max: 64
-    chance: 0.8
+    chance: 1

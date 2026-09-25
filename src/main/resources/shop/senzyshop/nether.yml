@@ -1,0 +1,169 @@
+id: "nether9k2"
+crimson_nylium:
+  material: CRIMSON_NYLIUM
+  display-name: "&fCrimson Nylium"
+  category: NETHER
+  buy-price: 20
+  sell-price: 7
+  enabled: true
+  slot: 0
+  stock:
+    min: 4
+    max: 32
+    chance: 0.7
+glowstone:
+  material: GLOWSTONE
+  display-name: "&fGlowstone"
+  category: NETHER
+  buy-price: 30
+  sell-price: 12
+  enabled: true
+  slot: 1
+  stock:
+    min: 8
+    max: 64
+    chance: 1
+magma_block:
+  material: MAGMA_BLOCK
+  display-name: "&fMagma Block"
+  category: NETHER
+  buy-price: 15
+  sell-price: 6
+  enabled: true
+  slot: 2
+  stock:
+    min: 8
+    max: 64
+    chance: 1
+nether_bricks:
+  material: NETHER_BRICKS
+  display-name: "&fNether Bricks"
+  category: NETHER
+  buy-price: 12
+  sell-price: 5
+  enabled: true
+  slot: 3
+  stock:
+    min: 8
+    max: 64
+    chance: 1
+nether_gold_ore:
+  material: NETHER_GOLD_ORE
+  display-name: "&fNether Gold Ore"
+  category: NETHER
+  buy-price: 70
+  sell-price: 25
+  enabled: true
+  slot: 4
+  stock:
+    min: 2
+    max: 16
+    chance: 0.5
+ochre_froglight:
+  material: OCHRE_FROGLIGHT
+  display-name: "&fOchre Froglight"
+  category: NETHER
+  buy-price: 120
+  sell-price: 40
+  enabled: true
+  slot: 5
+  stock:
+    min: 2
+    max: 16
+    chance: 0.5
+pearlescent_froglight:
+  material: PEARLESCENT_FROGLIGHT
+  display-name: "&fPearlescent Froglight"
+  category: NETHER
+  buy-price: 120
+  sell-price: 40
+  enabled: true
+  slot: 6
+  stock:
+    min: 2
+    max: 16
+    chance: 0.5
+red_nether_bricks:
+  material: RED_NETHER_BRICKS
+  display-name: "&fRed Nether Bricks"
+  category: NETHER
+  buy-price: 16
+  sell-price: 6
+  enabled: true
+  slot: 7
+  stock:
+    min: 8
+    max: 64
+    chance: 1
+respawn_anchor:
+  material: RESPAWN_ANCHOR
+  display-name: "&fRespawn Anchor"
+  category: NETHER
+  buy-price: 500
+  sell-price: 150
+  enabled: true
+  slot: 8
+  stock:
+    min: 1
+    max: 4
+    chance: 0.15
+shroomlight:
+  material: SHROOMLIGHT
+  display-name: "&fShroomlight"
+  category: NETHER
+  buy-price: 35
+  sell-price: 14
+  enabled: true
+  slot: 9
+  stock:
+    min: 4
+    max: 32
+    chance: 1
+soul_sand:
+  material: SOUL_SAND
+  display-name: "&fSoul Sand"
+  category: NETHER
+  buy-price: 10
+  sell-price: 4
+  enabled: true
+  slot: 10
+  stock:
+    min: 8
+    max: 64
+    chance: 1
+soul_soil:
+  material: SOUL_SOIL
+  display-name: "&fSoul Soil"
+  category: NETHER
+  buy-price: 10
+  sell-price: 4
+  enabled: true
+  slot: 11
+  stock:
+    min: 8
+    max: 64
+    chance: 1
+verdant_froglight:
+  material: VERDANT_FROGLIGHT
+  display-name: "&fVerdant Froglight"
+  category: NETHER
+  buy-price: 120
+  sell-price: 40
+  enabled: true
+  slot: 12
+  stock:
+    min: 2
+    max: 16
+    chance: 0.5
+warped_nylium:
+  material: WARPED_NYLIUM
+  display-name: "&fWarped Nylium"
+  category: NETHER
+  buy-price: 20
+  sell-price: 7
+  enabled: true
+  slot: 13
+  stock:
+    min: 4
+    max: 32
+    chance: 0.7

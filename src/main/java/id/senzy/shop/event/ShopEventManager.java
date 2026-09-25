@@ -4,6 +4,7 @@ import id.senzy.shop.SenzyShop;
 import id.senzy.shop.shop.ShopItem;
 import id.senzy.shop.shop.ShopManager;
 import id.senzy.shop.shop.StockManager;
+import org.bukkit.command.CommandSender;
 import id.senzy.shop.util.TimeUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
@@ -108,7 +109,7 @@ public final class ShopEventManager {
         return ev == null ? null : ev.items().get(item.id().toLowerCase(Locale.ROOT));
     }
 
-    public boolean start(String id, CommandSenderLike sender) {
+    public boolean start(String id, CommandSender sender) {
         ShopEvent ev = get(id);
         if (ev == null) return false;
         activeId = ev.id(); activeStarted = System.currentTimeMillis(); activeUntil = activeStarted + ev.durationMillis();
@@ -129,7 +130,7 @@ public final class ShopEventManager {
         return true;
     }
 
-    public boolean stop(CommandSenderLike sender) {
+    public boolean stop(CommandSender sender) {
         if (activeId == null) return false;
         ShopEvent old = active();
         activeId = null; activeUntil = 0; activeStarted = 0; saveState();
@@ -187,5 +188,4 @@ public final class ShopEventManager {
         } catch(Exception e){ return 3600000L; }
     }
 
-    public interface CommandSenderLike {}
 }

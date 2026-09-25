@@ -1,4 +1,6 @@
-# SenzyShop V1.2 - Temporary Market Events
+# SenzyShop - Admin market events
+# /senzy admin event start blackmarket
+# Black Market berisi barang langka/event-only; harga mengikuti price.type.
 events:
   blackmarket:
     display-name: "&5&lBlack Market"
@@ -8,27 +10,46 @@ events:
       start: true
       end: true
     items:
-      netherite_ingot:
-        chance: 0.01
-        stock:
-          min: 1
-          max: 1
-        price:
-          type: decrease
-          value: 20
-      elytra:
-        chance: 0.01
-        stock:
-          min: 1
-          max: 1
-        price:
-          type: decrease
-          value: 10
-      diamond:
-        chance: 0.50
-        stock:
-          min: 4
-          max: 16
-        price:
-          type: increase
-          value: 15
+      # Smithing Templates
+      netherite_upgrade_smithing_template: {chance: 0.08, stock: {min: 1, max: 2}, price: {type: decrease, value: 10}}
+      silence_armor_trim: {chance: 0.03, stock: {min: 1, max: 1}, price: {type: decrease, value: 15}}
+      sentry_armor_trim: {chance: 0.08, stock: {min: 1, max: 2}, price: {type: decrease, value: 10}}
+      dune_armor_trim: {chance: 0.08, stock: {min: 1, max: 2}, price: {type: decrease, value: 10}}
+      coast_armor_trim: {chance: 0.08, stock: {min: 1, max: 2}, price: {type: decrease, value: 10}}
+      wild_armor_trim: {chance: 0.06, stock: {min: 1, max: 2}, price: {type: decrease, value: 10}}
+      spire_armor_trim: {chance: 0.04, stock: {min: 1, max: 1}, price: {type: decrease, value: 15}}
+      ward_armor_trim: {chance: 0.04, stock: {min: 1, max: 1}, price: {type: decrease, value: 15}}
+      vex_armor_trim: {chance: 0.04, stock: {min: 1, max: 1}, price: {type: decrease, value: 15}}
+      tide_armor_trim: {chance: 0.05, stock: {min: 1, max: 1}, price: {type: decrease, value: 15}}
+      wayfinder_armor_trim: {chance: 0.06, stock: {min: 1, max: 2}, price: {type: decrease, value: 10}}
+      raiser_armor_trim: {chance: 0.06, stock: {min: 1, max: 2}, price: {type: decrease, value: 10}}
+      shaper_armor_trim: {chance: 0.06, stock: {min: 1, max: 2}, price: {type: decrease, value: 10}}
+      host_armor_trim: {chance: 0.05, stock: {min: 1, max: 1}, price: {type: decrease, value: 15}}
+      flow_armor_trim: {chance: 0.05, stock: {min: 1, max: 1}, price: {type: decrease, value: 15}}
+      bolt_armor_trim: {chance: 0.05, stock: {min: 1, max: 1}, price: {type: decrease, value: 15}}
+      eye_armor_trim_smithing_template: {chance: 0.04, stock: {min: 1, max: 1}, price: {type: decrease, value: 15}}
+
+      # Very rare progression / exploration loot
+      elytra: {chance: 0.02, stock: {min: 1, max: 1}, price: {type: increase, value: 20}}
+      dragon_egg: {chance: 0.01, stock: {min: 1, max: 1}, price: {type: increase, value: 50}}
+      nether_star: {chance: 0.03, stock: {min: 1, max: 1}, price: {type: increase, value: 25}}
+      heavy_core: {chance: 0.03, stock: {min: 1, max: 1}, price: {type: increase, value: 25}}
+      ominous_trial_key: {chance: 0.06, stock: {min: 1, max: 2}, price: {type: increase, value: 20}}
+      trial_key: {chance: 0.15, stock: {min: 1, max: 3}, price: {type: increase, value: 10}}
+      heart_of_the_sea: {chance: 0.08, stock: {min: 1, max: 1}, price: {type: increase, value: 20}}
+      echo_shard: {chance: 0.10, stock: {min: 1, max: 4}, price: {type: increase, value: 15}}
+      goat_horn: {chance: 0.08, stock: {min: 1, max: 2}, price: {type: increase, value: 15}}
+      shulker_shell: {chance: 0.12, stock: {min: 1, max: 4}, price: {type: increase, value: 10}}
+      nautilus_shell: {chance: 0.15, stock: {min: 1, max: 4}, price: {type: increase, value: 10}}
+      totem_of_undying: {chance: 0.08, stock: {min: 1, max: 2}, price: {type: increase, value: 15}}
+      enchanted_golden_apple: {chance: 0.03, stock: {min: 1, max: 1}, price: {type: increase, value: 30}}
+      dragon_breath: {chance: 0.06, stock: {min: 2, max: 8}, price: {type: increase, value: 15}}
+
+      # Music discs / collectibles
+      music_disc_pigstep: {chance: 0.05, stock: {min: 1, max: 1}, price: {type: increase, value: 20}}
+      music_disc_otherside: {chance: 0.05, stock: {min: 1, max: 1}, price: {type: increase, value: 20}}
+      music_disc_5: {chance: 0.04, stock: {min: 1, max: 1}, price: {type: increase, value: 25}}
+      music_disc_relic: {chance: 0.04, stock: {min: 1, max: 1}, price: {type: increase, value: 25}}
+      music_disc_creator: {chance: 0.04, stock: {min: 1, max: 1}, price: {type: increase, value: 25}}
+      music_disc_creator_music_box: {chance: 0.04, stock: {min: 1, max: 1}, price: {type: increase, value: 25}}
+      music_disc_precipice: {chance: 0.04, stock: {min: 1, max: 1}, price: {type: increase, value: 25}}
