@@ -1,0 +1,414 @@
+# ==========================================================
+# SenzyShop - kategori: items
+# Auto-generated dari katalog item Minecraft 1.21.x (bahan dasar saja,
+# tidak termasuk varian turunan seperti tangga/pagar/pintu/slab/dll).
+#
+# 'slot' diisi berurutan mulai dari 0. Kalau kategori ini punya lebih item
+# daripada kapasitas 1 halaman (gui.list.item-slots, default 45), sisanya
+# OTOMATIS lanjut ke halaman berikutnya (slot 45 = halaman 2 slot 0, dst).
+# Field 'page' opsional juga bisa dipakai untuk memaksa 1 item ke halaman
+# tertentu tanpa mengetik angka slot besar - tapi kalau 'slot' sudah
+# overflow ke halaman lain, hasil overflow itu yang menang.
+
+dandelion:
+  material: DANDELION
+  display-name: "&eDandelion"
+  slot: 0
+  category: items
+  buy-price: 15
+  sell-price: 7
+  enabled: true
+  stock:
+    min: 16
+    max: 64
+    chance: 0.7
+
+poppy:
+  material: POPPY
+  display-name: "&cPoppy"
+  slot: 1
+  category: items
+  buy-price: 15
+  sell-price: 7
+  enabled: true
+  stock:
+    min: 16
+    max: 64
+    chance: 0.7
+
+blue_orchid:
+  material: BLUE_ORCHID
+  display-name: "&bBlue Orchid"
+  slot: 2
+  category: items
+  buy-price: 20
+  sell-price: 10
+  enabled: true
+  stock:
+    min: 16
+    max: 64
+    chance: 0.5
+
+allium:
+  material: ALLIUM
+  display-name: "&dAllium"
+  slot: 3
+  category: items
+  buy-price: 20
+  sell-price: 10
+  enabled: true
+  stock:
+    min: 16
+    max: 64
+    chance: 0.5
+
+azure_bluet:
+  material: AZURE_BLUET
+  display-name: "&fAzure Bluet"
+  slot: 4
+  category: items
+  buy-price: 20
+  sell-price: 10
+  enabled: true
+  stock:
+    min: 16
+    max: 64
+    chance: 0.5
+
+red_tulip:
+  material: RED_TULIP
+  display-name: "&cRed Tulip"
+  slot: 5
+  category: items
+  buy-price: 18
+  sell-price: 9
+  enabled: true
+  stock:
+    min: 16
+    max: 64
+    chance: 0.55
+
+orange_tulip:
+  material: ORANGE_TULIP
+  display-name: "&6Orange Tulip"
+  slot: 6
+  category: items
+  buy-price: 18
+  sell-price: 9
+  enabled: true
+  stock:
+    min: 16
+    max: 64
+    chance: 0.55
+
+white_tulip:
+  material: WHITE_TULIP
+  display-name: "&fWhite Tulip"
+  slot: 7
+  category: items
+  buy-price: 18
+  sell-price: 9
+  enabled: true
+  stock:
+    min: 16
+    max: 64
+    chance: 0.55
+
+pink_tulip:
+  material: PINK_TULIP
+  display-name: "&dPink Tulip"
+  slot: 8
+  category: items
+  buy-price: 18
+  sell-price: 9
+  enabled: true
+  stock:
+    min: 16
+    max: 64
+    chance: 0.55
+
+oxeye_daisy:
+  material: OXEYE_DAISY
+  display-name: "&fOxeye Daisy"
+  slot: 9
+  category: items
+  buy-price: 18
+  sell-price: 9
+  enabled: true
+  stock:
+    min: 16
+    max: 64
+    chance: 0.55
+
+cornflower:
+  material: CORNFLOWER
+  display-name: "&9Cornflower"
+  slot: 10
+  category: items
+  buy-price: 20
+  sell-price: 10
+  enabled: true
+  stock:
+    min: 16
+    max: 64
+    chance: 0.5
+
+lily_of_the_valley:
+  material: LILY_OF_THE_VALLEY
+  display-name: "&fLily of the Valley"
+  slot: 11
+  category: items
+  buy-price: 22
+  sell-price: 11
+  enabled: true
+  stock:
+    min: 16
+    max: 64
+    chance: 0.45
+
+sunflower:
+  material: SUNFLOWER
+  display-name: "&eSunflower"
+  slot: 12
+  category: items
+  buy-price: 25
+  sell-price: 12
+  enabled: true
+  stock:
+    min: 8
+    max: 32
+    chance: 0.4
+
+lilac:
+  material: LILAC
+  display-name: "&dLilac"
+  slot: 13
+  category: items
+  buy-price: 25
+  sell-price: 12
+  enabled: true
+  stock:
+    min: 8
+    max: 32
+    chance: 0.4
+
+rose_bush:
+  material: ROSE_BUSH
+  display-name: "&cRose Bush"
+  slot: 14
+  category: items
+  buy-price: 25
+  sell-price: 12
+  enabled: true
+  stock:
+    min: 8
+    max: 32
+    chance: 0.4
+
+peony:
+  material: PEONY
+  display-name: "&dPeony"
+  slot: 15
+  category: items
+  buy-price: 25
+  sell-price: 12
+  enabled: true
+  stock:
+    min: 8
+    max: 32
+    chance: 0.4
+
+wither_rose:
+  material: WITHER_ROSE
+  display-name: "&8Wither Rose"
+  slot: 16
+  category: items
+  buy-price: 120
+  sell-price: 60
+  enabled: true
+  stock:
+    min: 2
+    max: 8
+    chance: 0.1
+
+torchflower:
+  material: TORCHFLOWER
+  display-name: "&6Torchflower"
+  slot: 17
+  category: items
+  buy-price: 50
+  sell-price: 25
+  enabled: true
+  stock:
+    min: 4
+    max: 16
+    chance: 0.25
+
+pitcher_plant:
+  material: PITCHER_PLANT
+  display-name: "&2Pitcher Plant"
+  slot: 18
+  category: items
+  buy-price: 50
+  sell-price: 25
+  enabled: true
+  stock:
+    min: 4
+    max: 16
+    chance: 0.25
+
+brown_mushroom:
+  material: BROWN_MUSHROOM
+  display-name: "&6Brown Mushroom"
+  slot: 19
+  category: items
+  buy-price: 20
+  sell-price: 10
+  enabled: true
+  stock:
+    min: 16
+    max: 64
+    chance: 0.5
+
+red_mushroom:
+  material: RED_MUSHROOM
+  display-name: "&cRed Mushroom"
+  slot: 20
+  category: items
+  buy-price: 20
+  sell-price: 10
+  enabled: true
+  stock:
+    min: 16
+    max: 64
+    chance: 0.5
+
+crimson_fungus:
+  material: CRIMSON_FUNGUS
+  display-name: "&4Crimson Fungus"
+  slot: 21
+  category: items
+  buy-price: 30
+  sell-price: 15
+  enabled: true
+  stock:
+    min: 8
+    max: 32
+    chance: 0.3
+
+warped_fungus:
+  material: WARPED_FUNGUS
+  display-name: "&3Warped Fungus"
+  slot: 22
+  category: items
+  buy-price: 30
+  sell-price: 15
+  enabled: true
+  stock:
+    min: 8
+    max: 32
+    chance: 0.3
+
+seagrass:
+  material: SEAGRASS
+  display-name: "&2Seagrass"
+  slot: 23
+  category: items
+  buy-price: 15
+  sell-price: 7
+  enabled: true
+  stock:
+    min: 16
+    max: 64
+    chance: 0.6
+
+sea_pickle:
+  material: SEA_PICKLE
+  display-name: "&2Sea Pickle"
+  slot: 24
+  category: items
+  buy-price: 35
+  sell-price: 17
+  enabled: true
+  stock:
+    min: 8
+    max: 32
+    chance: 0.3
+
+nether_sprouts:
+  material: NETHER_SPROUTS
+  display-name: "&2Nether Sprouts"
+  slot: 25
+  category: items
+  buy-price: 25
+  sell-price: 12
+  enabled: true
+  stock:
+    min: 8
+    max: 32
+    chance: 0.35
+
+twisting_vines:
+  material: TWISTING_VINES
+  display-name: "&2Twisting Vines"
+  slot: 26
+  category: items
+  buy-price: 25
+  sell-price: 12
+  enabled: true
+  stock:
+    min: 8
+    max: 32
+    chance: 0.35
+
+weeping_vines:
+  material: WEEPING_VINES
+  display-name: "&4Weeping Vines"
+  slot: 27
+  category: items
+  buy-price: 25
+  sell-price: 12
+  enabled: true
+  stock:
+    min: 8
+    max: 32
+    chance: 0.35
+
+big_dripleaf:
+  material: BIG_DRIPLEAF
+  display-name: "&2Big Dripleaf"
+  slot: 28
+  category: items
+  buy-price: 30
+  sell-price: 15
+  enabled: true
+  stock:
+    min: 8
+    max: 32
+    chance: 0.3
+
+small_dripleaf:
+  material: SMALL_DRIPLEAF
+  display-name: "&2Small Dripleaf"
+  slot: 29
+  category: items
+  buy-price: 25
+  sell-price: 12
+  enabled: true
+  stock:
+    min: 8
+    max: 32
+    chance: 0.3
+
+spore_blossom:
+  material: SPORE_BLOSSOM
+  display-name: "&dSpore Blossom"
+  slot: 30
+  category: items
+  buy-price: 60
+  sell-price: 30
+  enabled: true
+  stock:
+    min: 2
+    max: 8
+    chance: 0.15

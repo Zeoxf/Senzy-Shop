@@ -1,0 +1,91 @@
+# ============================================================
+#  SenzyShop V1.1 - contracts.yml
+#
+#  Kumpulan (pool) kandidat kontrak. Setiap kali reset (daily/weekly), plugin memilih
+#  SECARA ACAK sejumlah "random-count" kontrak dari pool ini - target & reward SELALU
+#  tetap sesuai yang ditulis di sini (tidak pernah di-random).
+#
+#  "item" WAJIB berupa id item di items.yml yang bisa dijual (sell-price > 0).
+# ============================================================
+
+daily:
+  pool:
+    coal_run:
+      item: coal
+      amount: 40
+      reward: 800
+    wheat_harvest:
+      item: wheat
+      amount: 96
+      reward: 400
+    carrot_harvest:
+      item: carrot
+      amount: 96
+      reward: 280
+    potato_harvest:
+      item: potato
+      amount: 96
+      reward: 280
+    beetroot_harvest:
+      item: beetroot
+      amount: 96
+      reward: 280
+    beef_supply:
+      item: beef
+      amount: 32
+      reward: 200
+    porkchop_supply:
+      item: porkchop
+      amount: 32
+      reward: 200
+    chicken_supply:
+      item: chicken
+      amount: 32
+      reward: 160
+    cooked_beef_catering:
+      item: cooked_beef
+      amount: 24
+      reward: 280
+    cooked_porkchop_catering:
+      item: cooked_porkchop
+      amount: 24
+      reward: 280
+    bread_catering:
+      item: bread
+      amount: 32
+      reward: 230
+    iron_shipment:
+      item: iron_ingot
+      amount: 24
+      reward: 1100
+    copper_shipment:
+      item: copper_ingot
+      amount: 24
+      reward: 620
+
+weekly:
+  pool:
+    master_miner_diamond:
+      item: diamond
+      amount: 32
+      reward: 16000
+    master_miner_emerald:
+      item: emerald
+      amount: 32
+      reward: 13000
+    master_smelter_gold:
+      item: gold_ingot
+      amount: 96
+      reward: 9500
+    master_smelter_iron:
+      item: iron_ingot
+      amount: 200
+      reward: 9000
+    master_farmer_wheat:
+      item: wheat
+      amount: 512
+      reward: 2200
+    master_miner_coal:
+      item: coal
+      amount: 256
+      reward: 5200

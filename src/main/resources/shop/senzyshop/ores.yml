@@ -1,0 +1,258 @@
+# ==========================================================
+# SenzyShop - kategori: ores
+# Auto-generated dari katalog item Minecraft 1.21.x (bahan dasar saja,
+# tidak termasuk varian turunan seperti tangga/pagar/pintu/slab/dll).
+#
+# 'slot' diisi berurutan mulai dari 0. Kalau kategori ini punya lebih item
+# daripada kapasitas 1 halaman (gui.list.item-slots, default 45), sisanya
+# OTOMATIS lanjut ke halaman berikutnya (slot 45 = halaman 2 slot 0, dst).
+# Field 'page' opsional juga bisa dipakai untuk memaksa 1 item ke halaman
+# tertentu tanpa mengetik angka slot besar - tapi kalau 'slot' sudah
+# overflow ke halaman lain, hasil overflow itu yang menang.
+
+coal_ore:
+  material: COAL_ORE
+  display-name: "&8Coal Ore"
+  slot: 0
+  category: ores
+  buy-price: 40
+  sell-price: 20
+  enabled: true
+  stock:
+    min: 8
+    max: 32
+    chance: 0.75
+
+deepslate_coal_ore:
+  material: DEEPSLATE_COAL_ORE
+  display-name: "&8Deepslate Coal Ore"
+  slot: 1
+  category: ores
+  buy-price: 50
+  sell-price: 25
+  enabled: true
+  stock:
+    min: 8
+    max: 32
+    chance: 0.6
+
+iron_ore:
+  material: IRON_ORE
+  display-name: "&7Iron Ore"
+  slot: 2
+  category: ores
+  buy-price: 100
+  sell-price: 50
+  enabled: true
+  stock:
+    min: 8
+    max: 32
+    chance: 0.65
+
+deepslate_iron_ore:
+  material: DEEPSLATE_IRON_ORE
+  display-name: "&8Deepslate Iron Ore"
+  slot: 3
+  category: ores
+  buy-price: 115
+  sell-price: 57
+  enabled: true
+  stock:
+    min: 8
+    max: 32
+    chance: 0.55
+
+copper_ore:
+  material: COPPER_ORE
+  display-name: "&6Copper Ore"
+  slot: 4
+  category: ores
+  buy-price: 75
+  sell-price: 37
+  enabled: true
+  stock:
+    min: 8
+    max: 32
+    chance: 0.7
+
+deepslate_copper_ore:
+  material: DEEPSLATE_COPPER_ORE
+  display-name: "&8Deepslate Copper Ore"
+  slot: 5
+  category: ores
+  buy-price: 90
+  sell-price: 45
+  enabled: true
+  stock:
+    min: 8
+    max: 32
+    chance: 0.6
+
+gold_ore:
+  material: GOLD_ORE
+  display-name: "&6Gold Ore"
+  slot: 6
+  category: ores
+  buy-price: 250
+  sell-price: 125
+  enabled: true
+  stock:
+    min: 4
+    max: 16
+    chance: 0.4
+
+deepslate_gold_ore:
+  material: DEEPSLATE_GOLD_ORE
+  display-name: "&6Deepslate Gold Ore"
+  slot: 7
+  category: ores
+  buy-price: 275
+  sell-price: 137
+  enabled: true
+  stock:
+    min: 4
+    max: 16
+    chance: 0.3
+
+redstone_ore:
+  material: REDSTONE_ORE
+  display-name: "&cRedstone Ore"
+  slot: 8
+  category: ores
+  buy-price: 175
+  sell-price: 87
+  enabled: true
+  stock:
+    min: 4
+    max: 16
+    chance: 0.35
+
+deepslate_redstone_ore:
+  material: DEEPSLATE_REDSTONE_ORE
+  display-name: "&cDeepslate Redstone Ore"
+  slot: 9
+  category: ores
+  buy-price: 200
+  sell-price: 100
+  enabled: true
+  stock:
+    min: 4
+    max: 16
+    chance: 0.3
+
+lapis_ore:
+  material: LAPIS_ORE
+  display-name: "&9Lapis Ore"
+  slot: 10
+  category: ores
+  buy-price: 180
+  sell-price: 90
+  enabled: true
+  stock:
+    min: 4
+    max: 16
+    chance: 0.35
+
+deepslate_lapis_ore:
+  material: DEEPSLATE_LAPIS_ORE
+  display-name: "&9Deepslate Lapis Ore"
+  slot: 11
+  category: ores
+  buy-price: 200
+  sell-price: 100
+  enabled: true
+  stock:
+    min: 4
+    max: 16
+    chance: 0.3
+
+diamond_ore:
+  material: DIAMOND_ORE
+  display-name: "&bDiamond Ore"
+  slot: 12
+  category: ores
+  buy-price: 500
+  sell-price: 250
+  enabled: true
+  stock:
+    min: 1
+    max: 6
+    chance: 0.12
+
+deepslate_diamond_ore:
+  material: DEEPSLATE_DIAMOND_ORE
+  display-name: "&bDeepslate Diamond Ore"
+  slot: 13
+  category: ores
+  buy-price: 550
+  sell-price: 275
+  enabled: true
+  stock:
+    min: 1
+    max: 5
+    chance: 0.1
+
+emerald_ore:
+  material: EMERALD_ORE
+  display-name: "&aEmerald Ore"
+  slot: 14
+  category: ores
+  buy-price: 750
+  sell-price: 375
+  enabled: true
+  stock:
+    min: 1
+    max: 4
+    chance: 0.05
+
+deepslate_emerald_ore:
+  material: DEEPSLATE_EMERALD_ORE
+  display-name: "&aDeepslate Emerald Ore"
+  slot: 15
+  category: ores
+  buy-price: 800
+  sell-price: 400
+  enabled: true
+  stock:
+    min: 1
+    max: 3
+    chance: 0.04
+
+nether_gold_ore:
+  material: NETHER_GOLD_ORE
+  display-name: "&6Nether Gold Ore"
+  slot: 16
+  category: ores
+  buy-price: 220
+  sell-price: 110
+  enabled: true
+  stock:
+    min: 8
+    max: 32
+    chance: 0.4
+
+nether_quartz_ore:
+  material: NETHER_QUARTZ_ORE
+  display-name: "&fNether Quartz Ore"
+  slot: 17
+  category: ores
+  buy-price: 260
+  sell-price: 130
+  enabled: true
+  stock:
+    min: 8
+    max: 32
+    chance: 0.3
+
+gilded_blackstone:
+  material: GILDED_BLACKSTONE
+  display-name: "&6Gilded Blackstone"
+  slot: 18
+  category: ores
+  buy-price: 600
+  sell-price: 300
+  enabled: true
+  stock:
+    min: 2
+    max: 8
+    chance: 0.08

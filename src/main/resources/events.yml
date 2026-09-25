@@ -1,0 +1,34 @@
+# SenzyShop V1.2 - Temporary Market Events
+events:
+  blackmarket:
+    display-name: "&5&lBlack Market"
+    duration: "1h"
+    priority: 100
+    announcement:
+      start: true
+      end: true
+    items:
+      netherite_ingot:
+        chance: 0.01
+        stock:
+          min: 1
+          max: 1
+        price:
+          type: decrease
+          value: 20
+      elytra:
+        chance: 0.01
+        stock:
+          min: 1
+          max: 1
+        price:
+          type: decrease
+          value: 10
+      diamond:
+        chance: 0.50
+        stock:
+          min: 4
+          max: 16
+        price:
+          type: increase
+          value: 15

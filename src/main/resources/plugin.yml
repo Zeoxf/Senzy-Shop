@@ -1,5 +1,5 @@
 name: SenzyShop
-version: '1.1.0'
+version: '${project.version}'
 main: id.senzy.shop.SenzyShop
 api-version: '1.21'
 author: Senzy
@@ -30,4 +30,7 @@ permissions:
     default: true
   senzy.admin:
     description: Semua perintah admin SenzyShop
+    default: op
+  senzy.shop.admin:
+    description: Administrasi layout, stock, dan event Shop
     default: op

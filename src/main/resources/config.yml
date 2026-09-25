@@ -1,0 +1,110 @@
+default-shop: senzyshop
+# ============================================================
+#  SenzyShop V1.1 - config.yml
+# ============================================================
+
+economy:
+  currency-name: "Senzy Coin"
+  currency-symbol: "SC"
+  # Balance awal untuk pemain baru
+  starting-balance: 1000
+  # Batas balance maksimum (mencegah overflow)
+  max-balance: 1000000000000
+  # Harga default item MATERIAL (mode ORE_MULTIPLIER) = harga ore acuan x nilai ini.
+  # Item bisa override sendiri lewat "multiplier:" di items.yml.
+  material-price-multiplier: 1.5
+  # Harga jual default item MATERIAL = harga beli material x nilai ini (0.5 = separuh).
+  # Item bisa override sendiri lewat "sell-ratio:" di items.yml.
+  default-sell-ratio: 0.5
+
+restock:
+  # Interval restock dalam menit (180 = 3 jam)
+  interval-minutes: 180
+  # Suara saat restock (kosongkan untuk mematikan)
+  sound: "entity.experience_orb.pickup"
+  sound-volume: 0.8
+  sound-pitch: 1.2
+
+# Nilai default jika sebuah item di items.yml tidak punya bagian "stock"
+stock:
+  # chance menggunakan skala 0.0-1.0 (1.0=100%, 0.01=1%).
+  # false = semua item selalu terisi penuh saat restock (tanpa random)
+  enabled: true
+  default-min: 0
+  default-max: 64
+  default-chance: 1.0
+
+contracts:
+  enabled: true
+  daily:
+    reset-hours: 24
+    random-count: 3
+  weekly:
+    reset-days: 7
+    random-count: 2
+
+security:
+  # Jika total harga pembelian >= nilai ini, tampilkan dialog konfirmasi sebelum membeli.
+  confirm-expensive-items: true
+  expensive-threshold: 1000
+
+gui:
+  # Jeda minimum antar klik (ms) per pemain - anti spam klik
+  click-cooldown-ms: 250
+  filler: GRAY_STAINED_GLASS_PANE
+  amount-selector:
+    background: PURPLE_STAINED_GLASS_PANE
+    side: PINK_STAINED_GLASS_PANE
+    decrease-slot: 11
+    confirm-slot: 13
+    increase-slot: 15
+    cancel-slot: 22
+  main:
+    rows: 6
+    category-slots:
+      NATURAL: 10
+      ORE: 11
+      MATERIAL: 12
+      FARMING: 14
+      ANIMALS: 15
+      FOOD: 16
+      WOOD: 17
+      NETHER: 18
+      END: 19
+      BUILDING: 20
+      UTILITY: 21
+      SPECIAL: 22
+    sell-slot: 28
+    balance-slot: 30
+    contracts-slot: 32
+    search-slot: 34
+    restock-slot: 40
+    close-slot: 49
+  list:
+    # Layout item dapat diatur bebas. Slot yang tidak diisi tetap filler glass.
+    item-rows: 5
+    # Opsional: daftar slot global. Jika diisi, menjadi fallback semua kategori.
+    item-slots: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44]
+    # Slot per kategori. Contoh: items hanya muncul pada slot yang kamu tentukan.
+    category-slots:
+      NATURAL: [10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25, 28, 29, 30, 31, 32, 33, 34]
+      ORE: [10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25]
+      MATERIAL: [10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25]
+      FARMING: [10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25]
+      ANIMALS: [10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25]
+      FOOD: [10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25]
+    restock-slot: 45
+    prev-slot: 47
+    back-slot: 49
+    next-slot: 51
+    balance-slot: 53
+    sellall-slot: 47
+  contract:
+    daily-tab-slot: 3
+    weekly-tab-slot: 5
+    item-rows: 3
+    back-slot: 49
+  confirm:
+    preview-slot: 13
+    yes-slot: 21
+    no-slot: 23

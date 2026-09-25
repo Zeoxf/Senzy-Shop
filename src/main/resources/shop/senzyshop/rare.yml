@@ -1,0 +1,89 @@
+# ==========================================================
+# SenzyShop - kategori: rare
+# Auto-generated dari katalog item Minecraft 1.21.x (bahan dasar saja,
+# tidak termasuk varian turunan seperti tangga/pagar/pintu/slab/dll).
+#
+# 'slot' diisi berurutan mulai dari 0. Kalau kategori ini punya lebih item
+# daripada kapasitas 1 halaman (gui.list.item-slots, default 45), sisanya
+# OTOMATIS lanjut ke halaman berikutnya (slot 45 = halaman 2 slot 0, dst).
+# Field 'page' opsional juga bisa dipakai untuk memaksa 1 item ke halaman
+# tertentu tanpa mengetik angka slot besar - tapi kalau 'slot' sudah
+# overflow ke halaman lain, hasil overflow itu yang menang.
+
+ancient_debris:
+  material: ANCIENT_DEBRIS
+  display-name: "&8Ancient Debris"
+  slot: 0
+  category: rare
+  buy-price: 20000
+  sell-price: 10000
+  enabled: true
+  stock:
+    min: 1
+    max: 2
+    chance: 0.01
+
+shulker_shell:
+  material: SHULKER_SHELL
+  display-name: "&dShulker Shell"
+  slot: 1
+  category: rare
+  buy-price: 8000
+  sell-price: 4000
+  enabled: true
+  stock:
+    min: 1
+    max: 2
+    chance: 0.05
+
+nether_star:
+  material: NETHER_STAR
+  display-name: "&fNether Star"
+  slot: 2
+  category: rare
+  buy-price: 100000
+  sell-price: 50000
+  enabled: true
+  stock:
+    min: 1
+    max: 1
+    chance: 0.01
+
+heart_of_the_sea:
+  material: HEART_OF_THE_SEA
+  display-name: "&bHeart of the Sea"
+  slot: 3
+  category: rare
+  buy-price: 15000
+  sell-price: 7500
+  enabled: true
+  stock:
+    min: 1
+    max: 1
+    chance: 0.02
+
+totem_of_undying:
+  material: TOTEM_OF_UNDYING
+  display-name: "&eTotem of Undying"
+  slot: 4
+  category: rare
+  buy-price: 60000
+  sell-price: 30000
+  enabled: true
+  stock:
+    min: 1
+    max: 1
+    chance: 0.01
+
+dragon_egg:
+  material: DRAGON_EGG
+  display-name: "&5Dragon Egg"
+  slot: 5
+  category: rare
+  buy-price: 1000000
+  sell-price: 500000
+  enabled: true
+  stock:
+    min: 1
+    max: 1
+    chance: 0.005

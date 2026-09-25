@@ -1,0 +1,427 @@
+# ==========================================================
+# SenzyShop - kategori: farming
+# Auto-generated dari katalog item Minecraft 1.21.x (bahan dasar saja,
+# tidak termasuk varian turunan seperti tangga/pagar/pintu/slab/dll).
+#
+# 'slot' diisi berurutan mulai dari 0. Kalau kategori ini punya lebih item
+# daripada kapasitas 1 halaman (gui.list.item-slots, default 45), sisanya
+# OTOMATIS lanjut ke halaman berikutnya (slot 45 = halaman 2 slot 0, dst).
+# Field 'page' opsional juga bisa dipakai untuk memaksa 1 item ke halaman
+# tertentu tanpa mengetik angka slot besar - tapi kalau 'slot' sudah
+# overflow ke halaman lain, hasil overflow itu yang menang.
+
+wheat_seeds:
+  material: WHEAT_SEEDS
+  display-name: "&aWheat Seeds"
+  slot: 0
+  category: farming
+  buy-price: 10
+  sell-price: 5
+  enabled: true
+  stock:
+    min: 32
+    max: 128
+    chance: 1.0
+
+wheat:
+  material: WHEAT
+  display-name: "&eWheat"
+  slot: 1
+  category: farming
+  buy-price: 30
+  sell-price: 15
+  enabled: true
+  stock:
+    min: 32
+    max: 128
+    chance: 1.0
+
+carrot:
+  material: CARROT
+  display-name: "&6Carrot"
+  slot: 2
+  category: farming
+  buy-price: 25
+  sell-price: 12
+  enabled: true
+  stock:
+    min: 32
+    max: 128
+    chance: 1.0
+
+potato:
+  material: POTATO
+  display-name: "&ePotato"
+  slot: 3
+  category: farming
+  buy-price: 25
+  sell-price: 12
+  enabled: true
+  stock:
+    min: 32
+    max: 128
+    chance: 1.0
+
+poisonous_potato:
+  material: POISONOUS_POTATO
+  display-name: "&2Poisonous Potato"
+  slot: 4
+  category: farming
+  buy-price: 20
+  sell-price: 10
+  enabled: true
+  stock:
+    min: 8
+    max: 32
+    chance: 0.4
+
+beetroot_seeds:
+  material: BEETROOT_SEEDS
+  display-name: "&cBeetroot Seeds"
+  slot: 5
+  category: farming
+  buy-price: 12
+  sell-price: 6
+  enabled: true
+  stock:
+    min: 32
+    max: 128
+    chance: 0.8
+
+beetroot:
+  material: BEETROOT
+  display-name: "&cBeetroot"
+  slot: 6
+  category: farming
+  buy-price: 30
+  sell-price: 15
+  enabled: true
+  stock:
+    min: 32
+    max: 128
+    chance: 0.8
+
+pumpkin_seeds:
+  material: PUMPKIN_SEEDS
+  display-name: "&6Pumpkin Seeds"
+  slot: 7
+  category: farming
+  buy-price: 15
+  sell-price: 7
+  enabled: true
+  stock:
+    min: 16
+    max: 64
+    chance: 0.7
+
+pumpkin:
+  material: PUMPKIN
+  display-name: "&6Pumpkin"
+  slot: 8
+  category: farming
+  buy-price: 50
+  sell-price: 25
+  enabled: true
+  stock:
+    min: 16
+    max: 64
+    chance: 0.7
+
+melon_seeds:
+  material: MELON_SEEDS
+  display-name: "&aMelon Seeds"
+  slot: 9
+  category: farming
+  buy-price: 15
+  sell-price: 7
+  enabled: true
+  stock:
+    min: 16
+    max: 64
+    chance: 0.7
+
+melon:
+  material: MELON
+  display-name: "&aMelon"
+  slot: 10
+  category: farming
+  buy-price: 40
+  sell-price: 20
+  enabled: true
+  stock:
+    min: 16
+    max: 64
+    chance: 0.7
+
+sugar_cane:
+  material: SUGAR_CANE
+  display-name: "&aSugar Cane"
+  slot: 11
+  category: farming
+  buy-price: 35
+  sell-price: 17
+  enabled: true
+  stock:
+    min: 32
+    max: 128
+    chance: 0.9
+
+bamboo:
+  material: BAMBOO
+  display-name: "&aBamboo"
+  slot: 12
+  category: farming
+  buy-price: 20
+  sell-price: 10
+  enabled: true
+  stock:
+    min: 32
+    max: 128
+    chance: 0.9
+
+cactus:
+  material: CACTUS
+  display-name: "&2Cactus"
+  slot: 13
+  category: farming
+  buy-price: 35
+  sell-price: 17
+  enabled: true
+  stock:
+    min: 32
+    max: 128
+    chance: 0.8
+
+cocoa_beans:
+  material: COCOA_BEANS
+  display-name: "&6Cocoa Beans"
+  slot: 14
+  category: farming
+  buy-price: 50
+  sell-price: 25
+  enabled: true
+  stock:
+    min: 16
+    max: 64
+    chance: 0.6
+
+sweet_berries:
+  material: SWEET_BERRIES
+  display-name: "&cSweet Berries"
+  slot: 15
+  category: farming
+  buy-price: 40
+  sell-price: 20
+  enabled: true
+  stock:
+    min: 16
+    max: 64
+    chance: 0.7
+
+glow_berries:
+  material: GLOW_BERRIES
+  display-name: "&eGlow Berries"
+  slot: 16
+  category: farming
+  buy-price: 60
+  sell-price: 30
+  enabled: true
+  stock:
+    min: 16
+    max: 64
+    chance: 0.5
+
+kelp:
+  material: KELP
+  display-name: "&2Kelp"
+  slot: 17
+  category: farming
+  buy-price: 20
+  sell-price: 10
+  enabled: true
+  stock:
+    min: 32
+    max: 128
+    chance: 0.8
+
+dried_kelp:
+  material: DRIED_KELP
+  display-name: "&2Dried Kelp"
+  slot: 18
+  category: farming
+  buy-price: 30
+  sell-price: 15
+  enabled: true
+  stock:
+    min: 32
+    max: 128
+    chance: 0.7
+
+nether_wart:
+  material: NETHER_WART
+  display-name: "&4Nether Wart"
+  slot: 19
+  category: farming
+  buy-price: 300
+  sell-price: 150
+  enabled: true
+  stock:
+    min: 8
+    max: 32
+    chance: 0.2
+
+torchflower_seeds:
+  material: TORCHFLOWER_SEEDS
+  display-name: "&6Torchflower Seeds"
+  slot: 20
+  category: farming
+  buy-price: 40
+  sell-price: 20
+  enabled: true
+  stock:
+    min: 8
+    max: 32
+    chance: 0.3
+
+pitcher_pod:
+  material: PITCHER_POD
+  display-name: "&2Pitcher Pod"
+  slot: 21
+  category: farming
+  buy-price: 40
+  sell-price: 20
+  enabled: true
+  stock:
+    min: 8
+    max: 32
+    chance: 0.3
+
+oak_sapling:
+  material: OAK_SAPLING
+  display-name: "&aOak Sapling"
+  slot: 22
+  category: farming
+  buy-price: 20
+  sell-price: 10
+  enabled: true
+  stock:
+    min: 16
+    max: 64
+    chance: 0.6
+
+spruce_sapling:
+  material: SPRUCE_SAPLING
+  display-name: "&aSpruce Sapling"
+  slot: 23
+  category: farming
+  buy-price: 20
+  sell-price: 10
+  enabled: true
+  stock:
+    min: 16
+    max: 64
+    chance: 0.6
+
+birch_sapling:
+  material: BIRCH_SAPLING
+  display-name: "&aBirch Sapling"
+  slot: 24
+  category: farming
+  buy-price: 20
+  sell-price: 10
+  enabled: true
+  stock:
+    min: 16
+    max: 64
+    chance: 0.6
+
+jungle_sapling:
+  material: JUNGLE_SAPLING
+  display-name: "&aJungle Sapling"
+  slot: 25
+  category: farming
+  buy-price: 22
+  sell-price: 11
+  enabled: true
+  stock:
+    min: 16
+    max: 64
+    chance: 0.5
+
+acacia_sapling:
+  material: ACACIA_SAPLING
+  display-name: "&aAcacia Sapling"
+  slot: 26
+  category: farming
+  buy-price: 22
+  sell-price: 11
+  enabled: true
+  stock:
+    min: 16
+    max: 64
+    chance: 0.5
+
+dark_oak_sapling:
+  material: DARK_OAK_SAPLING
+  display-name: "&aDark Oak Sapling"
+  slot: 27
+  category: farming
+  buy-price: 25
+  sell-price: 12
+  enabled: true
+  stock:
+    min: 16
+    max: 64
+    chance: 0.45
+
+mangrove_propagule:
+  material: MANGROVE_PROPAGULE
+  display-name: "&aMangrove Propagule"
+  slot: 28
+  category: farming
+  buy-price: 28
+  sell-price: 14
+  enabled: true
+  stock:
+    min: 16
+    max: 64
+    chance: 0.4
+
+cherry_sapling:
+  material: CHERRY_SAPLING
+  display-name: "&dCherry Sapling"
+  slot: 29
+  category: farming
+  buy-price: 28
+  sell-price: 14
+  enabled: true
+  stock:
+    min: 16
+    max: 64
+    chance: 0.4
+
+azalea:
+  material: AZALEA
+  display-name: "&aAzalea"
+  slot: 30
+  category: farming
+  buy-price: 30
+  sell-price: 15
+  enabled: true
+  stock:
+    min: 8
+    max: 32
+    chance: 0.4
+
+flowering_azalea:
+  material: FLOWERING_AZALEA
+  display-name: "&dFlowering Azalea"
+  slot: 31
+  category: farming
+  buy-price: 35
+  sell-price: 17
+  enabled: true
+  stock:
+    min: 8
+    max: 32
+    chance: 0.35

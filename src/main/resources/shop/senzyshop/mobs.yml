@@ -1,0 +1,284 @@
+# ==========================================================
+# SenzyShop - kategori: mobs
+# Auto-generated dari katalog item Minecraft 1.21.x (bahan dasar saja,
+# tidak termasuk varian turunan seperti tangga/pagar/pintu/slab/dll).
+#
+# 'slot' diisi berurutan mulai dari 0. Kalau kategori ini punya lebih item
+# daripada kapasitas 1 halaman (gui.list.item-slots, default 45), sisanya
+# OTOMATIS lanjut ke halaman berikutnya (slot 45 = halaman 2 slot 0, dst).
+# Field 'page' opsional juga bisa dipakai untuk memaksa 1 item ke halaman
+# tertentu tanpa mengetik angka slot besar - tapi kalau 'slot' sudah
+# overflow ke halaman lain, hasil overflow itu yang menang.
+
+leather:
+  material: LEATHER
+  display-name: "&6Leather"
+  slot: 0
+  category: mobs
+  buy-price: 70
+  sell-price: 35
+  enabled: true
+  stock:
+    min: 8
+    max: 32
+    chance: 0.55
+
+rabbit_hide:
+  material: RABBIT_HIDE
+  display-name: "&6Rabbit Hide"
+  slot: 1
+  category: mobs
+  buy-price: 30
+  sell-price: 15
+  enabled: true
+  stock:
+    min: 8
+    max: 32
+    chance: 0.4
+
+feather:
+  material: FEATHER
+  display-name: "&fFeather"
+  slot: 2
+  category: mobs
+  buy-price: 35
+  sell-price: 17
+  enabled: true
+  stock:
+    min: 16
+    max: 64
+    chance: 0.6
+
+string:
+  material: STRING
+  display-name: "&fString"
+  slot: 3
+  category: mobs
+  buy-price: 30
+  sell-price: 15
+  enabled: true
+  stock:
+    min: 16
+    max: 64
+    chance: 0.6
+
+gunpowder:
+  material: GUNPOWDER
+  display-name: "&7Gunpowder"
+  slot: 4
+  category: mobs
+  buy-price: 60
+  sell-price: 30
+  enabled: true
+  stock:
+    min: 8
+    max: 32
+    chance: 0.4
+
+bone:
+  material: BONE
+  display-name: "&fBone"
+  slot: 5
+  category: mobs
+  buy-price: 40
+  sell-price: 20
+  enabled: true
+  stock:
+    min: 16
+    max: 64
+    chance: 0.55
+
+bone_meal:
+  material: BONE_MEAL
+  display-name: "&fBone Meal"
+  slot: 6
+  category: mobs
+  buy-price: 20
+  sell-price: 10
+  enabled: true
+  stock:
+    min: 16
+    max: 64
+    chance: 0.6
+
+slime_ball:
+  material: SLIME_BALL
+  display-name: "&aSlime Ball"
+  slot: 7
+  category: mobs
+  buy-price: 90
+  sell-price: 45
+  enabled: true
+  stock:
+    min: 8
+    max: 32
+    chance: 0.3
+
+ink_sac:
+  material: INK_SAC
+  display-name: "&8Ink Sac"
+  slot: 8
+  category: mobs
+  buy-price: 35
+  sell-price: 17
+  enabled: true
+  stock:
+    min: 8
+    max: 32
+    chance: 0.4
+
+glow_ink_sac:
+  material: GLOW_INK_SAC
+  display-name: "&fGlow Ink Sac"
+  slot: 9
+  category: mobs
+  buy-price: 120
+  sell-price: 60
+  enabled: true
+  stock:
+    min: 4
+    max: 16
+    chance: 0.2
+
+phantom_membrane:
+  material: PHANTOM_MEMBRANE
+  display-name: "&fPhantom Membrane"
+  slot: 10
+  category: mobs
+  buy-price: 250
+  sell-price: 125
+  enabled: true
+  stock:
+    min: 4
+    max: 16
+    chance: 0.15
+
+nautilus_shell:
+  material: NAUTILUS_SHELL
+  display-name: "&fNautilus Shell"
+  slot: 11
+  category: mobs
+  buy-price: 700
+  sell-price: 350
+  enabled: true
+  stock:
+    min: 1
+    max: 4
+    chance: 0.08
+
+honeycomb:
+  material: HONEYCOMB
+  display-name: "&6Honeycomb"
+  slot: 12
+  category: mobs
+  buy-price: 90
+  sell-price: 45
+  enabled: true
+  stock:
+    min: 8
+    max: 32
+    chance: 0.3
+
+scute:
+  material: SCUTE
+  display-name: "&aScute"
+  slot: 13
+  category: mobs
+  buy-price: 180
+  sell-price: 90
+  enabled: true
+  stock:
+    min: 4
+    max: 16
+    chance: 0.15
+
+spider_eye:
+  material: SPIDER_EYE
+  display-name: "&2Spider Eye"
+  slot: 14
+  category: mobs
+  buy-price: 45
+  sell-price: 22
+  enabled: true
+  stock:
+    min: 8
+    max: 32
+    chance: 0.4
+
+rotten_flesh:
+  material: ROTTEN_FLESH
+  display-name: "&2Rotten Flesh"
+  slot: 15
+  category: mobs
+  buy-price: 10
+  sell-price: 5
+  enabled: true
+  stock:
+    min: 16
+    max: 64
+    chance: 0.7
+
+ender_pearl:
+  material: ENDER_PEARL
+  display-name: "&5Ender Pearl"
+  slot: 16
+  category: mobs
+  buy-price: 1200
+  sell-price: 600
+  enabled: true
+  stock:
+    min: 2
+    max: 8
+    chance: 0.1
+
+blaze_rod:
+  material: BLAZE_ROD
+  display-name: "&6Blaze Rod"
+  slot: 17
+  category: mobs
+  buy-price: 900
+  sell-price: 450
+  enabled: true
+  stock:
+    min: 2
+    max: 8
+    chance: 0.1
+
+blaze_powder:
+  material: BLAZE_POWDER
+  display-name: "&6Blaze Powder"
+  slot: 18
+  category: mobs
+  buy-price: 450
+  sell-price: 225
+  enabled: true
+  stock:
+    min: 4
+    max: 16
+    chance: 0.12
+
+magma_cream:
+  material: MAGMA_CREAM
+  display-name: "&cMagma Cream"
+  slot: 19
+  category: mobs
+  buy-price: 450
+  sell-price: 225
+  enabled: true
+  stock:
+    min: 4
+    max: 16
+    chance: 0.15
+
+ghast_tear:
+  material: GHAST_TEAR
+  display-name: "&fGhast Tear"
+  slot: 20
+  category: mobs
+  buy-price: 2500
+  sell-price: 1250
+  enabled: true
+  stock:
+    min: 1
+    max: 4
+    chance: 0.05
