@@ -30,20 +30,38 @@ jobs:
       - name: Show build output
         run: |
           echo "=== TARGET ==="
-          ls -lah target || true
+          ls -lah target
           echo "=== JAR FILES ==="
-          find target -maxdepth 1 -type f -name "*.jar" -print || true
+          find target -maxdepth 1 -type f -name "*.jar" -print
 
       - name: Prepare JAR ZIP
         run: |
+          set -e
+
           mkdir -p release/jar
-          cp target/*.jar release/jar/SenzyShop.jar
+
+          JAR_FILE=$(find target -maxdepth 1 -type f -name "*.jar" \
+            ! -name "*sources.jar" \
+            ! -name "*javadoc.jar" \
+            ! -name "*original*.jar" \
+            | head -n 1)
+
+          if [ -z "$JAR_FILE" ]; then
+            echo "ERROR: Tidak ditemukan JAR plugin!"
+            exit 1
+          fi
+
+          echo "Using JAR: $JAR_FILE"
+
+          cp "$JAR_FILE" release/jar/SenzyShop.jar
 
           cd release/jar
           zip -r ../../SenzyShop-JAR.zip SenzyShop.jar
 
       - name: Prepare Source ZIP
         run: |
+          set -e
+
           mkdir -p release/source
 
           cp -r src release/source/
