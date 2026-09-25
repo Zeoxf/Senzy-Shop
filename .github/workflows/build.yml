@@ -1,104 +1,36 @@
-name: Build SenzyShop
+name: Build and Package
 
 on:
   push:
-    branches:
-      - main
+    branches: [ "main", "master" ]
+    tags:
+      - 'v*'
+  pull_request:
+    branches: [ "main", "master" ]
   workflow_dispatch:
-
-permissions:
-  contents: read
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v6
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-      - name: Setup Java 21
-        uses: actions/setup-java@v6
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
         with:
-          distribution: temurin
           java-version: '21'
+          distribution: 'temurin'
           cache: maven
 
-      - name: Build with Maven
-        run: mvn -B clean package
-
-      - name: Show build output
+      - name: Package Source Code
         run: |
-          echo "=== TARGET ==="
-          ls -lah target
-          echo "=== JAR FILES ==="
-          find target -maxdepth 1 -type f -name "*.jar" -print
-
-      - name: Prepare JAR ZIP
-        run: |
-          set -e
-
-          mkdir -p release/jar
-
-          JAR_FILE=$(find target -maxdepth 1 -type f -name "*.jar" \
-            ! -name "*sources.jar" \
-            ! -name "*javadoc.jar" \
-            ! -name "*original*.jar" \
-            | head -n 1)
-
-          if [ -z "$JAR_FILE" ]; then
-            echo "ERROR: Tidak ditemukan JAR plugin!"
-            exit 1
-          fi
-
-          echo "Using JAR: $JAR_FILE"
-
-          cp "$JAR_FILE" release/jar/SenzyShop.jar
-
-          cd release/jar
-          zip -r ../../SenzyShop-JAR.zip SenzyShop.jar
-
-      - name: Prepare Source ZIP
-        run: |
-          set -e
-
+          if [ -d "senzy" ]; then cd senzy; fi
           mkdir -p release/source
-
           cp -r src release/source/
           cp pom.xml release/source/
-
-          if [ -f README.md ]; then
-            cp README.md release/source/
-          fi
-
-          if [ -f LICENSE ]; then
-            cp LICENSE release/source/
-          fi
-
+          if [ -f README.md ]; then cp README.md release/source/; fi
+          if [ -f LICENSE ]; then cp LICENSE release/source/; fi
           cd release/source
           zip -r ../../SenzyShop-Source.zip .
-
-      - name: Verify ZIP files
-        run: |
-          echo "=== JAR ZIP ==="
-          ls -lh SenzyShop-JAR.zip
-          unzip -l SenzyShop-JAR.zip
-
-          echo ""
-          echo "=== SOURCE ZIP ==="
-          ls -lh SenzyShop-Source.zip
-          unzip -l SenzyShop-Source.zip
-
-      - name: Upload JAR ZIP
-        uses: actions/upload-artifact@v7
-        with:
-          name: SenzyShop-JAR
-          path: SenzyShop-JAR.zip
-          if-no-files-found: error
-
-      - name: Upload Source ZIP
-        uses: actions/upload-artifact@v7
-        with:
-          name: SenzyShop-Source
-          path: SenzyShop-Source.zip
-          if-no-files-found: error
