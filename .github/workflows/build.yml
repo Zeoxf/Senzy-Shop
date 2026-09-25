@@ -24,9 +24,11 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
+      - name: Build with Maven
+        run: mvn clean package --batch-mode
+
       - name: Package Source Code
         run: |
-          if [ -d "senzy" ]; then cd senzy; fi
           mkdir -p release/source
           cp -r src release/source/
           cp pom.xml release/source/
