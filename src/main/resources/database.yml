@@ -1,8 +1,0 @@
-# Konfigurasi database SenzyShop (V1.0 hanya mendukung SQLite)
-type: sqlite
-sqlite:
-  # File berada di plugins/SenzyShop/
-  file: senzyshop.db
-  busy-timeout-ms: 5000
-  # Write-Ahead Logging: lebih tahan crash dan lebih cepat
-  wal: true
