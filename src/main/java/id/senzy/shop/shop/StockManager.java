@@ -27,17 +27,29 @@ public final class StockManager {
     private final StockRepository repo;
     private final TransactionRepository transactions;
     private final Map<Material, Entry> entries = new HashMap<>();
+    private final boolean persistent;
 
     public StockManager(ShopManager shop, DatabaseManager db, StockRepository repo, TransactionRepository transactions) {
+        this(shop, db, repo, transactions, true);
+    }
+
+    /** persistent=false dipakai event/shop sementara agar stoknya tidak menyentuh stok SenzyShop. */
+    public StockManager(ShopManager shop, DatabaseManager db, StockRepository repo,
+                        TransactionRepository transactions, boolean persistent) {
         this.shop = shop;
         this.db = db;
         this.repo = repo;
         this.transactions = transactions;
+        this.persistent = persistent;
     }
 
     public void load() {
-        List<StockRecord> rows = db.supply(repo::loadAll).join();
         entries.clear();
+        if (!persistent) {
+            reconcile();
+            return;
+        }
+        List<StockRecord> rows = db.supply(repo::loadAll).join();
         for (StockRecord r : rows) {
             Material m = Material.matchMaterial(r.material());
             if (m == null) continue;
@@ -101,8 +113,10 @@ public final class StockManager {
         e.stock = Math.max(0, amount);
         e.max = e.stock;
         e.updatedAt = System.currentTimeMillis();
-        StockRecord snap = snapshot(item);
-        db.run(c -> repo.save(c, snap));
+        if (persistent) {
+            StockRecord snap = snapshot(item);
+            db.run(c -> repo.save(c, snap));
+        }
     }
 
     public StockRecord snapshot(ShopItem item) {
@@ -117,6 +131,8 @@ public final class StockManager {
         return out;
     }
 
+    public boolean persistent() { return persistent; }
+
     public boolean adminSetStock(String actor, ShopItem item, int amount) {
         if (amount < 0) return false;
         Entry e = entry(item);
@@ -127,10 +143,12 @@ public final class StockManager {
         StockRecord snap = snapshot(item);
         TransactionRecord log = new TransactionRecord(0L, actor, actor, TransactionRecord.Type.ADMIN,
                 "SETSTOCK " + item.material().name(), amount, 0L, 0L, 0L, now);
-        db.run(c -> {
-            repo.save(c, snap);
-            transactions.insert(c, log);
-        });
+        if (persistent) {
+            db.run(c -> {
+                repo.save(c, snap);
+                transactions.insert(c, log);
+            });
+        }
         return true;
     }
 }

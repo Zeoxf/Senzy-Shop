@@ -19,7 +19,8 @@ import java.util.concurrent.ThreadLocalRandom;
 public final class ShopEventManager {
     public record EventItem(double chance, int min, int max, String priceType, double priceValue) {}
     public record ShopEvent(String id, String displayName, long durationMillis, int priority,
-                            Map<String, EventItem> items, boolean announceStart, boolean announceEnd) {}
+                            String shopName, Map<String, EventItem> items,
+                            boolean announceStart, boolean announceEnd) {}
     private final SenzyShop plugin;
     private final ShopManager shop;
     private final StockManager stock;
@@ -27,9 +28,38 @@ public final class ShopEventManager {
     private String activeId;
     private long activeUntil;
     private long activeStarted;
+    private final Map<String, StockManager> eventStocks = new HashMap<>();
 
     public ShopEventManager(SenzyShop plugin, ShopManager shop, StockManager stock) {
         this.plugin = plugin; this.shop = shop; this.stock = stock;
+    }
+
+    public void registerEventStock(String shopName, StockManager stockManager) {
+        if (shopName != null && stockManager != null) eventStocks.put(shopName.toLowerCase(Locale.ROOT), stockManager);
+    }
+
+    public boolean isShopOpen(String shopName) {
+        if (shopName == null || activeId == null) return false;
+        ShopEvent ev = active();
+        return ev != null && ev.shopName() != null && ev.shopName().equalsIgnoreCase(shopName)
+                && System.currentTimeMillis() < activeUntil;
+    }
+
+    public boolean isEventShop(String shopName) {
+        if (shopName == null) return false;
+        for (ShopEvent ev : definitions.values()) {
+            if (ev.shopName() != null && ev.shopName().equalsIgnoreCase(shopName)) return true;
+        }
+        return false;
+    }
+
+    public boolean canUseShop(String shopName) {
+        return !isEventShop(shopName) || isShopOpen(shopName);
+    }
+
+    public String eventShop(String eventId) {
+        ShopEvent ev = get(eventId);
+        return ev == null ? null : ev.shopName();
     }
 
     public void load() {
@@ -62,7 +92,8 @@ public final class ShopEventManager {
             }
             definitions.put(id.toLowerCase(Locale.ROOT), new ShopEvent(
                     id.toLowerCase(Locale.ROOT), s.getString("display-name","&5"+id),
-                    duration, priority, Map.copyOf(items),
+                    duration, priority, s.getString("shop"),
+                    Map.copyOf(items),
                     s.getBoolean("announcement.start", true), s.getBoolean("announcement.end", true)));
         }
         File state = new File(plugin.getDataFolder(), "event-state.yml");
@@ -89,11 +120,13 @@ public final class ShopEventManager {
     public ShopEvent active() { return activeId == null ? null : definitions.get(activeId); }
     public long remainingMillis() { return Math.max(0, activeUntil-System.currentTimeMillis()); }
 
-    public long buyPrice(ShopItem item) { return modify(item.buyPrice(), item); }
-    public long sellPrice(ShopItem item) { return modify(item.sellPrice(), item); }
+    public long buyPrice(ShopItem item) { return buyPrice(shop.activeShop(), item); }
+    public long sellPrice(ShopItem item) { return sellPrice(shop.activeShop(), item); }
+    public long buyPrice(String shopName, ShopItem item) { return modify(item.buyPrice(), item, shopName); }
+    public long sellPrice(String shopName, ShopItem item) { return modify(item.sellPrice(), item, shopName); }
 
-    private long modify(long base, ShopItem item) {
-        EventItem e = activeItem(item);
+    private long modify(long base, ShopItem item, String shopName) {
+        EventItem e = activeItem(shopName, item);
         if (e == null || base <= 0 || "none".equals(e.priceType())) return base;
         double result = base;
         switch (e.priceType()) {
@@ -104,29 +137,67 @@ public final class ShopEventManager {
         return Math.max(0, Math.round(result));
     }
 
-    private EventItem activeItem(ShopItem item) {
+    private EventItem activeItem(String shopName, ShopItem item) {
         ShopEvent ev = active();
-        return ev == null ? null : ev.items().get(item.id().toLowerCase(Locale.ROOT));
+        if (ev == null) return null;
+        if (ev.shopName() != null && !ev.shopName().isBlank()
+                && (shopName == null || !ev.shopName().equalsIgnoreCase(shopName))) return null;
+        return ev.items().get(item.id().toLowerCase(Locale.ROOT));
+    }
+
+    /** Roll ulang stok untuk event shop yang sedang aktif setelah reload/restart. */
+    public void refreshActiveShopStock() {
+        ShopEvent ev = active();
+        if (ev == null || ev.shopName() == null || ev.shopName().isBlank()) return;
+        StockManager targetStock = eventStocks.get(ev.shopName().toLowerCase(Locale.ROOT));
+        if (targetStock == null) return;
+        ShopManager targetShop = new ShopManager(plugin);
+        if (!targetShop.loadShop(ev.shopName())) return;
+        for (ShopItem item : targetShop.all()) {
+            EventItem ei = ev.items().get(item.id().toLowerCase(Locale.ROOT));
+            if (ei == null) continue;
+            int amount = ThreadLocalRandom.current().nextDouble() < ei.chance()
+                    ? (ei.min() >= ei.max() ? ei.min() : ThreadLocalRandom.current().nextInt(ei.min(), ei.max()+1)) : 0;
+            targetStock.setRuntimeStock(item, amount);
+        }
     }
 
     public boolean start(String id, CommandSender sender) {
         ShopEvent ev = get(id);
         if (ev == null) return false;
-        activeId = ev.id(); activeStarted = System.currentTimeMillis(); activeUntil = activeStarted + ev.durationMillis();
+
+        ShopManager targetShop = shop;
+        StockManager targetStock = stock;
+        if (ev.shopName() != null && !ev.shopName().isBlank()) {
+            StockManager registered = eventStocks.get(ev.shopName().toLowerCase(Locale.ROOT));
+            if (registered == null) {
+                plugin.getLogger().warning("Event '" + ev.id() + "' menunjuk shop '" + ev.shopName() + "' tetapi runtime shop belum terdaftar.");
+                return false;
+            }
+            targetStock = registered;
+            targetShop = new ShopManager(plugin);
+            if (!targetShop.loadShop(ev.shopName())) {
+                plugin.getLogger().warning("Shop event tidak ditemukan: " + ev.shopName());
+                return false;
+            }
+        }
+
+        activeId = ev.id();
+        activeStarted = System.currentTimeMillis();
+        activeUntil = activeStarted + ev.durationMillis();
         saveState();
-        Map<org.bukkit.Material,Integer> rolls = new HashMap<>();
-        for (ShopItem item : shop.all()) {
+
+        for (ShopItem item : targetShop.all()) {
             EventItem ei = ev.items().get(item.id().toLowerCase(Locale.ROOT));
             if (ei == null) continue;
             int amount = ThreadLocalRandom.current().nextDouble() < ei.chance()
                     ? (ei.min() >= ei.max() ? ei.min() : ThreadLocalRandom.current().nextInt(ei.min(), ei.max()+1)) : 0;
-            rolls.put(item.material(), amount);
+            targetStock.setRuntimeStock(item, amount);
         }
-        for (var e : rolls.entrySet()) {
-            ShopItem item = shop.get(e.getKey());
-            if (item != null) stock.setRuntimeStock(item, e.getValue());
+
+        if (ev.announceStart()) {
+            broadcast("&5&lSENZY EVENT &r" + ev.displayName() + " &7dimulai! &f" + TimeUtil.formatDuration(ev.durationMillis()));
         }
-        if (ev.announceStart()) broadcast("&5&lSENZY EVENT &r" + ev.displayName() + " &7dimulai! &f" + TimeUtil.formatDuration(ev.durationMillis()));
         return true;
     }
 

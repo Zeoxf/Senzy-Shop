@@ -19,8 +19,8 @@ public final class MainShopGUI extends AbstractGui {
     }
     @Override public void render() {
         MessageUtil m = gui.messages(); inventory.clear(); fillBackground();
-        for (ShopCategory category : gui.shop().categories()) {
-            int count = 0; for (ShopItem item : gui.shop().byCategory(category)) if (item.enabled()) count++;
+        for (ShopCategory category : gui.shop(viewer).categories()) {
+            int count = 0; for (ShopItem item : gui.shop(viewer).byCategory(category)) if (item.enabled()) count++;
             set(category.slot(), ItemUtil.icon(category.icon(), 1, MessageUtil.color(category.displayName()),
                     m.list("gui.main.category-lore", "count", count)));
         }
@@ -34,6 +34,6 @@ public final class MainShopGUI extends AbstractGui {
         if(slot==49){gui.later(viewer::closeInventory);return;}
         if(slot==28){gui.openSell(viewer);return;} if(slot==32){gui.openContract(viewer);return;}
         if(slot==34){gui.messages().send(viewer,"search.use-command");return;}
-        for(ShopCategory c:gui.shop().categories()) if(c.slot()==slot){gui.openCategory(viewer,c,0);return;}
+        for(ShopCategory c:gui.shop(viewer).categories()) if(c.slot()==slot){gui.openCategory(viewer,c,0);return;}
     }
 }

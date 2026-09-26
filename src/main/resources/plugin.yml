@@ -9,7 +9,7 @@ softdepend: [SenzyXPRLoot]
 commands:
   senzy:
     description: Perintah utama SenzyShop
-    usage: /senzy [shop|shop-search|balance|sell|sellall|contract|restock|admin]
+    usage: /senzy [shop [shop-name]|shop-search|balance|sell|sellall|contract|restock|admin]
     permission: senzy.use
 
 permissions:

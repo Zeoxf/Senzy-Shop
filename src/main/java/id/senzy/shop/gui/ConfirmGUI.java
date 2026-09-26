@@ -45,7 +45,7 @@ public final class ConfirmGUI extends AbstractGui {
     public void onClick(int slot, ClickType type) {
         GuiLayout layout = gui.layout();
         if (slot == layout.confirmYesSlot) {
-            gui.trade().buy(viewer, item, amount);   // jumlah PERSIS yang ditampilkan di dialog ini
+            gui.trade(viewer).buy(viewer, item, amount);   // jumlah PERSIS yang ditampilkan di dialog ini
             gui.openCategory(viewer, item.category(), item.page());
             return;
         }

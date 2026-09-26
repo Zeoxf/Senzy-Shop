@@ -30,6 +30,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.util.Objects;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.logging.Level;
 
 /** Hanya bootstrap: membuat dependensi dan menyambungkannya lewat constructor. */
@@ -43,6 +45,7 @@ public final class SenzyShop extends JavaPlugin {
     private GuiLayout layout;
     private GuiManager guis;
     private ShopEventManager events;
+    private final Map<String, id.senzy.shop.shop.ShopRuntime> runtimes = new LinkedHashMap<>();
 
     // Dipakai untuk memulihkan command /senzy milik plugin lain jika SenzyShop di-disable,
     // supaya bridge yang menunjuk ke manager yang sudah mati tidak tertinggal di sana.
@@ -93,17 +96,39 @@ public final class SenzyShop extends JavaPlugin {
             TradeService trade = new TradeService(shop, stock, economy, database, playerRepo, stockRepo,
                     transactionRepo, messages, contracts, events);
 
+            runtimes.clear();
+            runtimes.put(shop.activeShop(), new id.senzy.shop.shop.ShopRuntime(shop.activeShop(), shop, stock, trade));
+
+            // Shop event punya katalog + stok sendiri. persistent=false sengaja agar event tidak
+            // pernah menulis/menimpa shop_stock milik SenzyShop utama.
+            String blackmarketName = "blackmarket";
+            {
+                id.senzy.shop.shop.ShopManager blackShop = new id.senzy.shop.shop.ShopManager(this);
+                if (blackShop.loadShop(blackmarketName)) {
+                    StockManager blackStock = new StockManager(blackShop, database, stockRepo, transactionRepo, false);
+                    blackStock.load();
+                    events.registerEventStock(blackmarketName, blackStock);
+                    TradeService blackTrade = new TradeService(blackShop, blackStock, economy, database, playerRepo,
+                            stockRepo, transactionRepo, messages, contracts, events);
+                    runtimes.put(blackmarketName,
+                            new id.senzy.shop.shop.ShopRuntime(blackmarketName, blackShop, blackStock, blackTrade));
+                    events.refreshActiveShopStock();
+                } else {
+                    getLogger().warning("Folder shop/blackmarket ada tetapi gagal dimuat; event blackmarket tidak didaftarkan.");
+                }
+            }
+
             layout = new GuiLayout(this);
             layout.setShop(shop);
             layout.reload();
-            guis = new GuiManager(this, layout, shop, stock, economy, trade, restock, contracts, messages, events);
+            guis = new GuiManager(this, layout, shop, stock, economy, trade, restock, contracts, messages, events, runtimes);
             restock.setHooks(() -> { events.tick(); guis.tickClocks(); }, guis::refreshAll);
             restock.start();
             contracts.start();
 
             SenzyAdminCommand adminCommand = new SenzyAdminCommand(this, economy, shop, stock, restock,
                     database, transactionRepo, guis, messages, events);
-            SenzyCommand command = new SenzyCommand(economy, guis, trade, restock, adminCommand, messages, shop);
+            SenzyCommand command = new SenzyCommand(economy, guis, trade, restock, adminCommand, messages, shop, events);
             PluginCommand senzy = Objects.requireNonNull(getCommand("senzy"), "command senzy tidak ada di plugin.yml");
             senzy.setExecutor(command);
             senzy.setTabCompleter(command);
@@ -178,6 +203,13 @@ public final class SenzyShop extends JavaPlugin {
         layout.reload();
         events.load();
         stock.reconcile();
+        for (id.senzy.shop.shop.ShopRuntime runtime : runtimes.values()) {
+            if (!runtime.name().equalsIgnoreCase(shop.activeShop())) {
+                runtime.shop().loadShop(runtime.name());
+                runtime.stock().reconcile();
+            }
+        }
+        events.refreshActiveShopStock();
         restock.onConfigReload();
     }
 }

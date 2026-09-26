@@ -29,7 +29,7 @@ public final class SearchGUI extends AbstractGui {
     }
 
     private List<ShopItem> results() {
-        if (results == null) results = gui.shop().search(query);
+        if (results == null) results = gui.shop(viewer).search(query);
         return results;
     }
 
@@ -86,13 +86,13 @@ public final class SearchGUI extends AbstractGui {
 
     private ItemStack buildIcon(ShopItem item) {
         MessageUtil m = gui.messages();
-        int stock = gui.stock().getStock(item);
+        int stock = gui.stock(viewer).getStock(item);
         List<Component> lore = m.list("gui.item-lore",
                 "stockcolor", stock > 0 ? "&a" : "&c",
                 "stock", stock,
-                "max", gui.stock().getMax(item),
-                "buy", item.canBuy() ? m.money(gui.events().buyPrice(item)) : "-",
-                "sell", item.canSell() ? m.money(gui.events().sellPrice(item)) : "-");
+                "max", gui.stock(viewer).getMax(item),
+                "buy", item.canBuy() ? m.money(gui.events().buyPrice(gui.shop(viewer).activeShop(), item)) : "-",
+                "sell", item.canSell() ? m.money(gui.events().sellPrice(gui.shop(viewer).activeShop(), item)) : "-");
         return ItemUtil.icon(item.material(), Math.max(1, Math.min(item.material().getMaxStackSize(), stock)), MessageUtil.color(item.displayName()), lore);
     }
 
@@ -121,8 +121,8 @@ public final class SearchGUI extends AbstractGui {
         switch (type) {
             case LEFT -> gui.attemptBuy(viewer, item, 1);
             case SHIFT_LEFT -> gui.attemptBuy(viewer, item, -1);
-            case RIGHT -> gui.trade().sell(viewer, item, 1);
-            case SHIFT_RIGHT -> gui.trade().sell(viewer, item, -1);
+            case RIGHT -> gui.trade(viewer).sell(viewer, item, 1);
+            case SHIFT_RIGHT -> gui.trade(viewer).sell(viewer, item, -1);
             default -> { }
         }
         render();

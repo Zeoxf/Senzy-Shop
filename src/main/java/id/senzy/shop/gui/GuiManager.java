@@ -20,6 +20,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Map;
+import java.util.UUID;
+
 /** Pintu masuk semua GUI + akses ke dependensi bersama. */
 public final class GuiManager {
     private final SenzyShop plugin;
@@ -32,10 +35,13 @@ public final class GuiManager {
     private final ContractManager contracts;
     private final MessageUtil messages;
     private final ShopEventManager events;
+    private final Map<String, id.senzy.shop.shop.ShopRuntime> runtimes;
+    private final Map<UUID, String> playerShops = new java.util.HashMap<>();
 
     public GuiManager(SenzyShop plugin, GuiLayout layout, ShopManager shop, StockManager stock,
                       EconomyManager economy, TradeService trade, RestockManager restock,
-                      ContractManager contracts, MessageUtil messages, ShopEventManager events) {
+                      ContractManager contracts, MessageUtil messages, ShopEventManager events,
+                      Map<String, id.senzy.shop.shop.ShopRuntime> runtimes) {
         this.plugin = plugin;
         this.layout = layout;
         this.shop = shop;
@@ -46,13 +52,36 @@ public final class GuiManager {
         this.contracts = contracts;
         this.messages = messages;
         this.events = events;
+        this.runtimes = runtimes;
     }
 
     public GuiLayout layout() { return layout; }
     public ShopManager shop() { return shop; }
+    public ShopManager shop(Player player) { return runtime(player).shop(); }
     public StockManager stock() { return stock; }
+    public StockManager stock(Player player) { return runtime(player).stock(); }
     public EconomyManager economy() { return economy; }
     public TradeService trade() { return trade; }
+    public TradeService trade(Player player) { return runtime(player).trade(); }
+
+    public boolean selectShop(Player player, String shopName) {
+        String key = shopName == null ? "" : shopName.toLowerCase(java.util.Locale.ROOT);
+        if (!runtimes.containsKey(key)) return false;
+        playerShops.put(player.getUniqueId(), key);
+        return true;
+    }
+
+    public java.util.List<String> shopNames() { return java.util.List.copyOf(runtimes.keySet()); }
+
+    public String selectedShop(Player player) {
+        return playerShops.getOrDefault(player.getUniqueId(), shop.activeShop());
+    }
+
+    private id.senzy.shop.shop.ShopRuntime runtime(Player player) {
+        String key = selectedShop(player);
+        id.senzy.shop.shop.ShopRuntime runtime = runtimes.get(key);
+        return runtime == null ? runtimes.get(shop.activeShop()) : runtime;
+    }
     public RestockManager restock() { return restock; }
     public ContractManager contracts() { return contracts; }
     public MessageUtil messages() { return messages; }
@@ -64,6 +93,11 @@ public final class GuiManager {
     }
 
     public void openMain(Player player) {
+        openMain(player, selectedShop(player));
+    }
+
+    public void openMain(Player player, String shopName) {
+        if (!selectShop(player, shopName)) return;
         later(() -> {
             if (player.isOnline()) new MainShopGUI(this, player).open();
         });
@@ -97,7 +131,7 @@ public final class GuiManager {
     public void openAmountSelector(Player player, ShopItem item) {
         later(() -> {
             if (!player.isOnline()) return;
-            int max = trade.maxBuyable(player, item);
+            int max = trade(player).maxBuyable(player, item);
             if (max <= 0) {
                 messages.send(player, "trade.out-of-stock");
                 return;
@@ -108,7 +142,7 @@ public final class GuiManager {
 
     /** Beli lewat GUI: jika total harga >= ambang batas config, tampilkan dialog konfirmasi dulu. */
     public void attemptBuy(Player player, ShopItem item, int requested) {
-        TradeService.BuyPlan plan = trade.previewBuy(player, item, requested);
+        TradeService.BuyPlan plan = trade(player).previewBuy(player, item, requested);
         boolean confirmEnabled = plugin.getConfig().getBoolean("security.confirm-expensive-items", true);
         long threshold = plugin.getConfig().getLong("security.expensive-threshold", 1000L);
         if (plan.ok() && confirmEnabled && plan.cost() >= threshold) {
@@ -116,7 +150,7 @@ public final class GuiManager {
                 if (player.isOnline()) new ConfirmGUI(this, player, plan.item(), plan.amount(), plan.cost()).open();
             });
         } else {
-            trade.buy(player, item, requested);
+            trade(player).buy(player, item, requested);
         }
     }
 

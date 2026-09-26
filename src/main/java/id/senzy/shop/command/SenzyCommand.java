@@ -1,6 +1,7 @@
 package id.senzy.shop.command;
 
 import id.senzy.shop.economy.EconomyManager;
+import id.senzy.shop.event.ShopEventManager;
 import id.senzy.shop.gui.GuiManager;
 import id.senzy.shop.restock.RestockManager;
 import id.senzy.shop.shop.TradeService;
@@ -27,9 +28,10 @@ public final class SenzyCommand implements CommandExecutor, TabCompleter {
     private final SenzyAdminCommand admin;
     private final MessageUtil msg;
     private final ShopManager shop;
+    private final ShopEventManager events;
 
     public SenzyCommand(EconomyManager economy, GuiManager guis, TradeService trade, RestockManager restock,
-                        SenzyAdminCommand admin, MessageUtil msg, ShopManager shop) {
+                        SenzyAdminCommand admin, MessageUtil msg, ShopManager shop, ShopEventManager events) {
         this.economy = economy;
         this.guis = guis;
         this.trade = trade;
@@ -37,6 +39,7 @@ public final class SenzyCommand implements CommandExecutor, TabCompleter {
         this.admin = admin;
         this.msg = msg;
         this.shop = shop;
+        this.events = events;
     }
 
     @Override
@@ -71,7 +74,31 @@ public final class SenzyCommand implements CommandExecutor, TabCompleter {
                     break;
                 }
                 Player p = requirePlayer(sender, "senzy.shop");
-                if (p != null) guis.openMain(p);
+                if (p == null) break;
+
+                String requestedShop = args.length >= 2 ? args[1].toLowerCase(Locale.ROOT) : shop.activeShop();
+                if (!guis.shop().shopExists(requestedShop)) {
+                    p.sendMessage("§cShop tidak ditemukan: §f" + requestedShop);
+                    return true;
+                }
+                if (events.eventShop(events.activeId()) != null && !events.isShopOpen(requestedShop)
+                        && requestedShop.equalsIgnoreCase(events.eventShop(events.activeId()))) {
+                    p.sendMessage("§cShop event §f" + requestedShop + "§c belum aktif.");
+                    return true;
+                }
+                // Shop event hanya boleh dibuka selama event yang mengikat folder tersebut aktif.
+                String boundEventShop = null;
+                for (ShopEventManager.ShopEvent ev : events.all()) {
+                    if (ev.shopName() != null && ev.shopName().equalsIgnoreCase(requestedShop)) {
+                        boundEventShop = ev.id();
+                        break;
+                    }
+                }
+                if (boundEventShop != null && !events.isShopOpen(requestedShop)) {
+                    p.sendMessage("§cShop §f" + requestedShop + "§c hanya tersedia saat event §f" + boundEventShop + "§c aktif.");
+                    return true;
+                }
+                guis.openMain(p, requestedShop);
             }
             case "balance", "bal" -> {
                 Player p = requirePlayer(sender, "senzy.balance");
@@ -83,7 +110,7 @@ public final class SenzyCommand implements CommandExecutor, TabCompleter {
             }
             case "sellall" -> {
                 Player p = requirePlayer(sender, "senzy.sell");
-                if (p != null) trade.sellAll(p);
+                if (p != null) guis.trade(p).sellAll(p);
             }
             case "contract" -> {
                 Player p = requirePlayer(sender, "senzy.contract");
@@ -183,6 +210,10 @@ public final class SenzyCommand implements CommandExecutor, TabCompleter {
         }
         if (args.length >= 2 && args[0].equalsIgnoreCase("admin") && sender.hasPermission("senzy.admin")) {
             return admin.complete(args);
+        }
+        if (args.length == 2 && args[0].equalsIgnoreCase("shop") && sender.hasPermission("senzy.shop")
+                && !args[1].equalsIgnoreCase("admin") && !isShopConfigCommand(args[1])) {
+            return filter(guis.shopNames(), args[1]);
         }
         if (args.length >= 2 && args[0].equalsIgnoreCase("shop") && sender.hasPermission("senzy.shop.admin")) {
             if (args.length == 2) return filter(List.of("addshop","addcategory","additem","setbuy","setsell","admin"), args[1]);

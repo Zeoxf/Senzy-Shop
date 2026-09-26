@@ -1,0 +1,12 @@
+id: "4b0baf"
+name: "&5&lBlack Market"
+
+categories:
+  rare: {slot: 13, name: "&5&lBlack Market", texture: NETHER_STAR}
+
+settings:
+  rows: 6
+  item-rows: 4
+  empty-slot:
+    material: GRAY_STAINED_GLASS_PANE
+    display-name: " "

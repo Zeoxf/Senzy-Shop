@@ -73,7 +73,7 @@ public final class ContractGUI extends AbstractGui {
     }
 
     private ItemStack buildIcon(ContractRecord contract, MessageUtil m) {
-        ShopItem targetItem = gui.shop().getById(contract.target());
+        ShopItem targetItem = gui.shop(viewer).getById(contract.target());
         Material icon = targetItem != null ? targetItem.material() : Material.PAPER;
         ContractProgressRecord progress = gui.contracts().progressFor(viewer.getUniqueId(), contract.id());
         long current = progress != null ? progress.progress() : 0L;

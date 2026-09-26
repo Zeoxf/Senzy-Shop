@@ -94,12 +94,12 @@ public final class TradeService {
      * apakah perlu menampilkan dialog konfirmasi (expensive purchase) sebelum benar-benar membeli.
      */
     public BuyPlan previewBuy(Player p, ShopItem requestedItem, int requested) {
-        if (requested == 0) return BuyPlan.FAIL;
+        if (!events.canUseShop(shop.activeShop()) || requested == 0) return BuyPlan.FAIL;
         ShopItem item = shop.get(requestedItem.material());
         if (item == null || !item.canBuy() || !item.allowedIn(p.getWorld().getName())) return BuyPlan.FAIL;
         int available = stock.getStock(item);
         if (available <= 0) return BuyPlan.FAIL;
-        long price = events.buyPrice(item);
+        long price = events.buyPrice(shop.activeShop(), item);
         long balance = economy.getBalance(p.getUniqueId());
         if (balance < price) return BuyPlan.FAIL;
         int space = ItemUtil.capacityFor(p.getInventory(), item.material());
@@ -124,10 +124,11 @@ public final class TradeService {
 
     /** Maksimum pembelian yang valid saat selector dibuka: stok + saldo + kapasitas inventory. */
     public int maxBuyable(Player p, ShopItem requestedItem) {
+        if (!events.canUseShop(shop.activeShop())) return 0;
         ShopItem item = shop.get(requestedItem.material());
         if (item == null || !item.canBuy() || !item.allowedIn(p.getWorld().getName())) return 0;
         int available = stock.getStock(item);
-        long price = events.buyPrice(item);
+        long price = events.buyPrice(shop.activeShop(), item);
         if (available <= 0 || price <= 0) return 0;
         long affordable = economy.getBalance(p.getUniqueId()) / price;
         int space = ItemUtil.capacityFor(p.getInventory(), item.material());
@@ -138,6 +139,10 @@ public final class TradeService {
 
     private boolean doBuy(Player p, ShopItem requestedItem, int requested) {
         UUID id = p.getUniqueId();
+        if (!events.canUseShop(shop.activeShop())) {
+            msg.send(p, "trade.item-unavailable");
+            return false;
+        }
         if (requested == 0) return false;
         ShopItem item = shop.get(requestedItem.material());      // selalu pakai katalog terbaru
         if (item == null || !item.canBuy() || !item.allowedIn(p.getWorld().getName())) {
@@ -149,7 +154,7 @@ public final class TradeService {
             msg.send(p, "trade.out-of-stock");
             return false;
         }
-        long price = events.buyPrice(item);
+        long price = events.buyPrice(shop.activeShop(), item);
         long balance = economy.getBalance(id);
         if (balance < price) {
             msg.send(p, "trade.insufficient-balance");
@@ -223,6 +228,10 @@ public final class TradeService {
 
     private boolean doSell(Player p, ShopItem requestedItem, int requested) {
         UUID id = p.getUniqueId();
+        if (!events.canUseShop(shop.activeShop())) {
+            msg.send(p, "trade.not-sellable");
+            return false;
+        }
         if (requested == 0) return false;
         ShopItem item = shop.get(requestedItem.material());
         if (item == null || !item.canSell() || !item.allowedIn(p.getWorld().getName())) {
@@ -237,7 +246,7 @@ public final class TradeService {
             return false;
         }
         int amount = requested < 0 ? have : Math.min(requested, have);
-        long sellPrice = events.sellPrice(item);
+        long sellPrice = events.sellPrice(shop.activeShop(), item);
         long credit;
         try {
             credit = Math.multiplyExact(sellPrice, (long) amount);
@@ -274,6 +283,10 @@ public final class TradeService {
 
     private boolean doSellAll(Player p) {
         UUID id = p.getUniqueId();
+        if (!events.canUseShop(shop.activeShop())) {
+            msg.send(p, "trade.sellall-empty");
+            return false;
+        }
         PlayerInventory inv = p.getInventory();
         String world = p.getWorld().getName();
         List<TransactionRecord> records = new ArrayList<>();
@@ -288,7 +301,7 @@ public final class TradeService {
             Material material = item.material();
             int have = ItemUtil.countPlain(inv, material);
             if (have <= 0) continue;
-            long sellPrice = events.sellPrice(item);
+            long sellPrice = events.sellPrice(shop.activeShop(), item);
             long credit;
             try {
                 credit = Math.multiplyExact(sellPrice, (long) have);
@@ -334,7 +347,7 @@ public final class TradeService {
         StockRecord stockSnapshot = stockItem == null ? null : stock.snapshot(stockItem);
         db.run(c -> {
             players.save(c, playerSnapshot);
-            if (stockSnapshot != null) stocks.save(c, stockSnapshot);
+            if (stockSnapshot != null && stock.persistent()) stocks.save(c, stockSnapshot);
             for (TransactionRecord r : records) transactions.insert(c, r);
         });
     }

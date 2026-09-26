@@ -34,7 +34,7 @@ public final class AmountSelectorGUI extends AbstractGui {
                 m.component("gui.amount-selector.decrease"), null));
         set(gui.layout().selectorIncreaseSlot, ItemUtil.icon(gui.layout().selectorSide, 1,
                 m.component("gui.amount-selector.increase"), null));
-        long price = gui.events().buyPrice(item);
+        long price = gui.events().buyPrice(gui.shop(viewer).activeShop(), item);
         long total = price * amount;
         set(gui.layout().selectorConfirmSlot, ItemUtil.icon(item.material(), Math.min(64, Math.max(1, amount)),
                 m.component("gui.amount-selector.confirm", "amount", amount),

@@ -31,35 +31,63 @@ public final class ShopManager {
     private volatile Map<String, ShopItem> byId = Map.of();
     private volatile Map<String, ShopCategory> categories = Map.of();
     private volatile String activeShop;
+    private volatile String activeGuid;
 
     public ShopManager(SenzyShop plugin) { this.plugin = plugin; }
 
     public void load() {
         String configured = plugin.getConfig().getString("default-shop", "senzyshop");
-        File shopRoot = new File(plugin.getDataFolder(), "shop");
-        File activeDir = new File(shopRoot, safeName(configured));
-        if (new File(activeDir, "message.yml").exists()) {
-            loadCustom(configured, activeDir);
-        } else {
-            try {
-                ensureBundledDefaultShop(configured);
-                activeDir = new File(shopRoot, safeName(configured));
-                if (new File(activeDir, "message.yml").exists()) loadCustom(configured, activeDir);
-                else loadLegacy();
-            } catch (Exception e) {
-                plugin.getLogger().log(Level.WARNING, "Gagal membuat custom shop; fallback ke items.yml lama.", e);
-                loadLegacy();
-            }
+        if (!loadShop(configured)) {
+            loadLegacy();
         }
     }
 
+    /** Memuat katalog berdasarkan folder shop/<name>. Tidak mengubah instance ShopManager lain. */
+    public boolean loadShop(String shopName) {
+        String safe = safeName(shopName);
+        if (safe.isBlank()) return false;
+        File dir = new File(plugin.getDataFolder(), "shop/" + safe);
+        if (!new File(dir, "message.yml").exists()) {
+            try {
+                ensureBundledShop(safe);
+            } catch (IOException e) {
+                plugin.getLogger().log(Level.WARNING, "Gagal membuat bundled shop '" + safe + "'.", e);
+                return false;
+            }
+        }
+        if (!new File(dir, "message.yml").exists()) return false;
+        loadCustom(safe, dir);
+        return true;
+    }
+
+    public boolean shopExists(String shopName) {
+        String safe = safeName(shopName);
+        return !safe.isBlank() && new File(plugin.getDataFolder(), "shop/" + safe + "/message.yml").isFile();
+    }
+
+    public String shopGuid() { return activeGuid; }
+
     private void ensureBundledDefaultShop(String shopName) throws IOException {
+        ensureBundledShop(shopName);
+    }
+
+    private void ensureBundledShop(String shopName) throws IOException {
         File dir = new File(plugin.getDataFolder(), "shop/" + safeName(shopName));
         if (!dir.exists() && !dir.mkdirs()) throw new IOException("Tidak bisa membuat " + dir);
-        String[] files = {"message.yml","blocks.yml","wood.yml","nether.yml","end.yml","ores.yml","materials.yml","farming.yml","plants.yml","food.yml","mobs.yml","tools_weapons.yml","armor.yml","utility.yml","transport.yml","items.yml","rare.yml"};
+
+        String prefix = "shop/" + safeName(shopName) + "/";
+        // Salin seluruh resource YAML yang memang dibundel untuk folder shop tersebut.
+        // Tidak pernah menimpa file server yang sudah ada.
+        java.net.URL marker = plugin.getClass().getClassLoader().getResource(prefix + "message.yml");
+        if (marker == null) return;
+        String[] files = safeName(shopName).equals("senzyshop")
+                ? new String[]{"message.yml","blocks.yml","wood.yml","nether.yml","end.yml","ores.yml","materials.yml","farming.yml","plants.yml","food.yml","mobs.yml","tools_weapons.yml","armor.yml","utility.yml","transport.yml","items.yml","rare.yml"}
+                : new String[]{"message.yml","rare.yml"};
         for (String name : files) {
             File target = new File(dir, name);
-            if (!target.exists() && plugin.getResource("shop/senzyshop/" + name) != null) plugin.saveResource("shop/senzyshop/" + name, false);
+            if (!target.exists() && plugin.getResource(prefix + name) != null) {
+                plugin.saveResource(prefix + name, false);
+            }
         }
     }
 
@@ -103,6 +131,8 @@ public final class ShopManager {
             plugin.getLogger().warning("Custom shop '" + shopName + "' belum punya kategori. Gunakan /senzy shop addcategory ...");
         }
         activeShop = safeName(shopName);
+        String configuredGuid = message.getString("id");
+        activeGuid = configuredGuid == null || configuredGuid.isBlank() ? randomId() : configuredGuid;
         apply(loadedCategories, loadedItems);
         plugin.getLogger().info("Memuat custom shop '" + activeShop + "': " + loadedItems.size() + " item, " + loadedCategories.size() + " kategori.");
     }
@@ -224,6 +254,7 @@ public final class ShopManager {
                 cats.put(id, new ShopCategory(id, id, Material.CHEST, slot++));
         }
         activeShop = "legacy";
+        activeGuid = "legacy";
         apply(cats, resolved);
         plugin.getLogger().info("Memuat " + resolved.size() + " item toko legacy.");
     }

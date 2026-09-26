@@ -41,7 +41,7 @@ public final class CategoryGUI extends AbstractGui {
         slotItems.clear();
 
         int maxPage = maxPage();
-        for (ShopItem item : gui.shop().byCategory(category)) {
+        for (ShopItem item : gui.shop(viewer).byCategory(category)) {
             if (!item.enabled() || item.page() != page || item.slot() < 0 || item.slot() >= ITEM_SLOTS) continue;
             slotItems.put(item.slot(), item);
             set(item.slot(), buildIcon(item));
@@ -65,16 +65,16 @@ public final class CategoryGUI extends AbstractGui {
 
     private int maxPage() {
         int max = 0;
-        for (ShopItem item : gui.shop().byCategory(category)) if (item.enabled()) max = Math.max(max, item.page());
+        for (ShopItem item : gui.shop(viewer).byCategory(category)) if (item.enabled()) max = Math.max(max, item.page());
         return max;
     }
 
     private ItemStack buildIcon(ShopItem item) {
         MessageUtil m = gui.messages();
-        int stock = gui.stock().getStock(item);
+        int stock = gui.stock(viewer).getStock(item);
         List<Component> lore = m.list("gui.item-lore", "stockcolor", stock > 0 ? "&a" : "&c", "stock", stock,
-                "max", gui.stock().getMax(item), "buy", item.canBuy() ? m.money(gui.events().buyPrice(item)) : "-",
-                "sell", item.canSell() ? m.money(gui.events().sellPrice(item)) : "-");
+                "max", gui.stock(viewer).getMax(item), "buy", item.canBuy() ? m.money(gui.events().buyPrice(gui.shop(viewer).activeShop(), item)) : "-",
+                "sell", item.canSell() ? m.money(gui.events().sellPrice(gui.shop(viewer).activeShop(), item)) : "-");
         return ItemUtil.icon(item.material(), Math.max(1, Math.min(item.material().getMaxStackSize(), Math.max(stock, 1))),
                 MessageUtil.color(item.displayName()), lore);
     }
@@ -85,14 +85,14 @@ public final class CategoryGUI extends AbstractGui {
         if (slot == gui.layout().listBackSlot || slot == 53) { gui.openMain(viewer); return; }
         if (slot == gui.layout().listPrevSlot) { if (page > 0) gui.openCategory(viewer, category, page - 1); return; }
         if (slot == gui.layout().listNextSlot) { if (page < maxPage()) gui.openCategory(viewer, category, page + 1); return; }
-        if (slot == gui.layout().listSellAllSlot) { gui.trade().sellAll(viewer); return; }
+        if (slot == gui.layout().listSellAllSlot) { gui.trade(viewer).sellAll(viewer); return; }
 
         ShopItem item = slotItems.get(slot);
         if (item == null) return;
         if (type == ClickType.RIGHT) gui.attemptBuy(viewer, item, 1);
         else if (type == ClickType.LEFT) gui.openAmountSelector(viewer, item);
-        else if (type == ClickType.SHIFT_RIGHT) gui.trade().sell(viewer, item, 1);
-        else if (type == ClickType.SHIFT_LEFT) gui.trade().sell(viewer, item, -1);
+        else if (type == ClickType.SHIFT_RIGHT) gui.trade(viewer).sell(viewer, item, 1);
+        else if (type == ClickType.SHIFT_LEFT) gui.trade(viewer).sell(viewer, item, -1);
         render();
     }
 }

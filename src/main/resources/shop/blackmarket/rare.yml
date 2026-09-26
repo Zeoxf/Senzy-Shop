@@ -1,0 +1,458 @@
+id: 3a556b
+netherite_upgrade_smithing_template:
+  material: NETHERITE_UPGRADE_SMITHING_TEMPLATE
+  display-name: '&fNetherite Upgrade Template'
+  category: rare
+  buy-price: 3500
+  sell-price: 1000
+  enabled: true
+  slot: 0
+  stock:
+    min: 1
+    max: 3
+    chance: 0.1
+silence_armor_trim:
+  material: SILENCE_ARMOR_TRIM_SMITHING_TEMPLATE
+  display-name: '&fSilence Armor Trim'
+  category: rare
+  buy-price: 8000
+  sell-price: 2500
+  enabled: true
+  slot: 1
+  stock:
+    min: 1
+    max: 1
+    chance: 0.02
+sentry_armor_trim:
+  material: SENTRY_ARMOR_TRIM_SMITHING_TEMPLATE
+  display-name: '&fSentry Armor Trim'
+  category: rare
+  buy-price: 1500
+  sell-price: 500
+  enabled: true
+  slot: 2
+  stock:
+    min: 1
+    max: 2
+    chance: 0.1
+dune_armor_trim:
+  material: DUNE_ARMOR_TRIM_SMITHING_TEMPLATE
+  display-name: '&fDune Armor Trim'
+  category: rare
+  buy-price: 1500
+  sell-price: 500
+  enabled: true
+  slot: 3
+  stock:
+    min: 1
+    max: 2
+    chance: 0.1
+coast_armor_trim:
+  material: COAST_ARMOR_TRIM_SMITHING_TEMPLATE
+  display-name: '&fCoast Armor Trim'
+  category: rare
+  buy-price: 1500
+  sell-price: 500
+  enabled: true
+  slot: 4
+  stock:
+    min: 1
+    max: 2
+    chance: 0.1
+wild_armor_trim:
+  material: WILD_ARMOR_TRIM_SMITHING_TEMPLATE
+  display-name: '&fWild Armor Trim'
+  category: rare
+  buy-price: 1500
+  sell-price: 500
+  enabled: true
+  slot: 5
+  stock:
+    min: 1
+    max: 2
+    chance: 0.1
+spire_armor_trim:
+  material: SPIRE_ARMOR_TRIM_SMITHING_TEMPLATE
+  display-name: '&fSpire Armor Trim'
+  category: rare
+  buy-price: 2500
+  sell-price: 800
+  enabled: true
+  slot: 6
+  stock:
+    min: 1
+    max: 2
+    chance: 0.08
+ward_armor_trim:
+  material: WARD_ARMOR_TRIM_SMITHING_TEMPLATE
+  display-name: '&fWard Armor Trim'
+  category: rare
+  buy-price: 2500
+  sell-price: 800
+  enabled: true
+  slot: 7
+  stock:
+    min: 1
+    max: 2
+    chance: 0.08
+vex_armor_trim:
+  material: VEX_ARMOR_TRIM_SMITHING_TEMPLATE
+  display-name: '&fVex Armor Trim'
+  category: rare
+  buy-price: 2500
+  sell-price: 800
+  enabled: true
+  slot: 8
+  stock:
+    min: 1
+    max: 2
+    chance: 0.08
+tide_armor_trim:
+  material: TIDE_ARMOR_TRIM_SMITHING_TEMPLATE
+  display-name: '&fTide Armor Trim'
+  category: rare
+  buy-price: 2500
+  sell-price: 800
+  enabled: true
+  slot: 9
+  stock:
+    min: 1
+    max: 2
+    chance: 0.08
+wayfinder_armor_trim:
+  material: WAYFINDER_ARMOR_TRIM_SMITHING_TEMPLATE
+  display-name: '&fWayfinder Armor Trim'
+  category: rare
+  buy-price: 2500
+  sell-price: 800
+  enabled: true
+  slot: 10
+  stock:
+    min: 1
+    max: 2
+    chance: 0.08
+raiser_armor_trim:
+  material: RAISER_ARMOR_TRIM_SMITHING_TEMPLATE
+  display-name: '&fRaiser Armor Trim'
+  category: rare
+  buy-price: 2500
+  sell-price: 800
+  enabled: true
+  slot: 11
+  stock:
+    min: 1
+    max: 2
+    chance: 0.08
+shaper_armor_trim:
+  material: SHAPER_ARMOR_TRIM_SMITHING_TEMPLATE
+  display-name: '&fShaper Armor Trim'
+  category: rare
+  buy-price: 2500
+  sell-price: 800
+  enabled: true
+  slot: 12
+  stock:
+    min: 1
+    max: 2
+    chance: 0.08
+host_armor_trim:
+  material: HOST_ARMOR_TRIM_SMITHING_TEMPLATE
+  display-name: '&fHost Armor Trim'
+  category: rare
+  buy-price: 2500
+  sell-price: 800
+  enabled: true
+  slot: 13
+  stock:
+    min: 1
+    max: 2
+    chance: 0.08
+flow_armor_trim:
+  material: FLOW_ARMOR_TRIM_SMITHING_TEMPLATE
+  display-name: '&fFlow Armor Trim'
+  category: rare
+  buy-price: 3000
+  sell-price: 1000
+  enabled: true
+  slot: 14
+  stock:
+    min: 1
+    max: 1
+    chance: 0.05
+bolt_armor_trim:
+  material: BOLT_ARMOR_TRIM_SMITHING_TEMPLATE
+  display-name: '&fBolt Armor Trim'
+  category: rare
+  buy-price: 3000
+  sell-price: 1000
+  enabled: true
+  slot: 15
+  stock:
+    min: 1
+    max: 1
+    chance: 0.05
+eye_armor_trim_smithing_template:
+  material: EYE_ARMOR_TRIM_SMITHING_TEMPLATE
+  display-name: '&5Eye Armor Trim Smithing Template'
+  category: rare
+  buy-price: 3000
+  sell-price: 1500
+  enabled: true
+  page: 1
+  stock:
+    min: 1
+    max: 2
+    chance: 0.08
+  slot: 16
+elytra:
+  material: ELYTRA
+  display-name: '&fElytra'
+  category: rare
+  buy-price: 10000
+  sell-price: 3500
+  enabled: true
+  slot: 17
+  stock:
+    min: 1
+    max: 1
+    chance: 0.05
+dragon_egg:
+  material: DRAGON_EGG
+  display-name: '&fDragon Egg'
+  category: rare
+  buy-price: 50000
+  sell-price: 25000
+  enabled: true
+  slot: 18
+  stock:
+    min: 1
+    max: 1
+    chance: 0.01
+nether_star:
+  material: NETHER_STAR
+  display-name: '&fNether Star'
+  category: rare
+  buy-price: 5000
+  sell-price: 2000
+  enabled: true
+  slot: 19
+  stock:
+    min: 1
+    max: 2
+    chance: 0.05
+heavy_core:
+  material: HEAVY_CORE
+  display-name: '&fHeavy Core'
+  category: rare
+  buy-price: 2500
+  sell-price: 800
+  enabled: true
+  slot: 20
+  stock:
+    min: 1
+    max: 1
+    chance: 0.05
+ominous_trial_key:
+  material: OMINOUS_TRIAL_KEY
+  display-name: '&fOminous Trial Key'
+  category: rare
+  buy-price: 800
+  sell-price: 250
+  enabled: true
+  slot: 21
+  stock:
+    min: 1
+    max: 2
+    chance: 0.1
+trial_key:
+  material: TRIAL_KEY
+  display-name: '&fTrial Key'
+  category: rare
+  buy-price: 250
+  sell-price: 80
+  enabled: true
+  slot: 22
+  stock:
+    min: 1
+    max: 4
+    chance: 0.25
+heart_of_the_sea:
+  material: HEART_OF_THE_SEA
+  display-name: '&fHeart of the Sea'
+  category: rare
+  buy-price: 2000
+  sell-price: 750
+  enabled: true
+  slot: 23
+  stock:
+    min: 1
+    max: 2
+    chance: 0.1
+echo_shard:
+  material: ECHO_SHARD
+  display-name: '&fEcho Shard'
+  category: rare
+  buy-price: 500
+  sell-price: 180
+  enabled: true
+  slot: 24
+  stock:
+    min: 1
+    max: 4
+    chance: 0.2
+goat_horn:
+  material: GOAT_HORN
+  display-name: '&fGoat Horn'
+  category: rare
+  buy-price: 180
+  sell-price: 90
+  enabled: true
+  slot: 25
+  stock:
+    min: 1
+    max: 4
+    chance: 0.25
+shulker_shell:
+  material: SHULKER_SHELL
+  display-name: '&fShulker Shell'
+  category: rare
+  buy-price: 600
+  sell-price: 250
+  enabled: true
+  slot: 26
+  stock:
+    min: 1
+    max: 4
+    chance: 0.3
+nautilus_shell:
+  material: NAUTILUS_SHELL
+  display-name: '&fNautilus Shell'
+  category: rare
+  buy-price: 150
+  sell-price: 50
+  enabled: true
+  slot: 27
+  stock:
+    min: 2
+    max: 8
+    chance: 0.4
+totem_of_undying:
+  material: TOTEM_OF_UNDYING
+  display-name: '&fTotem of Undying'
+  category: rare
+  buy-price: 2500
+  sell-price: 800
+  enabled: true
+  slot: 28
+  stock:
+    min: 1
+    max: 2
+    chance: 0.1
+enchanted_golden_apple:
+  material: ENCHANTED_GOLDEN_APPLE
+  display-name: '&fEnchanted Golden Apple'
+  category: rare
+  buy-price: 3000
+  sell-price: 1000
+  enabled: true
+  slot: 29
+  stock:
+    min: 1
+    max: 2
+    chance: 0.08
+dragon_breath:
+  material: DRAGON_BREATH
+  display-name: '&fDragon''s Breath'
+  category: rare
+  buy-price: 250
+  sell-price: 80
+  enabled: true
+  slot: 30
+  stock:
+    min: 2
+    max: 8
+    chance: 0.3
+music_disc_pigstep:
+  material: MUSIC_DISC_PIGSTEP
+  display-name: '&fMusic Disc Pigstep'
+  category: rare
+  buy-price: 800
+  sell-price: 250
+  enabled: true
+  slot: 31
+  stock:
+    min: 1
+    max: 1
+    chance: 0.08
+music_disc_otherside:
+  material: MUSIC_DISC_OTHERSIDE
+  display-name: '&fMusic Disc Otherside'
+  category: rare
+  buy-price: 900
+  sell-price: 300
+  enabled: true
+  slot: 32
+  stock:
+    min: 1
+    max: 1
+    chance: 0.08
+music_disc_5:
+  material: MUSIC_DISC_5
+  display-name: '&fMusic Disc 5'
+  category: rare
+  buy-price: 900
+  sell-price: 300
+  enabled: true
+  slot: 33
+  stock:
+    min: 1
+    max: 1
+    chance: 0.06
+music_disc_relic:
+  material: MUSIC_DISC_RELIC
+  display-name: '&fMusic Disc Relic'
+  category: rare
+  buy-price: 900
+  sell-price: 300
+  enabled: true
+  slot: 34
+  stock:
+    min: 1
+    max: 1
+    chance: 0.08
+music_disc_creator:
+  material: MUSIC_DISC_CREATOR
+  display-name: '&fMusic Disc Creator'
+  category: rare
+  buy-price: 900
+  sell-price: 300
+  enabled: true
+  slot: 35
+  stock:
+    min: 1
+    max: 1
+    chance: 0.08
+music_disc_creator_music_box:
+  material: MUSIC_DISC_CREATOR_MUSIC_BOX
+  display-name: '&fMusic Disc Creator Music Box'
+  category: rare
+  buy-price: 900
+  sell-price: 300
+  enabled: true
+  slot: 36
+  stock:
+    min: 1
+    max: 1
+    chance: 0.08
+music_disc_precipice:
+  material: MUSIC_DISC_PRECIPICE
+  display-name: '&fMusic Disc Precipice'
+  category: rare
+  buy-price: 900
+  sell-price: 300
+  enabled: true
+  slot: 37
+  stock:
+    min: 1
+    max: 1
+    chance: 0.08

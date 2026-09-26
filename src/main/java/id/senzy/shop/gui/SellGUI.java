@@ -41,7 +41,7 @@ public final class SellGUI extends AbstractGui {
         List<Integer> slots = layout.itemSlots;
         int index = 0;
         String world = viewer.getWorld().getName();
-        for (ShopItem item : gui.shop().all()) {
+        for (ShopItem item : gui.shop(viewer).all()) {
             if (index >= slots.size()) break;
             if (!item.canSell() || !item.allowedIn(world)) continue;
             int have = ItemUtil.countPlain(viewer.getInventory(), item.material());
@@ -73,15 +73,15 @@ public final class SellGUI extends AbstractGui {
             return;
         }
         if (slot == layout.listSellAllSlot) {
-            gui.trade().sellAll(viewer);
+            gui.trade(viewer).sellAll(viewer);
             render();
             return;
         }
         ShopItem item = slotItems.get(slot);
         if (item == null) return;
         switch (type) {
-            case LEFT -> gui.trade().sell(viewer, item, 64);
-            case RIGHT, SHIFT_LEFT, SHIFT_RIGHT -> gui.trade().sell(viewer, item, -1);
+            case LEFT -> gui.trade(viewer).sell(viewer, item, 64);
+            case RIGHT, SHIFT_LEFT, SHIFT_RIGHT -> gui.trade(viewer).sell(viewer, item, -1);
             default -> { }
         }
         render();

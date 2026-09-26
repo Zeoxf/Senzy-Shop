@@ -3,6 +3,7 @@
 # Black Market berisi barang langka/event-only; harga mengikuti price.type.
 events:
   blackmarket:
+    shop: blackmarket
     display-name: "&5&lBlack Market"
     duration: "1h"
     priority: 100
